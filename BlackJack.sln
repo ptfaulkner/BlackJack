@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayingCards.Domain", "PlayingCards.Domain\PlayingCards.Domain.csproj", "{9A48710C-9342-4316-AB2E-7221213C7DD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayingCards.Tests", "PlayingCards.Tests\PlayingCards.Tests.csproj", "{9357AB2A-3CD6-4478-A9D1-E30AC0CFA79C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blackjack.Game", "Blackjack.Game\Blackjack.Game.csproj", "{26E234D7-8661-469A-AF38-57D5D5AA1EF5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A48710C-9342-4316-AB2E-7221213C7DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A48710C-9342-4316-AB2E-7221213C7DD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A48710C-9342-4316-AB2E-7221213C7DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A48710C-9342-4316-AB2E-7221213C7DD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9357AB2A-3CD6-4478-A9D1-E30AC0CFA79C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9357AB2A-3CD6-4478-A9D1-E30AC0CFA79C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9357AB2A-3CD6-4478-A9D1-E30AC0CFA79C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9357AB2A-3CD6-4478-A9D1-E30AC0CFA79C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26E234D7-8661-469A-AF38-57D5D5AA1EF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26E234D7-8661-469A-AF38-57D5D5AA1EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26E234D7-8661-469A-AF38-57D5D5AA1EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26E234D7-8661-469A-AF38-57D5D5AA1EF5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
