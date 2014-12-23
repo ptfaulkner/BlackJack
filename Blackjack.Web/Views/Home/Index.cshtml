@@ -1,0 +1,20 @@
+﻿
+<script type="text/javascript">
+
+  var name = prompt("Enter you name.");
+
+  var uri = 'ws://localhost:51364/api/blackjack';
+  websocket = new WebSocket(uri);
+
+  websocket.onopen = function() {
+    alert('Connected');
+  };
+
+  websocket.onerror = function(event) {
+    alert('Error :(');
+  }
+
+  websocket.onmessage = function(event) {
+    alert(event.data);
+  }
+</script>
