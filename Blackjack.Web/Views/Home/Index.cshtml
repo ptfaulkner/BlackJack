@@ -1,20 +1,29 @@
 ﻿
 <script type="text/javascript">
+  function connect() {
+    var uri = 'ws://localhost:51364/api/blackjack';
+    websocket = new WebSocket(uri);
 
-  var name = prompt("Enter you name.");
+    websocket.onopen = function () {
+      alert('Connected');
+    };
 
-  var uri = 'ws://localhost:51364/api/blackjack';
-  websocket = new WebSocket(uri);
+    websocket.onerror = function (event) {
+      alert('Error :(');
+    }
 
-  websocket.onopen = function() {
-    alert('Connected');
-  };
+    websocket.onmessage = function (event) {
+      var messageDiv = document.getElementById('message-response');
 
-  websocket.onerror = function(event) {
-    alert('Error :(');
+      messageDiv.insertAdjacentHTML('afterbegin', '<div>' + event.data + '</div');
+    }
   }
 
-  websocket.onmessage = function(event) {
-    alert(event.data);
+  function send() {
+    websocket.send("some data");
   }
 </script>
+
+<input type="button" value="Connect" onclick="connect()"/>
+
+<div id="message-response"></div>

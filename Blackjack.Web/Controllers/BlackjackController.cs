@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.WebSockets;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -31,34 +32,46 @@ namespace Blackjack.Web.Controllers
 
         private async Task ProcessWebsocketSession(AspNetWebSocketContext context)
         {
-            WebSocket ws = context.WebSocket;
+            const int maxMessageSize = 1024;
+            byte[] receiveBuffer = new byte[maxMessageSize];
+            WebSocket webSocket = context.WebSocket;
 
-            new Task(() =>
+            while (webSocket.State == WebSocketState.Open)
             {
-                ArraySegment<byte> inputSegment = new ArraySegment<byte>(new byte[1024]);
+                ArraySegment<byte> inputSegment = new ArraySegment<byte>(receiveBuffer);
+                WebSocketReceiveResult result = webSocket.ReceiveAsync(inputSegment, CancellationToken.None).Result;
 
-                while (true)
+                if (result.MessageType == WebSocketMessageType.Close)
                 {
-                    // MUST read if we want the state to get updated...
-                    WebSocketReceiveResult result = ws.ReceiveAsync(inputSegment, CancellationToken.None).Result;
-                    
-                    if (ws.State != WebSocketState.Open)
+                    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
+                }
+                else if (result.MessageType == WebSocketMessageType.Binary)
+                {
+                    await webSocket.CloseAsync(WebSocketCloseStatus.InvalidMessageType, "Cannot accept binary frame", CancellationToken.None);
+                }
+                else
+                {
+                    int count = result.Count;
+
+                    while (result.EndOfMessage == false)
                     {
-                        break;
+                        if (count >= maxMessageSize)
+                        {                        
+                            string closeMessage = string.Format("Maximum message size: {0} bytes.", maxMessageSize);
+                            await webSocket.CloseAsync(WebSocketCloseStatus.MessageTooBig, closeMessage, CancellationToken.None);
+                            return;
+                        }
+
+                         result = await webSocket.ReceiveAsync(new ArraySegment<byte>(receiveBuffer, count, maxMessageSize - count), CancellationToken.None);
+                         count += result.Count;
                     }
-                }
-            }).Start();
 
-            while (true)
-            {
-                if (ws.State != WebSocketState.Open)
-                {
-                    break;
-                }
+                    var receivedString = Encoding.UTF8.GetString(receiveBuffer, 0, count);
+                    var echoString = "You said " + receivedString;
+                    ArraySegment<byte> outputBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(echoString));
 
-                byte[] binaryData = { 0xde, 0xad, 0xbe, 0xef, 0xca, 0xfe };
-                var segment = new ArraySegment<byte>(binaryData);
-                await ws.SendAsync(segment, WebSocketMessageType.Binary, true, CancellationToken.None);
+                    await webSocket.SendAsync(outputBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                }
             }
         }
     }
