@@ -7,16 +7,26 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.WebSockets;
+using Microsoft.Practices.Unity;
 
 namespace Blackjack.Web.WebSockets
 {
     public class Handler
     {
-        public static async Task ProcessWebsocketSession(AspNetWebSocketContext context)
+        private readonly ISocketService _socketService;
+
+        public Handler(ISocketService socketService)
+        {
+            _socketService = socketService;
+        }
+
+        public async Task ProcessWebsocketSession(AspNetWebSocketContext context)
         {
             const int maxMessageSize = 1024;
             byte[] receiveBuffer = new byte[maxMessageSize];
             WebSocket webSocket = context.WebSocket;
+
+            _socketService.OnOpen();
 
             while (webSocket.State == WebSocketState.Open)
             {
@@ -25,10 +35,12 @@ namespace Blackjack.Web.WebSockets
 
                 if (result.MessageType == WebSocketMessageType.Close)
                 {
+                    _socketService.OnClose();
                     await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
                 }
                 else if (result.MessageType == WebSocketMessageType.Binary)
                 {
+                    _socketService.OnClose();
                     await webSocket.CloseAsync(WebSocketCloseStatus.InvalidMessageType, "Cannot accept binary frame", CancellationToken.None);
                 }
                 else

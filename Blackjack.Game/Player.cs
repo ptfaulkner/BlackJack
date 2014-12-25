@@ -15,7 +15,7 @@ namespace Blackjack.Game
 
             foreach (Card nonAceCard in Hand.Where(c => c.Number != CardNumber.Ace))
             {
-                score += Game.CardValue(nonAceCard);
+                score += BlackjackGame.CardValue(nonAceCard);
             }
 
             foreach (Card ace in Hand.Where(c => c.Number == CardNumber.Ace))

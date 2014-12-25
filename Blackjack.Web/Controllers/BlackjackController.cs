@@ -17,6 +17,13 @@ namespace Blackjack.Web.Controllers
     [RoutePrefix("api/blackjack")]
     public class BlackjackController : ApiController
     {
+        private Handler _handler;
+
+        public BlackjackController(Handler handler)
+        {
+            _handler = handler;
+        }
+
         [HttpGet, Route]
         public HttpResponseMessage Get()
         {
@@ -24,7 +31,7 @@ namespace Blackjack.Web.Controllers
             if (currentContext.IsWebSocketRequest ||
                 currentContext.IsWebSocketRequestUpgrading)
             {
-                currentContext.AcceptWebSocketRequest(Handler.ProcessWebsocketSession);
+                currentContext.AcceptWebSocketRequest(_handler.ProcessWebsocketSession);
                 return Request.CreateResponse(HttpStatusCode.SwitchingProtocols);
             }
 

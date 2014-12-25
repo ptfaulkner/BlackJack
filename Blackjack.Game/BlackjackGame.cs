@@ -5,14 +5,14 @@ using PlayingCards.Domain;
 
 namespace Blackjack.Game
 {
-    public class Game
+    public class BlackjackGame
     {
         private readonly Deck _deck;
 
         public List<Player> Players { get; set; }
         public Player Dealer;
 
-        public Game(Deck deck, List<string> playerNames)
+        public BlackjackGame(Deck deck, List<string> playerNames)
         {
             _deck = deck;
 
