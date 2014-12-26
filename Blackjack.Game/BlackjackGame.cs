@@ -57,6 +57,30 @@ namespace Blackjack.Game
             player.Hand.Add(_deck.TakeCard());
         }
 
+        internal void Stay(Player player)
+        {
+            player.Status = Status.Done;
+
+            if (player.Position != _activeSlot)
+            {
+                return;
+            }
+
+            IEnumerable<Player> availablePlayers = Players.Where(p => p.Status == Status.Open).ToList();
+
+            if (availablePlayers.Any())
+            {
+                _activeSlot = availablePlayers.Min(p => p.Position);
+            }
+
+            FinishGame();
+        }
+
+        private void FinishGame()
+        {
+            //dealer draw cards and then determine which players win
+        }
+
         public static short CardValue(Card card)
         {
             short value;

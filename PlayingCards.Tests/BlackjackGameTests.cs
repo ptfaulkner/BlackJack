@@ -16,7 +16,7 @@ namespace PlayingCards.Tests
         {
             BlackjackGame game = GetGame();
 
-            Assert.Equal(3, game.Players.Count);
+            Assert.Equal(2, game.Players.Count);
             
             Assert.Equal("Dealer", game.Dealer.Name);
         }
@@ -61,9 +61,26 @@ namespace PlayingCards.Tests
             Assert.Equal(10, BlackjackGame.CardValue(new Card { Number = CardNumber.King }));
         }
 
+        [Fact]
+        public void PlayersCanStay()
+        {
+            BlackjackGame game = GetGame();
+            game.Deal();
+
+            Player player1 = game.Players.FirstOrDefault(p => p.Position == 0);
+            player1.Stay();
+
+            Player player2 = game.Players.FirstOrDefault(p => p.Position == 1);
+            player1.Hit();
+            Assert.Equal(2, player1.Hand.Count);
+
+            player2.Hit();
+            Assert.Equal(3, player2.Hand.Count);
+        }
+
         internal static BlackjackGame GetGame()
         {
-            return new BlackjackGame(new Deck(), new List<string> { "Patrick", "Ashley", "Harvey" });
+            return new BlackjackGame(new Deck(), new List<string> { "Patrick", "Ashley" });
         }
     }
 }

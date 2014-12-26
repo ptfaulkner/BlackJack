@@ -72,8 +72,6 @@ namespace PlayingCards.Tests
             Assert.Equal(17, player.Score());
         }
 
-        
-
         [Fact]
         public void CanHitPlayer()
         {
@@ -81,10 +79,23 @@ namespace PlayingCards.Tests
             game.Deal();
             Player playah = game.Players.First();
 
-            short score = playah.Score();
+            int cards = playah.Hand.Count;
             playah.Hit();
 
-            Assert.NotEqual(score, playah.Score());
+            Assert.NotEqual(cards, playah.Hand.Count);
+        }
+
+        [Fact]
+        public void PlayerCanStay()
+        {
+            BlackjackGame game = BlackjackGameTests.GetGame();
+            game.Deal();
+            Player player = game.Players.First();
+
+            Status preStayStatus = player.Status;
+            player.Stay();
+            Assert.Equal(Status.Open, preStayStatus);
+            Assert.Equal(Status.Done, player.Status);
         }
     }
 }

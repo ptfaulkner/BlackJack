@@ -10,6 +10,7 @@ namespace Blackjack.Game
         public List<Card> Hand { get; set; }
         public BlackjackGame Game { get; set; }
         public int Position { get; set; }
+        public Status Status { get; set; }
 
         public short Score()
         {
@@ -39,6 +40,11 @@ namespace Blackjack.Game
         public void Hit()
         {
             Game.Hit(this);
+        }
+
+        public void Stay()
+        {
+            Game.Stay(this);
         }
     }
 }
