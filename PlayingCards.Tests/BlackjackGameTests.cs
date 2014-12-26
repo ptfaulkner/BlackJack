@@ -61,7 +61,7 @@ namespace PlayingCards.Tests
             Assert.Equal(10, BlackjackGame.CardValue(new Card { Number = CardNumber.King }));
         }
 
-        private static BlackjackGame GetGame()
+        internal static BlackjackGame GetGame()
         {
             return new BlackjackGame(new Deck(), new List<string> { "Patrick", "Ashley", "Harvey" });
         }

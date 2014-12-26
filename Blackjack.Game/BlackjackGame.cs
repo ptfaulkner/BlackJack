@@ -8,6 +8,7 @@ namespace Blackjack.Game
     public class BlackjackGame
     {
         private readonly Deck _deck;
+        private int _activeSlot;
 
         public List<Player> Players { get; set; }
         public Player Dealer;
@@ -15,15 +16,16 @@ namespace Blackjack.Game
         public BlackjackGame(Deck deck, List<string> playerNames)
         {
             _deck = deck;
+            _activeSlot = 0;
 
             if (playerNames.Distinct().Count() < playerNames.Count())
             {
                 throw new InvalidOperationException("The player names must be unique.");
             }
 
-            Players = playerNames.Select(p => new Player { Name = p }).ToList();
+            Players = playerNames.Select((p, i) => new Player { Name = p, Position = i, Game = this }).ToList();
 
-            Dealer = new Player {Name = "Dealer"};
+            Dealer = new Player { Name = "Dealer" };
         }
 
         public void Deal()
@@ -41,6 +43,18 @@ namespace Blackjack.Game
             }
 
             Dealer.Hand.Add(_deck.TakeCard());
+
+            _activeSlot = 0;
+        }
+
+        internal void Hit(Player player)
+        {
+            if (player.Position != _activeSlot)
+            {
+                return;
+            }
+
+            player.Hand.Add(_deck.TakeCard());
         }
 
         public static short CardValue(Card card)

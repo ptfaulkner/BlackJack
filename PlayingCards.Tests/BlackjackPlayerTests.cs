@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Blackjack.Game;
 using PlayingCards.Domain;
 using Xunit;
@@ -69,6 +70,21 @@ namespace PlayingCards.Tests
             };
 
             Assert.Equal(17, player.Score());
+        }
+
+        
+
+        [Fact]
+        public void CanHitPlayer()
+        {
+            BlackjackGame game = BlackjackGameTests.GetGame();
+            game.Deal();
+            Player playah = game.Players.First();
+
+            short score = playah.Score();
+            playah.Hit();
+
+            Assert.NotEqual(score, playah.Score());
         }
     }
 }

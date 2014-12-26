@@ -8,10 +8,15 @@ namespace Blackjack.Game
     {
         public string Name { get; set; }
         public List<Card> Hand { get; set; }
+        public BlackjackGame Game { get; set; }
+        public int Position { get; set; }
 
         public short Score()
         {
             short score = 0;
+
+            if (Hand == null)
+                return 0;
 
             foreach (Card nonAceCard in Hand.Where(c => c.Number != CardNumber.Ace))
             {
@@ -29,6 +34,11 @@ namespace Blackjack.Game
             }
 
             return score;
+        }
+
+        public void Hit()
+        {
+            Game.Hit(this);
         }
     }
 }
