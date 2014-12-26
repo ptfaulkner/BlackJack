@@ -26,7 +26,7 @@ namespace Blackjack.Web.WebSockets
             byte[] receiveBuffer = new byte[maxMessageSize];
             WebSocket webSocket = context.WebSocket;
 
-            _socketService.OnOpen();
+            _socketService.OnOpen(webSocket);
 
             while (webSocket.State == WebSocketState.Open)
             {
@@ -35,12 +35,12 @@ namespace Blackjack.Web.WebSockets
 
                 if (result.MessageType == WebSocketMessageType.Close)
                 {
-                    _socketService.OnClose();
+                    _socketService.OnClose(webSocket);
                     await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
                 }
                 else if (result.MessageType == WebSocketMessageType.Binary)
                 {
-                    _socketService.OnClose();
+                    _socketService.OnClose(webSocket);
                     await webSocket.CloseAsync(WebSocketCloseStatus.InvalidMessageType, "Cannot accept binary frame", CancellationToken.None);
                 }
                 else
@@ -60,11 +60,7 @@ namespace Blackjack.Web.WebSockets
                         count += result.Count;
                     }
 
-                    var receivedString = Encoding.UTF8.GetString(receiveBuffer, 0, count);
-                    var echoString = "You said " + receivedString;
-                    ArraySegment<byte> outputBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(echoString));
-
-                    await webSocket.SendAsync(outputBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                    _socketService.OnMessage(webSocket);
                 }
             }
         }

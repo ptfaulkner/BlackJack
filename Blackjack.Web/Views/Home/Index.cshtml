@@ -1,5 +1,5 @@
 ﻿
-<script type="text/javascript">
+@*<script type="text/javascript">
   function connect() {
     var uri = 'ws://localhost:51364/api/blackjack';
     websocket = new WebSocket(uri);
@@ -22,8 +22,18 @@
   function send() {
     websocket.send("some data");
   }
-</script>
+</script>*@
 
-<input type="button" value="Connect" onclick="connect()"/>
-
-<div id="message-response"></div>
+@{
+  Layout = null;
+}
+<html>
+<head>
+  <title>Hello React</title>
+</head>
+<body>
+  <div id="content"></div>
+  <script src="http://fb.me/react-0.12.1.js"></script>
+  <script src="@Url.Content("~/Scripts/Tutorial.jsx")"></script>
+</body>
+</html>

@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Security.Policy;
+using System.Text;
+using System.Threading;
 using System.Web;
 using Blackjack.Game;
+using Newtonsoft.Json;
 using PlayingCards.Domain;
 
 namespace Blackjack.Web.WebSockets
@@ -12,18 +16,22 @@ namespace Blackjack.Web.WebSockets
     {
         private static BlackjackGame _game;
 
-        public void OnOpen()
+        public void OnOpen(WebSocket webSocket)
         {
             _game = new BlackjackGame(new Deck(), new List<string> { "Patrick "});
             _game.Deal();
+            OnMessage(webSocket);
         }
 
-        public void OnMessage()
+        public void OnMessage(WebSocket webSocket)
         {
-            throw new NotImplementedException();
+            string gameJson = JsonConvert.SerializeObject(_game);
+            ArraySegment<byte> outputBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(gameJson));
+
+            webSocket.SendAsync(outputBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
         }
 
-        public void OnClose()
+        public void OnClose(WebSocket webSocket)
         {
             throw new NotImplementedException();
         }

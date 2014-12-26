@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Blackjack.Game;
+using Newtonsoft.Json;
 using PlayingCards.Domain;
 using Xunit;
 
@@ -96,6 +97,13 @@ namespace PlayingCards.Tests
             }
 
             Assert.NotEqual(HandStatus.Open, game.Dealer.HandStatus);
+        }
+
+        [Fact]
+        public void CanSerializeGame()
+        {
+            string gameJson = JsonConvert.SerializeObject(GetGame());
+
         }
 
         internal static BlackjackGame GetGame()
