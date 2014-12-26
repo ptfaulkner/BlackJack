@@ -78,6 +78,26 @@ namespace PlayingCards.Tests
             Assert.Equal(3, player2.Hand.Count);
         }
 
+        [Fact]
+        public void CanFinishGame()
+        {
+            BlackjackGame game = GetGame();
+            game.Deal();
+
+            foreach (Player player in game.Players)
+            {
+                player.Stay();
+            }
+
+            foreach (Player player in game.Players)
+            {
+                Assert.NotEqual(WinningStatus.Open, player.WinningStatus);
+                Assert.NotEqual(HandStatus.Open, player.HandStatus);
+            }
+
+            Assert.NotEqual(HandStatus.Open, game.Dealer.HandStatus);
+        }
+
         internal static BlackjackGame GetGame()
         {
             return new BlackjackGame(new Deck(), new List<string> { "Patrick", "Ashley" });

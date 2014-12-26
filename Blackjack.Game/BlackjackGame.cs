@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using PlayingCards.Domain;
 
@@ -23,7 +24,14 @@ namespace Blackjack.Game
                 throw new InvalidOperationException("The player names must be unique.");
             }
 
-            Players = playerNames.Select((p, i) => new Player { Name = p, Position = i, Game = this }).ToList();
+            Players = playerNames.Select((p, i) => new Player
+            {
+                Name = p, 
+                Position = i, 
+                Game = this, 
+                WinningStatus = WinningStatus.Open, 
+                HandStatus = HandStatus.Open
+            }).ToList();
 
             Dealer = new Player { Name = "Dealer" };
         }
@@ -44,7 +52,31 @@ namespace Blackjack.Game
 
             Dealer.Hand.Add(_deck.TakeCard());
 
+            CheckPlayersForBlackjack();
+
             _activeSlot = 0;
+        }
+
+        private void CheckPlayersForBlackjack()
+        {
+            foreach (Player player in Players)
+            {
+                if (player.Score() == 21)
+                {
+                    player.WinningStatus = WinningStatus.Blackjack;
+                    player.HandStatus = HandStatus.Done;
+
+                    if (_activeSlot == player.Position)
+                    {
+                        _activeSlot++;
+                    }
+                }
+            }
+
+            if (Dealer.Score() == 21)
+            {
+                FinishGame();
+            }
         }
 
         internal void Hit(Player player)
@@ -55,30 +87,92 @@ namespace Blackjack.Game
             }
 
             player.Hand.Add(_deck.TakeCard());
+
+            int playerScore = player.Score();
+
+            if (playerScore > 21)
+            {
+                player.WinningStatus = WinningStatus.Busted;
+                player.HandStatus = HandStatus.Done;
+                if (player.Name != "Dealer")
+                {
+                    MoveActiveSlot();
+                }
+            }
+            else if (playerScore == 21)
+            {
+                player.HandStatus = HandStatus.Done;
+                if (player.Name != "Dealer")
+                {
+                    MoveActiveSlot();
+                }
+            }
         }
 
         internal void Stay(Player player)
         {
-            player.Status = Status.Done;
+            player.HandStatus = HandStatus.Done;
 
             if (player.Position != _activeSlot)
             {
                 return;
             }
 
-            IEnumerable<Player> availablePlayers = Players.Where(p => p.Status == Status.Open).ToList();
-
-            if (availablePlayers.Any())
-            {
-                _activeSlot = availablePlayers.Min(p => p.Position);
-            }
+            MoveActiveSlot();
 
             FinishGame();
         }
 
+        private void MoveActiveSlot()
+        {
+            IEnumerable<Player> availablePlayers = Players.Where(p => p.HandStatus == HandStatus.Open).ToList();
+
+            if (!availablePlayers.Any())
+            {
+                FinishGame();
+            }
+            else
+            {
+                _activeSlot = availablePlayers.Min(p => p.Position);
+            }
+        }
+
         private void FinishGame()
         {
-            //dealer draw cards and then determine which players win
+            while (Dealer.Score() < 18)
+            {
+                Dealer.Hit();
+            }
+
+            Dealer.HandStatus = HandStatus.Done;
+            int dealerScore = Dealer.Score();
+
+            foreach (Player player in Players)
+            {
+                player.HandStatus = HandStatus.Done;
+                if (player.WinningStatus == WinningStatus.Blackjack)
+                {
+                    continue;
+                }
+                
+                if (Dealer.WinningStatus == WinningStatus.Busted &&
+                    player.WinningStatus != WinningStatus.Busted)
+                {
+                    player.WinningStatus = WinningStatus.Winner;
+                }
+                else if (player.Score() > dealerScore)
+                {
+                    player.WinningStatus = WinningStatus.Winner;
+                }
+                else if (player.Score() == dealerScore)
+                {
+                    player.WinningStatus = WinningStatus.Push;
+                }
+                else
+                {
+                    player.WinningStatus = WinningStatus.Loser;
+                }
+            }
         }
 
         public static short CardValue(Card card)

@@ -10,7 +10,8 @@ namespace Blackjack.Game
         public List<Card> Hand { get; set; }
         public BlackjackGame Game { get; set; }
         public int Position { get; set; }
-        public Status Status { get; set; }
+        public HandStatus HandStatus { get; set; }
+        public WinningStatus WinningStatus { get; set; }
 
         public short Score()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blackjack.Game
 {
-    public enum Status
+    public enum HandStatus
     {
         Open,
         Done

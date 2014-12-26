@@ -92,10 +92,10 @@ namespace PlayingCards.Tests
             game.Deal();
             Player player = game.Players.First();
 
-            Status preStayStatus = player.Status;
+            HandStatus preStayStatus = player.HandStatus;
             player.Stay();
-            Assert.Equal(Status.Open, preStayStatus);
-            Assert.Equal(Status.Done, player.Status);
+            Assert.Equal(HandStatus.Open, preStayStatus);
+            Assert.Equal(HandStatus.Done, player.HandStatus);
         }
     }
 }
