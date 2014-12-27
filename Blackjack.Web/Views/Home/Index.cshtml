@@ -1,39 +1,6 @@
-﻿
-@*<script type="text/javascript">
-  function connect() {
-    var uri = 'ws://localhost:51364/api/blackjack';
-    websocket = new WebSocket(uri);
+﻿<div data-bind="text: this.connectionStatus"></div>
 
-    websocket.onopen = function () {
-      alert('Connected');
-    };
-
-    websocket.onerror = function (event) {
-      alert('Error :(');
-    }
-
-    websocket.onmessage = function (event) {
-      var messageDiv = document.getElementById('message-response');
-
-      messageDiv.insertAdjacentHTML('afterbegin', '<div>' + event.data + '</div');
-    }
-  }
-
-  function send() {
-    websocket.send("some data");
-  }
-</script>*@
-
-@{
-  Layout = null;
+@section scripts
+{
+<script src="~/Scripts/Blackjack.js"></script>
 }
-<html>
-<head>
-  <title>Hello React</title>
-</head>
-<body>
-  <div id="content"></div>
-  <script src="http://fb.me/react-0.12.1.js"></script>
-  <script src="@Url.Content("~/Scripts/Tutorial.jsx")"></script>
-</body>
-</html>
