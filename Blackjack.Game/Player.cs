@@ -32,7 +32,7 @@ namespace Blackjack.Game
 
             foreach (Card ace in Hand.Where(c => c.Number == CardNumber.Ace))
             {
-                if ((score + 11) < 21)
+                if ((score + 11) <= 21)
                 {
                     score += 11;
                     continue;

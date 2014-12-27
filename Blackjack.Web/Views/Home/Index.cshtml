@@ -8,11 +8,26 @@
 
 <div data-bind="with: game">
   <span data-bind="text: Dealer.Name"></span>
+  <div>
+    Winning Status: <span data-bind="text: Dealer.WinningStatus"></span>
+    Hand Status: <span data-bind="text: Dealer.HandStatus"></span>
+  </div>
   <div data-bind="foreach: Dealer.Hand">
     <span data-bind="text: $data.Number"></span>-<span data-bind="text: $data.Suit"></span>
   </div>
   <br/>
   Player Name: <span data-bind="text: playerName"></span>
+  <div class="turn-buttons" data-bind="visible: Players[0].HandStatus === 'Open'">
+    <input type="button" value="Hit" data-bind="click: function() { gameAction('Hit'); }"/>
+    <input type="button" value="Stay" data-bind="click: function() { gameAction('Stay'); }"/>
+  </div>
+  <div class="turn-buttons" data-bind="visible: Players[0].HandStatus !== 'Open'">
+    <input type="button" value="Deal" data-bind="click: function() { gameAction('Deal'); }" />
+  </div>
+  <div>
+    Winning Status: <span data-bind="text: Players[0].WinningStatus"></span>
+    Hand Status: <span data-bind="text: Players[0].HandStatus"></span>
+  </div>
   <div data-bind="foreach: Players[0].Hand">
     <span data-bind="text: $data.Number"></span>-<span data-bind="text: $data.Suit"></span>
   </div>

@@ -27,8 +27,8 @@
     }
   }
 
-  self.send = function () {
-    websocket.send("some data");
+  self.gameAction = function (actionString) {
+    websocket.send(actionString);
   }
 
   return blackjack;

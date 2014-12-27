@@ -9,7 +9,7 @@ namespace Blackjack.Game
     public class BlackjackGame
     {
         private readonly Deck _deck;
-        private int _activeSlot;
+        public int ActiveSlot;
 
         public List<Player> Players { get; set; }
         public Player Dealer;
@@ -17,7 +17,7 @@ namespace Blackjack.Game
         public BlackjackGame(Deck deck, List<string> playerNames)
         {
             _deck = deck;
-            _activeSlot = 0;
+            ActiveSlot = 0;
 
             if (playerNames.Distinct().Count() < playerNames.Count())
             {
@@ -33,18 +33,29 @@ namespace Blackjack.Game
                 HandStatus = HandStatus.Open
             }).ToList();
 
-            Dealer = new Player { Name = "Dealer" };
+            Dealer = new Player
+            {
+                Name = "Dealer",
+                Game = this,
+                WinningStatus = WinningStatus.Open,
+                HandStatus = HandStatus.Open
+            };
         }
 
         public void Deal()
         {
+            _deck.Reset();
             _deck.Shuffle();
             foreach (Player player in Players)
             {
                 player.Hand = new List<Card> {_deck.TakeCard()};
+                player.WinningStatus = WinningStatus.Open;
+                player.HandStatus = HandStatus.Open;
             }
 
             Dealer.Hand = new List<Card>{_deck.TakeCard()};
+            Dealer.WinningStatus = WinningStatus.Open;
+            Dealer.HandStatus = HandStatus.Open;
 
             foreach (Player player in Players)
             {
@@ -55,22 +66,20 @@ namespace Blackjack.Game
 
             CheckPlayersForBlackjack();
 
-            _activeSlot = 0;
+            ActiveSlot = 0;
         }
 
         private void CheckPlayersForBlackjack()
         {
             foreach (Player player in Players)
             {
-                if (player.Score() == 21)
-                {
-                    player.WinningStatus = WinningStatus.Blackjack;
-                    player.HandStatus = HandStatus.Done;
+                if (player.Score() != 21) continue;
+                player.WinningStatus = WinningStatus.Blackjack;
+                player.HandStatus = HandStatus.Done;
 
-                    if (_activeSlot == player.Position)
-                    {
-                        _activeSlot++;
-                    }
+                if (ActiveSlot == player.Position)
+                {
+                    ActiveSlot++;
                 }
             }
 
@@ -82,7 +91,7 @@ namespace Blackjack.Game
 
         internal void Hit(Player player)
         {
-            if (player.Position != _activeSlot)
+            if (player.Position != ActiveSlot)
             {
                 return;
             }
@@ -114,7 +123,7 @@ namespace Blackjack.Game
         {
             player.HandStatus = HandStatus.Done;
 
-            if (player.Position != _activeSlot)
+            if (player.Position != ActiveSlot)
             {
                 return;
             }
@@ -134,7 +143,7 @@ namespace Blackjack.Game
             }
             else
             {
-                _activeSlot = availablePlayers.Min(p => p.Position);
+                ActiveSlot = availablePlayers.Min(p => p.Position);
             }
         }
 
@@ -148,7 +157,7 @@ namespace Blackjack.Game
             Dealer.HandStatus = HandStatus.Done;
             int dealerScore = Dealer.Score();
 
-            foreach (Player player in Players)
+            foreach (Player player in Players.Where(p => p.WinningStatus == WinningStatus.Open))
             {
                 player.HandStatus = HandStatus.Done;
                 if (player.WinningStatus == WinningStatus.Blackjack)

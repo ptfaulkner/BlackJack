@@ -61,7 +61,9 @@ namespace Blackjack.Web.WebSockets
                         count += result.Count;
                     }
 
-                    _socketService.OnMessage(webSocket);
+                    var receivedString = Encoding.UTF8.GetString(receiveBuffer, 0, count);
+
+                    _socketService.OnMessage(webSocket, receivedString);
                 }
             }
         }

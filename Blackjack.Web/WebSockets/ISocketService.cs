@@ -10,7 +10,7 @@ namespace Blackjack.Web.WebSockets
     public interface ISocketService
     {
         void OnOpen(WebSocket webSocket, string playerName);
-        void OnMessage(WebSocket webSocket);
+        void OnMessage(WebSocket webSocket, string message);
         void OnClose(WebSocket webSocket);
     }
 }
