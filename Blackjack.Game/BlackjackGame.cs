@@ -82,7 +82,8 @@ namespace Blackjack.Game
         {
             foreach (Player player in Players)
             {
-                if (player.Score() != 21) continue;
+                CalculatePlayerScore(player);
+                if (player.Score != 21) continue;
                 player.WinningStatus = WinningStatus.Blackjack;
                 player.HandStatus = HandStatus.Done;
 
@@ -92,7 +93,8 @@ namespace Blackjack.Game
                 }
             }
 
-            if (Dealer.Score() == 21)
+            CalculatePlayerScore(Dealer);
+            if (Dealer.Score == 21)
             {
                 FinishGame();
             }
@@ -107,9 +109,9 @@ namespace Blackjack.Game
 
             player.Hand.Add(_deck.TakeCard());
 
-            int playerScore = player.Score();
+            CalculatePlayerScore(player);
 
-            if (playerScore > 21)
+            if (player.Score > 21)
             {
                 player.WinningStatus = WinningStatus.Busted;
                 player.HandStatus = HandStatus.Done;
@@ -118,7 +120,7 @@ namespace Blackjack.Game
                     MoveActiveSlot();
                 }
             }
-            else if (playerScore == 21)
+            else if (player.Score == 21)
             {
                 player.HandStatus = HandStatus.Done;
                 if (player.Name != "Dealer")
@@ -156,13 +158,13 @@ namespace Blackjack.Game
 
         private void FinishGame()
         {
-            while (Dealer.Score() < 18)
+            while (Dealer.Score < 18)
             {
                 Dealer.Hit();
             }
 
             Dealer.HandStatus = HandStatus.Done;
-            int dealerScore = Dealer.Score();
+            int dealerScore = Dealer.Score;
 
             foreach (Player player in Players.Where(p => p.WinningStatus == WinningStatus.Open))
             {
@@ -177,11 +179,11 @@ namespace Blackjack.Game
                 {
                     player.WinningStatus = WinningStatus.Winner;
                 }
-                else if (player.Score() > dealerScore)
+                else if (player.Score > dealerScore)
                 {
                     player.WinningStatus = WinningStatus.Winner;
                 }
-                else if (player.Score() == dealerScore)
+                else if (player.Score == dealerScore)
                 {
                     player.WinningStatus = WinningStatus.Push;
                 }
@@ -190,6 +192,31 @@ namespace Blackjack.Game
                     player.WinningStatus = WinningStatus.Loser;
                 }
             }
+        }
+
+        private void CalculatePlayerScore(Player player)
+        {
+            short score = 0;
+
+            if (player.Hand == null)
+                return;
+
+            foreach (Card nonAceCard in player.Hand.Where(c => c.Number != CardNumber.Ace))
+            {
+                score += CardValue(nonAceCard);
+            }
+
+            foreach (Card ace in player.Hand.Where(c => c.Number == CardNumber.Ace))
+            {
+                if ((score + 11) <= 21)
+                {
+                    score += 11;
+                    continue;
+                }
+                score += 1;
+            }
+
+            player.Score = score;
         }
 
         public static short CardValue(Card card)

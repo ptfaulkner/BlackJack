@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
@@ -66,7 +65,11 @@ namespace Blackjack.Web.WebSockets
 
         public void OnClose(WebSocket webSocket)
         {
-            throw new NotImplementedException();
+            PlayerManager playerManager = _gameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
+            Player player = _gameManager.Game.Players.First(p => p.Name == playerManager.PlayerName);
+
+            _gameManager.PlayerManagers.Remove(playerManager);
+            _gameManager.Game.Players.Remove(player);
         }
     }
 }

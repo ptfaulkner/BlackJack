@@ -18,7 +18,7 @@
   <br/>
   <div data-bind="foreach: Players">
     Player Name: <span data-bind="text: Name"></span> 
-    <div class="turn-buttons" data-bind="visible: HandStatus === 'Open' && playerName() === Name">
+    <div class="turn-buttons" data-bind="visible: HandStatus === 'Open' && playerName() === Name && $parent.ActiveSlot === Position">
       <input type="button" value="Hit" data-bind="click: function() { gameAction('Hit'); }"/>
       <input type="button" value="Stay" data-bind="click: function() { gameAction('Stay'); }"/>
     </div>

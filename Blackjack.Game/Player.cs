@@ -18,30 +18,9 @@ namespace Blackjack.Game
         [JsonConverter(typeof(StringEnumConverter))]
         public WinningStatus WinningStatus { get; set; }
 
-        public short Score()
-        {
-            short score = 0;
+        private readonly object _lockObject = new object();
 
-            if (Hand == null)
-                return 0;
-
-            foreach (Card nonAceCard in Hand.Where(c => c.Number != CardNumber.Ace))
-            {
-                score += BlackjackGame.CardValue(nonAceCard);
-            }
-
-            foreach (Card ace in Hand.Where(c => c.Number == CardNumber.Ace))
-            {
-                if ((score + 11) <= 21)
-                {
-                    score += 11;
-                    continue;
-                }
-                score += 1;
-            }
-
-            return score;
-        }
+        public short Score { get; set; }
 
         public void Hit()
         {
