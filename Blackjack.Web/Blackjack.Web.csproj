@@ -231,8 +231,10 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WebSockets\BlackjackSocketService.cs" />
+    <Compile Include="WebSockets\GameManager.cs" />
     <Compile Include="WebSockets\Handler.cs" />
     <Compile Include="WebSockets\ISocketService.cs" />
+    <Compile Include="WebSockets\PlayerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

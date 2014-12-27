@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using PlayingCards.Domain;
 
@@ -12,26 +11,13 @@ namespace Blackjack.Game
         public int ActiveSlot;
 
         public List<Player> Players { get; set; }
+        public List<string> NewPlayers { get; set; } 
         public Player Dealer;
 
-        public BlackjackGame(Deck deck, List<string> playerNames)
+        public BlackjackGame(Deck deck)
         {
             _deck = deck;
             ActiveSlot = 0;
-
-            if (playerNames.Distinct().Count() < playerNames.Count())
-            {
-                throw new InvalidOperationException("The player names must be unique.");
-            }
-
-            Players = playerNames.Select((p, i) => new Player
-            {
-                Name = p, 
-                Position = i, 
-                Game = this, 
-                WinningStatus = WinningStatus.Open, 
-                HandStatus = HandStatus.Open
-            }).ToList();
 
             Dealer = new Player
             {
@@ -40,12 +26,35 @@ namespace Blackjack.Game
                 WinningStatus = WinningStatus.Open,
                 HandStatus = HandStatus.Open
             };
+
+            NewPlayers = new List<string>();
+            Players = new List<Player>();
+        }
+
+        public void AddPlayer(string name)
+        {
+            Players.Add(new Player
+            {
+                Name = name,
+                Position = Players.Count,
+                Game = this,
+                WinningStatus = WinningStatus.Open,
+                HandStatus = HandStatus.Open
+            });
         }
 
         public void Deal()
         {
             _deck.Reset();
             _deck.Shuffle();
+
+            foreach (string name in NewPlayers)
+            {
+                AddPlayer(name);
+            }
+
+            NewPlayers.Clear();
+
             foreach (Player player in Players)
             {
                 player.Hand = new List<Card> {_deck.TakeCard()};
@@ -129,8 +138,6 @@ namespace Blackjack.Game
             }
 
             MoveActiveSlot();
-
-            FinishGame();
         }
 
         private void MoveActiveSlot()

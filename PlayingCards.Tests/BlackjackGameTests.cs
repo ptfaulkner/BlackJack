@@ -16,26 +16,15 @@ namespace PlayingCards.Tests
         public void CanCreateBlackjack()
         {
             BlackjackGame game = GetGame();
-
             Assert.Equal(2, game.Players.Count);
             
             Assert.Equal("Dealer", game.Dealer.Name);
         }
 
         [Fact]
-        public void CannotCreateBlackjackWithDuplicateNames()
-        {
-            InvalidOperationException exception =
-                Assert.Throws<InvalidOperationException>(() => new BlackjackGame(new Deck(), new List<string> { "Patrick", "Patrick" }));
-
-            Assert.Equal("The player names must be unique.", exception.Message);
-        }
-
-        [Fact]
         public void CanGetTwoCardsFromDeal()
         {
             BlackjackGame game = GetGame();
-            game.Deal();
 
             foreach (Player p in game.Players)
             {
@@ -66,7 +55,6 @@ namespace PlayingCards.Tests
         public void PlayersCanStay()
         {
             BlackjackGame game = GetGame();
-            game.Deal();
 
             Player player1 = game.Players.FirstOrDefault(p => p.Position == 0);
             player1.Stay();
@@ -83,7 +71,6 @@ namespace PlayingCards.Tests
         public void CanFinishGame()
         {
             BlackjackGame game = GetGame();
-            game.Deal();
 
             foreach (Player player in game.Players)
             {
@@ -103,12 +90,15 @@ namespace PlayingCards.Tests
         public void CanSerializeGame()
         {
             string gameJson = JsonConvert.SerializeObject(GetGame());
-
         }
 
         internal static BlackjackGame GetGame()
         {
-            return new BlackjackGame(new Deck(), new List<string> { "Patrick", "Ashley" });
+            BlackjackGame game = new BlackjackGame(new Deck());
+            game.NewPlayers.Add("Patrick");
+            game.NewPlayers.Add("Ashley");
+            game.Deal();
+            return game;
         }
     }
 }

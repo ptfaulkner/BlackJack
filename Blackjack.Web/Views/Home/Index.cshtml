@@ -16,20 +16,22 @@
     <span data-bind="text: $data.Number"></span>-<span data-bind="text: $data.Suit"></span>
   </div>
   <br/>
-  Player Name: <span data-bind="text: playerName"></span>
-  <div class="turn-buttons" data-bind="visible: Players[0].HandStatus === 'Open'">
-    <input type="button" value="Hit" data-bind="click: function() { gameAction('Hit'); }"/>
-    <input type="button" value="Stay" data-bind="click: function() { gameAction('Stay'); }"/>
-  </div>
-  <div class="turn-buttons" data-bind="visible: Players[0].HandStatus !== 'Open'">
-    <input type="button" value="Deal" data-bind="click: function() { gameAction('Deal'); }" />
-  </div>
-  <div>
-    Winning Status: <span data-bind="text: Players[0].WinningStatus"></span>
-    Hand Status: <span data-bind="text: Players[0].HandStatus"></span>
-  </div>
-  <div data-bind="foreach: Players[0].Hand">
-    <span data-bind="text: $data.Number"></span>-<span data-bind="text: $data.Suit"></span>
+  <div data-bind="foreach: Players">
+    Player Name: <span data-bind="text: Name"></span> 
+    <div class="turn-buttons" data-bind="visible: HandStatus === 'Open' && playerName() === Name">
+      <input type="button" value="Hit" data-bind="click: function() { gameAction('Hit'); }"/>
+      <input type="button" value="Stay" data-bind="click: function() { gameAction('Stay'); }"/>
+    </div>
+    <div class="turn-buttons" data-bind="visible: HandStatus !== 'Open' && playerName() === Name">
+      <input type="button" value="Deal" data-bind="click: function() { gameAction('Deal'); }" />
+    </div>
+    <div>
+      Winning Status: <span data-bind="text: WinningStatus"></span>
+      Hand Status: <span data-bind="text: HandStatus"></span>
+    </div>
+    <div data-bind="foreach: Hand">
+      <span data-bind="text: $data.Number"></span>-<span data-bind="text: $data.Suit"></span>
+    </div>
   </div>
 </div>
 

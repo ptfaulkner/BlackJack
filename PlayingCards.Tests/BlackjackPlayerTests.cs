@@ -76,7 +76,6 @@ namespace PlayingCards.Tests
         public void CanHitPlayer()
         {
             BlackjackGame game = BlackjackGameTests.GetGame();
-            game.Deal();
             Player playah = game.Players.First();
 
             int cards = playah.Hand.Count;
@@ -89,7 +88,6 @@ namespace PlayingCards.Tests
         public void PlayerCanStay()
         {
             BlackjackGame game = BlackjackGameTests.GetGame();
-            game.Deal();
             Player player = game.Players.First();
 
             HandStatus preStayStatus = player.HandStatus;
