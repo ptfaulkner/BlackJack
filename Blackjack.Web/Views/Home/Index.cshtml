@@ -1,4 +1,8 @@
-﻿<div data-bind="text: this.connectionStatus"></div>
+﻿<div data-bind="text: connectionStatus"></div>
+
+<div data-bind="with: game">
+  <div data-bind="text: Dealer.Name"></div>
+</div>
 
 @section scripts
 {

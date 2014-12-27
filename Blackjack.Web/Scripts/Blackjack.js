@@ -3,8 +3,8 @@
     websocket;
 
 
-  var blackjack = function (game) {
-    self.game = game || {};
+  var blackjack = function () {
+    self.game = ko.observable();
     self.connectionStatus = ko.observable("Not Connected");
 
     self.connect();
@@ -23,7 +23,8 @@
     }
 
     websocket.onmessage = function (event) {
-
+      var dataJson = JSON.parse(event.data);
+      self.game(dataJson);
     }
   }
 
