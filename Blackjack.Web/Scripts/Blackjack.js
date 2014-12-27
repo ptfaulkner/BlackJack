@@ -6,12 +6,11 @@
   var blackjack = function () {
     self.game = ko.observable();
     self.connectionStatus = ko.observable("Not Connected");
-
-    self.connect();
+    self.playerName = ko.observable();
   };
 
   self.connect = function () {
-    var uri = 'ws://localhost:51364/api/blackjack';
+    var uri = 'ws://localhost:51364/api/blackjack?playerName=' + self.playerName();
     websocket = new WebSocket(uri);
 
     websocket.onopen = function () {

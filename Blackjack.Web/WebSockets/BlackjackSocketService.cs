@@ -16,9 +16,9 @@ namespace Blackjack.Web.WebSockets
     {
         private static BlackjackGame _game;
 
-        public void OnOpen(WebSocket webSocket)
+        public void OnOpen(WebSocket webSocket, string playerName)
         {
-            _game = new BlackjackGame(new Deck(), new List<string> { "Patrick "});
+            _game = new BlackjackGame(new Deck(), new List<string> { playerName });
             _game.Deal();
             OnMessage(webSocket);
         }

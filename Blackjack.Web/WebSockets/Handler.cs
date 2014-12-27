@@ -14,6 +14,7 @@ namespace Blackjack.Web.WebSockets
     public class Handler
     {
         private readonly ISocketService _socketService;
+        public string PlayerName { get; set; }
 
         public Handler(ISocketService socketService)
         {
@@ -26,7 +27,7 @@ namespace Blackjack.Web.WebSockets
             byte[] receiveBuffer = new byte[maxMessageSize];
             WebSocket webSocket = context.WebSocket;
 
-            _socketService.OnOpen(webSocket);
+            _socketService.OnOpen(webSocket, PlayerName);
 
             while (webSocket.State == WebSocketState.Open)
             {

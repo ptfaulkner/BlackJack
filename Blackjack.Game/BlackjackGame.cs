@@ -38,6 +38,7 @@ namespace Blackjack.Game
 
         public void Deal()
         {
+            _deck.Shuffle();
             foreach (Player player in Players)
             {
                 player.Hand = new List<Card> {_deck.TakeCard()};

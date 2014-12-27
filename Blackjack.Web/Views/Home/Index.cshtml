@@ -1,7 +1,21 @@
 ﻿<div data-bind="text: connectionStatus"></div>
 
+<div data-bind="if: (connectionStatus() === 'Not Connected')">
+  <label for="playerName">Enter your name: </label>
+  <input id="playerName" name="playerName" type="text" data-bind="value: playerName"/>
+  <input type="button" value="Connect" data-bind="click: connect"/>
+</div>
+
 <div data-bind="with: game">
-  <div data-bind="text: Dealer.Name"></div>
+  <span data-bind="text: Dealer.Name"></span>
+  <div data-bind="foreach: Dealer.Hand">
+    <span data-bind="text: $data.Number"></span>-<span data-bind="text: $data.Suit"></span>
+  </div>
+  <br/>
+  Player Name: <span data-bind="text: playerName"></span>
+  <div data-bind="foreach: Players[0].Hand">
+    <span data-bind="text: $data.Number"></span>-<span data-bind="text: $data.Suit"></span>
+  </div>
 </div>
 
 @section scripts
