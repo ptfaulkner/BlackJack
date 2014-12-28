@@ -72,10 +72,8 @@ namespace Blackjack.Game
             }
 
             Dealer.Hand.Add(_deck.TakeCard());
-
-            CheckPlayersForBlackjack();
-
             ActiveSlot = 0;
+            CheckPlayersForBlackjack();
         }
 
         private void CheckPlayersForBlackjack()
@@ -89,7 +87,7 @@ namespace Blackjack.Game
 
                 if (ActiveSlot == player.Position)
                 {
-                    ActiveSlot++;
+                    MoveActiveSlot();
                 }
             }
 
