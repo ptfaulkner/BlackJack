@@ -22,6 +22,23 @@ namespace PlayingCards.Tests
         }
 
         [Fact]
+        public void CanAddNewPlayer()
+        {
+            BlackjackGame game = new BlackjackGame(new Deck());
+
+            Assert.Equal(0, game.Players.Count);
+
+            game.NewPlayers.Add("Patrick");
+
+            Assert.Equal(0, game.Players.Count);
+
+            game.Deal();
+
+            Assert.Equal(1, game.Players.Count);
+            Assert.Equal(0, game.NewPlayers.Count);
+        }
+
+        [Fact]
         public void CanGetTwoCardsFromDeal()
         {
             BlackjackGame game = GetGame();

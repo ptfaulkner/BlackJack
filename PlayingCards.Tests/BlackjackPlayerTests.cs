@@ -19,8 +19,8 @@ namespace PlayingCards.Tests
                     new Card {Number = CardNumber.Queen}
                 }
             };
-
-            Assert.Equal(13, player.Score());
+            BlackjackGame.CalculatePlayerScore(player);
+            Assert.Equal(13, player.Score);
         }
 
         [Fact]
@@ -35,8 +35,8 @@ namespace PlayingCards.Tests
                     new Card {Number = CardNumber.Ace}
                 }
             };
-
-            Assert.Equal(14, player.Score());
+            BlackjackGame.CalculatePlayerScore(player);
+            Assert.Equal(14, player.Score);
         }
 
         [Fact]
@@ -51,8 +51,8 @@ namespace PlayingCards.Tests
                     new Card {Number = CardNumber.Ace}
                 }
             };
-
-            Assert.Equal(16, player.Score());
+            BlackjackGame.CalculatePlayerScore(player);
+            Assert.Equal(16, player.Score);
         }
 
         [Fact]
@@ -68,8 +68,8 @@ namespace PlayingCards.Tests
                     new Card {Number = CardNumber.Ace}
                 }
             };
-
-            Assert.Equal(17, player.Score());
+            BlackjackGame.CalculatePlayerScore(player);
+            Assert.Equal(17, player.Score);
         }
 
         [Fact]

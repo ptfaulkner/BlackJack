@@ -102,7 +102,7 @@ namespace Blackjack.Game
 
         internal void Hit(Player player)
         {
-            if (player.Position != ActiveSlot)
+            if (player.Position != ActiveSlot && player.Name != "Dealer")
             {
                 return;
             }
@@ -158,7 +158,7 @@ namespace Blackjack.Game
 
         private void FinishGame()
         {
-            while (Dealer.Score < 18)
+            while (Dealer.Score < 17)
             {
                 Dealer.Hit();
             }
@@ -194,7 +194,7 @@ namespace Blackjack.Game
             }
         }
 
-        private void CalculatePlayerScore(Player player)
+        public static void CalculatePlayerScore(Player player)
         {
             short score = 0;
 
