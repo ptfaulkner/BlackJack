@@ -35,16 +35,13 @@ namespace Blackjack.Web.WebSockets
 
         public void OnMessage(WebSocket webSocket, string message)
         {
-            PlayerManager playerManager = _gameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
-            Player player = _gameManager.Game.Players.First(p => p.Name == playerManager.PlayerName);
-
             switch (message)
             {
                 case "Hit":
-                    player.Hit();
+                    GetPlayer(webSocket).Hit();
                     break;
                 case "Stay":
-                    player.Stay();
+                    GetPlayer(webSocket).Stay();
                     break;
                 case "Deal":
                     _gameManager.Game.Deal();
@@ -52,6 +49,13 @@ namespace Blackjack.Web.WebSockets
             }
 
             BroadcastGame();
+        }
+
+        public Player GetPlayer(WebSocket webSocket)
+        {
+            PlayerManager playerManager = _gameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
+            Player player = _gameManager.Game.Players.First(p => p.Name == playerManager.PlayerName);
+            return player;
         }
 
         public void OnClose(WebSocket webSocket)
@@ -68,6 +72,10 @@ namespace Blackjack.Web.WebSockets
             else
             {
                 _gameManager.Game.RemovePlayer(player);
+                if (_gameManager.Game.Players.Count == _gameManager.Game.QuitPlayers.Count)
+                {
+                    _gameManager.Game.GameStatus = HandStatus.Done;
+                }
             }
 
             BroadcastGame();

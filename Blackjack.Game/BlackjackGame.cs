@@ -36,7 +36,7 @@ namespace Blackjack.Game
             NewPlayers = new List<string>();
             Players = new List<Player>();
             QuitPlayers = new List<string>();
-            GameStatus = HandStatus.Open;
+            GameStatus = HandStatus.Done;
         }
 
         public void AddPlayer(string name)
@@ -60,10 +60,14 @@ namespace Blackjack.Game
 
             gamePlayer.HandStatus = HandStatus.Done;
             QuitPlayers.Add(player.Name);
+            MoveActiveSlot();
         }
 
         public void Deal()
         {
+            if (GameStatus == HandStatus.Open)
+                return;
+
             GameStatus = HandStatus.Open;
             Players.RemoveAll(p => QuitPlayers.Contains(p.Name));
             QuitPlayers.Clear();
