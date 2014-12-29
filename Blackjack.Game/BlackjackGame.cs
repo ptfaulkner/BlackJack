@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using PlayingCards.Domain;
 
 namespace Blackjack.Game
@@ -11,8 +13,12 @@ namespace Blackjack.Game
         public int ActiveSlot;
 
         public List<Player> Players { get; set; }
-        public List<string> NewPlayers { get; set; } 
+        public List<string> NewPlayers { get; set; }
+        public List<string> QuitPlayers { get; set; } 
         public Player Dealer;
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public HandStatus GameStatus { get; set; }
 
         public BlackjackGame(Deck deck)
         {
@@ -29,6 +35,8 @@ namespace Blackjack.Game
 
             NewPlayers = new List<string>();
             Players = new List<Player>();
+            QuitPlayers = new List<string>();
+            GameStatus = HandStatus.Open;
         }
 
         public void AddPlayer(string name)
@@ -43,8 +51,23 @@ namespace Blackjack.Game
             });
         }
 
+        public void RemovePlayer(Player player)
+        {
+            Player gamePlayer = Players.FirstOrDefault(p => p.Name == player.Name);
+
+            if (gamePlayer == null)
+                return;
+
+            gamePlayer.HandStatus = HandStatus.Done;
+            QuitPlayers.Add(player.Name);
+        }
+
         public void Deal()
         {
+            GameStatus = HandStatus.Open;
+            Players.RemoveAll(p => QuitPlayers.Contains(p.Name));
+            QuitPlayers.Clear();
+
             _deck.Reset();
             _deck.Shuffle();
 
@@ -190,6 +213,8 @@ namespace Blackjack.Game
                     player.WinningStatus = WinningStatus.Loser;
                 }
             }
+
+            GameStatus = HandStatus.Done;
         }
 
         public static void CalculatePlayerScore(Player player)

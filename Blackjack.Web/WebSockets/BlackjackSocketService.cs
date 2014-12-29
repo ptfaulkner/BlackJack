@@ -30,30 +30,51 @@ namespace Blackjack.Web.WebSockets
                 _gameManager.Game.Deal();
             }
 
-            OnMessage(webSocket, null);
+            BroadcastGame();
         }
 
         public void OnMessage(WebSocket webSocket, string message)
         {
-            if (message != null)
-            {
-                PlayerManager playerManager = _gameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
-                Player player = _gameManager.Game.Players.First(p => p.Name == playerManager.PlayerName);
+            PlayerManager playerManager = _gameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
+            Player player = _gameManager.Game.Players.First(p => p.Name == playerManager.PlayerName);
 
-                switch (message)
-                {
-                    case "Hit":
-                        player.Hit();
-                        break;
-                    case "Stay":
-                        player.Stay();
-                        break;
-                    case "Deal":
-                        _gameManager.Game.Deal();
-                        break;
-                }
+            switch (message)
+            {
+                case "Hit":
+                    player.Hit();
+                    break;
+                case "Stay":
+                    player.Stay();
+                    break;
+                case "Deal":
+                    _gameManager.Game.Deal();
+                    break;
             }
 
+            BroadcastGame();
+        }
+
+        public void OnClose(WebSocket webSocket)
+        {
+            PlayerManager playerManager = _gameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
+            Player player = _gameManager.Game.Players.FirstOrDefault(p => p.Name == playerManager.PlayerName);
+
+            _gameManager.PlayerManagers.Remove(playerManager);
+
+            if (player == null)
+            {
+                _gameManager.Game.NewPlayers.RemoveAll(p => p == playerManager.PlayerName);
+            }
+            else
+            {
+                _gameManager.Game.RemovePlayer(player);
+            }
+
+            BroadcastGame();
+        }
+
+        public void BroadcastGame()
+        {
             string gameJson = JsonConvert.SerializeObject(_gameManager.Game);
             ArraySegment<byte> outputBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(gameJson));
 
@@ -61,15 +82,6 @@ namespace Blackjack.Web.WebSockets
             {
                 pm.WebSocket.SendAsync(outputBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
             }
-        }
-
-        public void OnClose(WebSocket webSocket)
-        {
-            PlayerManager playerManager = _gameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
-            Player player = _gameManager.Game.Players.First(p => p.Name == playerManager.PlayerName);
-
-            _gameManager.PlayerManagers.Remove(playerManager);
-            _gameManager.Game.Players.Remove(player);
         }
     }
 }
