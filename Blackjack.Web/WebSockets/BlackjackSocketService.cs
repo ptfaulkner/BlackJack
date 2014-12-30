@@ -12,28 +12,22 @@ namespace Blackjack.Web.WebSockets
 {
     public class BlackjackSocketService : ISocketService
     {
-        private static GameManager _gameManager;
+        private static readonly GameManager GameManager = new GameManager();
 
         public void OnOpen(WebSocket webSocket, NameValueCollection queryString)
         {
             string playerName = queryString.Get("playerName");
 
-            if (_gameManager == null)
-            {
-                BlackjackGame game = new BlackjackGame(new Deck());
-                _gameManager = new GameManager(game);
-            }
-
             PlayerManager playerManager = new PlayerManager(playerName, webSocket);
-            _gameManager.PlayerManagers.Add(playerManager);
-            _gameManager.Game.NewPlayers.Add(playerName);
+            GameManager.PlayerManagers.Add(playerManager);
+            GameManager.Game.NewPlayers.Add(playerName);
 
-            if (_gameManager.Game.Players.Count == 0)
+            if (GameManager.Game.Players.Count == 0)
             {
-                _gameManager.Game.Deal();
+                GameManager.Game.Deal();
             }
 
-            BroadcastGame();
+            BroadcastGameStatus();
         }
 
         public void OnMessage(WebSocket webSocket, string message)
@@ -47,52 +41,52 @@ namespace Blackjack.Web.WebSockets
                     GetPlayer(webSocket).Stay();
                     break;
                 case "Deal":
-                    _gameManager.Game.Deal();
+                    GameManager.Game.Deal();
                     break;
             }
 
-            BroadcastGame();
-        }
-
-        public Player GetPlayer(WebSocket webSocket)
-        {
-            PlayerManager playerManager = _gameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
-            Player player = _gameManager.Game.Players.First(p => p.Name == playerManager.PlayerName);
-            return player;
+            BroadcastGameStatus();
         }
 
         public void OnClose(WebSocket webSocket)
         {
-            PlayerManager playerManager = _gameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
-            Player player = _gameManager.Game.Players.FirstOrDefault(p => p.Name == playerManager.PlayerName);
+            PlayerManager playerManager = GameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
+            Player player = GameManager.Game.Players.FirstOrDefault(p => p.Name == playerManager.PlayerName);
 
-            _gameManager.PlayerManagers.Remove(playerManager);
+            GameManager.PlayerManagers.Remove(playerManager);
 
             if (player == null)
             {
-                _gameManager.Game.NewPlayers.RemoveAll(p => p == playerManager.PlayerName);
+                GameManager.Game.NewPlayers.RemoveAll(p => p == playerManager.PlayerName);
             }
             else
             {
-                _gameManager.Game.RemovePlayer(player);
-                if (_gameManager.Game.Players.Count == _gameManager.Game.QuitPlayers.Count)
+                GameManager.Game.RemovePlayer(player);
+                if (GameManager.Game.Players.Count == GameManager.Game.QuitPlayers.Count)
                 {
-                    _gameManager.Game.GameStatus = HandStatus.Done;
+                    GameManager.Game.GameStatus = HandStatus.Done;
                 }
             }
 
-            BroadcastGame();
+            BroadcastGameStatus();
         }
 
-        public void BroadcastGame()
+        public void BroadcastGameStatus()
         {
-            string gameJson = JsonConvert.SerializeObject(_gameManager.Game);
+            string gameJson = JsonConvert.SerializeObject(GameManager.Game);
             ArraySegment<byte> outputBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(gameJson));
 
-            foreach (PlayerManager pm in _gameManager.PlayerManagers)
+            foreach (PlayerManager pm in GameManager.PlayerManagers)
             {
                 pm.WebSocket.SendAsync(outputBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
             }
+        }
+
+        private static Player GetPlayer(WebSocket webSocket)
+        {
+            PlayerManager playerManager = GameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
+            Player player = GameManager.Game.Players.First(p => p.Name == playerManager.PlayerName);
+            return player;
         }
     }
 }

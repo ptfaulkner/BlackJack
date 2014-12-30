@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.WebSockets;
 using System.Web;
 using Blackjack.Game;
+using PlayingCards.Domain;
 
 namespace Blackjack.Web.WebSockets
 {
@@ -16,9 +17,9 @@ namespace Blackjack.Web.WebSockets
         private readonly object _actionLocker;
         private readonly object _removePlayerLocker;
 
-        public GameManager(BlackjackGame game)
+        public GameManager()
         {
-            Game = game;
+            Game = new BlackjackGame(new Deck());
             PlayerManagers = new List<PlayerManager>();
             _addPlayerLocker = new object();
             _actionLocker = new object();
