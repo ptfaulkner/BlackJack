@@ -1,4 +1,104 @@
 ﻿body {
   font-family: Helvetica, Arial, sans-serif;
 }
+.clear-fix {
+  clear: both;
+}
+.card {
+  background-color: #ffffff;
+  font-family: Helvetica, Arial, sans-serif;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  border-radius: 0.8em;
+  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  float: left;
+  width: 3.75em;
+  height: 5.00em;
+  margin: 0 1.2em 1.2em 0;
+  position: absolute;
+}
+.front {
+  background-color: #ffffff;
+  color: #000000;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.spotA1 {
+  position: absolute;
+  left: 0.60em;
+  top: 0.5em;
+}
+.spotA2 {
+  position: absolute;
+  left: 0.60em;
+  top: 1.5em;
+}
+.spotA3 {
+  position: absolute;
+  left: 0.60em;
+  top: 2.0em;
+}
+.spotA4 {
+  position: absolute;
+  left: 0.60em;
+  top: 2.5em;
+}
+.spotA5 {
+  position: absolute;
+  left: 0.60em;
+  top: 3.5em;
+}
+.spotB1 {
+  position: absolute;
+  left: 1.55em;
+  top: 0.5em;
+}
+.spotB2 {
+  position: absolute;
+  left: 1.55em;
+  top: 1.0em;
+}
+.spotB3 {
+  position: absolute;
+  left: 1.55em;
+  top: 2.0em;
+}
+.spotB4 {
+  position: absolute;
+  left: 1.55em;
+  top: 3.0em;
+}
+.spotB5 {
+  position: absolute;
+  left: 1.55em;
+  top: 3.5em;
+}
+.spotC1 {
+  position: absolute;
+  left: 2.50em;
+  top: 0.5em;
+}
+.spotC2 {
+  position: absolute;
+  left: 2.50em;
+  top: 1.5em;
+}
+.spotC3 {
+  position: absolute;
+  left: 2.50em;
+  top: 2.0em;
+}
+.spotC4 {
+  position: absolute;
+  left: 2.50em;
+  top: 2.5em;
+}
+.spotC5 {
+  position: absolute;
+  left: 2.50em;
+  top: 3.5em;
+}
 /*# sourceMappingURL=Blackjack.css.map */

@@ -1,0 +1,49 @@
+﻿<div data-bind="text: connectionStatus"></div>
+
+<div data-bind="if: (connectionStatus() === 'Not Connected')">
+  <label for="playerName">Enter your name: </label>
+  <input id="playerName" name="playerName" type="text" data-bind="value: playerName"/>
+  <input type="button" value="Connect" data-bind="click: connect"/>
+</div>
+
+<div data-bind="with: game">
+  New Players: <span data-bind="text: NewPlayers.join(', ')"></span>
+  <br/>
+  Game Status: <span data-bind="text: GameStatus"></span>
+  <span data-bind="text: Dealer.Name"></span>
+  <div>
+    Winning Status: <span data-bind="text: Dealer.WinningStatus"></span>
+    Hand Status: <span data-bind="text: Dealer.HandStatus"></span>
+  </div>
+  <div data-bind="foreach: Dealer.Hand">
+    <span data-bind="text: $data.Number"></span>-<span data-bind="text: $data.Suit"></span>
+  </div>
+  <br/>
+  <div data-bind="foreach: Players">
+    <hr />
+    Player Name: <span data-bind="text: Name"></span><span data-bind="text: Position"></span>
+    <div class="turn-buttons" data-bind="visible: HandStatus === 'Open' && playerName() === Name && $parent.ActiveSlot === Position">
+      <input type="button" value="Hit" data-bind="click: function() { gameAction('Hit'); }"/>
+      <input type="button" value="Stay" data-bind="click: function() { gameAction('Stay'); }"/>
+    </div>
+    <div class="turn-buttons" data-bind="visible: $parent.GameStatus !== 'Open'">
+      <input type="button" value="Deal" data-bind="click: function() { gameAction('Deal'); }"/>
+    </div>
+    <div>
+      Winning Status: <span data-bind="text: WinningStatus"></span>
+      Hand Status: <span data-bind="text: HandStatus"></span>
+    </div>
+    <div data-bind="foreach: Hand">
+      <div class="card">
+        <div class="front">
+          <span data-bind="text: $data.Number"></span>-<span data-bind="text: $data.Suit"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section scripts
+{
+  @Scripts.Render("~/bundles/react-blackjack")
+}

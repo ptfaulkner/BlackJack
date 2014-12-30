@@ -7,14 +7,14 @@
   @Styles.Render("~/bundles/style")
 </head>
 <body>
-  <div class="container body-content">
-    @RenderBody()
-    <hr />
-    <footer>
-      <p>&copy; @DateTime.Now.Year - Blackjack Websockets</p>
-    </footer>
-  </div>
-  @Scripts.Render("~/bundles/knockout")
+<div class="container body-content">
+  @RenderBody()
+  <hr/>
+  <footer>
+    <p>&copy; @DateTime.Now.Year - Blackjack Websockets</p>
+  </footer>
+</div>
+  <script src="http://fb.me/react-0.12.1.js"></script>
   @RenderSection("scripts", required: false)
 </body>
 </html>
