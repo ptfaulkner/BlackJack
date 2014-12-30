@@ -31,7 +31,6 @@ namespace Blackjack.Web.Controllers
             if (currentContext.IsWebSocketRequest ||
                 currentContext.IsWebSocketRequestUpgrading)
             {
-                _handler.PlayerName = playerName;
                 currentContext.AcceptWebSocketRequest(_handler.ProcessWebsocketSession);
                 return Request.CreateResponse(HttpStatusCode.SwitchingProtocols);
             }

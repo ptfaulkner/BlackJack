@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
@@ -13,8 +14,10 @@ namespace Blackjack.Web.WebSockets
     {
         private static GameManager _gameManager;
 
-        public void OnOpen(WebSocket webSocket, string playerName)
+        public void OnOpen(WebSocket webSocket, NameValueCollection queryString)
         {
+            string playerName = queryString.Get("playerName");
+
             if (_gameManager == null)
             {
                 BlackjackGame game = new BlackjackGame(new Deck());
