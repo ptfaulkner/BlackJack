@@ -238,6 +238,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\Blackjack.css">
+      <DependentUpon>Blackjack.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Blackjack.min.css">
+      <DependentUpon>Blackjack.css</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
@@ -283,7 +289,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -300,6 +305,14 @@
       <Project>{9a48710c-9342-4316-ab2e-7221213c7dd1}</Project>
       <Name>PlayingCards.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Blackjack.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Blackjack.css.map">
+      <DependentUpon>Blackjack.css</DependentUpon>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

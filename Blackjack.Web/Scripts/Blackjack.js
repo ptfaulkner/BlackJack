@@ -2,7 +2,6 @@
   var self = this,
     websocket;
 
-
   var blackjack = function () {
     self.game = ko.observable();
     self.connectionStatus = ko.observable('Not Connected');
