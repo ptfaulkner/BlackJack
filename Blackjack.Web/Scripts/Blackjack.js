@@ -5,20 +5,22 @@
 
   var blackjack = function () {
     self.game = ko.observable();
-    self.connectionStatus = ko.observable("Not Connected");
+    self.connectionStatus = ko.observable('Not Connected');
     self.playerName = ko.observable();
   };
 
   self.connect = function () {
-    var uri = 'ws://localhost:51364/api/blackjack?playerName=' + self.playerName();
+    var host = window.location.host,
+      protocol = window.location.protocol,
+      uri = (protocol === 'https:' ? 'wss' : 'ws') + '://' + host + '/api/blackjack?playerName=' + self.playerName();
     websocket = new WebSocket(uri);
 
     websocket.onopen = function () {
-      self.connectionStatus("Connected");
+      self.connectionStatus('Connected');
     };
 
     websocket.onerror = function (event) {
-      self.connectionStatus("Connection Error :(");
+      self.connectionStatus('Connection Error :(');
     }
 
     websocket.onmessage = function (event) {
