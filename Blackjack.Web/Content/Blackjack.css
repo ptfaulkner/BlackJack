@@ -4,12 +4,20 @@
 .clear-fix {
   clear: both;
 }
+.hand-container {
+  font-size: 18pt;
+  position: relative;
+  height: 5em;
+}
+.turn-buttons {
+  clear: both;
+}
 .card {
   background-color: #ffffff;
   font-family: Helvetica, Arial, sans-serif;
-  -moz-border-radius: 0.8em;
-  -webkit-border-radius: 0.8em;
-  border-radius: 0.8em;
+  -moz-border-radius: 0.35em;
+  -webkit-border-radius: 0.35em;
+  border-radius: 0.35em;
   -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -17,7 +25,7 @@
   width: 3.75em;
   height: 5.00em;
   margin: 0 1.2em 1.2em 0;
-  position: absolute;
+  position: relative;
 }
 .front {
   background-color: #ffffff;

@@ -52,7 +52,10 @@ var Player = React.createClass({
         Winning Status: <span>{player.WinningStatus}</span><br />
         Hand Status: <span>{player.HandStatus}</span>
       </div>
-	  {cards}
+	  <div className='hand-container'>
+	    {cards}
+	  </div>
+	  <br className='turn-buttons' />
 	  {buttons}
     </div>
    );
