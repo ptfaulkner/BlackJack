@@ -1,6 +1,5 @@
 ﻿using System.Web;
 using System.Web.Optimization;
-
 namespace Blackjack.Web
 {
     public class BundleConfig
@@ -10,9 +9,6 @@ namespace Blackjack.Web
         {
             bundles.Add(new StyleBundle("~/bundles/style").Include(
                         "~/Content/Blackjack.css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
-                        "~/Scripts/knockout-*"));
         }
     }
 }
