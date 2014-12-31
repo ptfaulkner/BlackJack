@@ -285,6 +285,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\newPlayer.jsx" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\gameWidget.jsx" />
+    <Content Include="Scripts\player.jsx" />
+    <Content Include="Scripts\playerList.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

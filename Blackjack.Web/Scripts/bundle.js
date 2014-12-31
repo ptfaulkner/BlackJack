@@ -57,6 +57,7 @@
 
 	var React = __webpack_require__(2);
 	var NewPlayer = __webpack_require__(3);
+	var GameWidget = __webpack_require__(150);
 
 	var Blackjack = React.createClass({displayName: "Blackjack",
 	  getInitialState: function () {
@@ -93,7 +94,7 @@
 		if(this.state.connectionStatus === 'Not Connected') 
 		  gameState = React.createElement(NewPlayer, {connect: self.connect})
 		else 
-	      gameState = React.createElement("div", null, this.state.connectionStatus)
+	      gameState = React.createElement(GameWidget, {game: this.state.game})
 
 		return (
 		  React.createElement("div", null, 
@@ -18977,6 +18978,90 @@
 	module.exports = toArray;
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(29)))
+
+/***/ },
+/* 150 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+	var Player = __webpack_require__(152);
+	var PlayerList = __webpack_require__(153);
+
+	var GameWidget = React.createClass({displayName: "GameWidget",
+
+	  render: function () {
+	    var game = this.props.game || {},
+	       newPlayers = game.NewPlayers || [],
+		   newPlayerString = newPlayers.join(', '),
+		   dealer = game.Dealer || {};
+
+		return (
+	    React.createElement("div", null, 
+	      "New Players: ", React.createElement("span", null, newPlayerString), 
+	      React.createElement("br", null), 
+	      "Game Status: ", React.createElement("span", null, game.GameStatus), 
+		  React.createElement("hr", null), 
+	      React.createElement(Player, {player: dealer}), 
+		  React.createElement(PlayerList, {players: game.Players})
+	    )
+	  );
+	  }
+	});
+
+	module.exports = GameWidget;
+
+/***/ },
+/* 151 */,
+/* 152 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+
+	var Player = React.createClass({displayName: "Player",
+
+	  render: function () {
+	    var player = this.props.player || {},
+		  hand = player.Hand || [],
+		  cards = hand.map(function (card) {
+		    return React.createElement("span", {key: "{card.Number}-{card.Suit}"}, React.createElement("span", null, card.Number), "-", React.createElement("span", null, card.Suit));
+		  });
+
+	   return (
+	     React.createElement("div", null, 
+	      React.createElement("span", null, player.Name), 
+	      React.createElement("div", null, 
+	        "Winning Status: ", React.createElement("span", null, player.WinningStatus), React.createElement("br", null), 
+	        "Hand Status: ", React.createElement("span", null, player.HandStatus)
+	      ), 
+		  cards
+	    )
+	   );
+	  }
+	});
+
+	module.exports = Player;
+
+/***/ },
+/* 153 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(2);
+	var Player = __webpack_require__(152);
+
+	var PlayerList = React.createClass({displayName: "PlayerList",
+	  render: function () {
+	     var players = this.props.players || [],
+		   playersMap = players.map(function (player) {
+		     return React.createElement("span", null, React.createElement(Player, {player: player}));
+		   });
+
+		 return (
+		   React.createElement("div", null, playersMap)
+		 );
+	  }
+	});
+
+	module.exports = PlayerList;
 
 /***/ }
 /******/ ])

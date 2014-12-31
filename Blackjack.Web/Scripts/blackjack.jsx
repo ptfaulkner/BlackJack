@@ -1,5 +1,6 @@
 ﻿var React = require('React');
 var NewPlayer = require('./NewPlayer');
+var GameWidget = require('./GameWidget');
 
 var Blackjack = React.createClass({
   getInitialState: function () {
@@ -36,7 +37,7 @@ var Blackjack = React.createClass({
 	if(this.state.connectionStatus === 'Not Connected') 
 	  gameState = <NewPlayer connect={self.connect} />
 	else 
-      gameState = <div>{this.state.connectionStatus}</div>
+      gameState = <GameWidget game={this.state.game} />
 
 	return (
 	  <div>
