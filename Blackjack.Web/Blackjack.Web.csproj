@@ -237,14 +237,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
-    <Content Include="content.js" />
     <Content Include="Content\Blackjack.css">
       <DependentUpon>Blackjack.less</DependentUpon>
     </Content>
     <Content Include="Content\Blackjack.min.css">
       <DependentUpon>Blackjack.css</DependentUpon>
     </Content>
-    <Content Include="entry.js" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
@@ -266,17 +264,11 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="index.html" />
+    <Content Include="Scripts\bundle.js" />
     <Content Include="Scripts\entry.js" />
-    <Content Include="Scripts\react\react-with-addons-0.12.2.min.js" />
     <Content Include="Scripts\webpack.config.js" />
     <Content Include="package.json" />
-    <Content Include="webpack.config.js" />
     <None Include="Scripts\blackjack.jsx" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.js" />
-    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
-    <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -293,9 +285,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\newPlayer.jsx" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\react\react-with-addons-0.12.2.min.js.map">
-      <DependentUpon>react-with-addons-0.12.2.min.js</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
