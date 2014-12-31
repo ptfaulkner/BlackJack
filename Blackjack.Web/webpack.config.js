@@ -1,11 +1,11 @@
 ﻿module.exports = {
   // Entry point for static analyzer:
-  entry: './entry',
+  entry: './Scripts/entry',
 
   output: {
     // Where to put build results when doing production builds:
     // (Server doesn't write to the disk, but this is required.)
-    path: __dirname,
+    path: __dirname + '/Scripts',
 
     // JS filename you're going to use in HTML
     filename: 'bundle.js',

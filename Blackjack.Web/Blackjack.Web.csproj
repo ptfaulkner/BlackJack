@@ -266,7 +266,7 @@
     <Content Include="index.html" />
     <Content Include="Scripts\bundle.js" />
     <Content Include="Scripts\entry.js" />
-    <Content Include="Scripts\webpack.config.js" />
+    <Content Include="webpack.config.js" />
     <Content Include="package.json" />
     <None Include="Scripts\blackjack.jsx" />
     <Content Include="Web.config" />
@@ -344,6 +344,9 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>npm install</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
