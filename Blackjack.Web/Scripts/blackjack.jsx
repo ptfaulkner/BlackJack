@@ -1,5 +1,5 @@
 ﻿var React = require('React');
-var NewPlayer = require('Scripts/NewPlayer');
+var NewPlayer = require('./NewPlayer');
 
 var Blackjack = React.createClass({
   render: function() {
@@ -9,7 +9,4 @@ var Blackjack = React.createClass({
   }
 });
 
-React.render(
-  <NewPlayer />,
-  document.getElementById('content')
-);
+module.exports = Blackjack;
