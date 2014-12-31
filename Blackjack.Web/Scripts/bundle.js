@@ -58,6 +58,7 @@
 	var React = __webpack_require__(2);
 	var NewPlayer = __webpack_require__(3);
 	var GameWidget = __webpack_require__(150);
+	var websocket;
 
 	var Blackjack = React.createClass({displayName: "Blackjack",
 	  getInitialState: function () {
@@ -72,11 +73,12 @@
 	    var self = this,
 		  host = window.location.host,
 	      protocol = window.location.protocol,
-	      uri = (protocol === 'https:' ? 'wss' : 'ws') + '://' + host + '/api/blackjack?playerName=' + playerName,
-	      websocket = new WebSocket(uri);
+	      uri = (protocol === 'https:' ? 'wss' : 'ws') + '://' + host + '/api/blackjack?playerName=' + playerName;
+
+	    websocket = new WebSocket(uri);
 
 	    websocket.onopen = function () {
-		  self.setState({ connectionStatus: 'Connected' });
+		  self.setState({ connectionStatus: 'Connected', playerName: playerName });
 	    };
 	    websocket.onerror = function (event) {
 	   	  self.setState({ connectionStatus: 'Connection Error :(' });
@@ -87,6 +89,10 @@
 	    }
 	  },
 
+	  doGameAction: function(actionString) {
+	    websocket.send(actionString);
+	  },
+
 	  render: function() {
 	    var self = this;
 
@@ -94,7 +100,7 @@
 		if(this.state.connectionStatus === 'Not Connected') 
 		  gameState = React.createElement(NewPlayer, {connect: self.connect})
 		else 
-	      gameState = React.createElement(GameWidget, {game: this.state.game})
+	      gameState = React.createElement(GameWidget, {game: this.state.game, currentPlayerName: this.state.playerName, doGameAction: this.doGameAction})
 
 		return (
 		  React.createElement("div", null, 
@@ -19001,8 +19007,12 @@
 	      React.createElement("br", null), 
 	      "Game Status: ", React.createElement("span", null, game.GameStatus), 
 		  React.createElement("hr", null), 
-	      React.createElement(Player, {player: dealer}), 
-		  React.createElement(PlayerList, {players: game.Players})
+	      React.createElement(Player, {player: dealer, gameStatus: game.GameStatus}), 
+		  React.createElement(PlayerList, {players: game.Players, 
+			activeSlot: game.ActiveSlot, 
+			currentPlayerName: this.props.currentPlayerName, 
+			gameStatus: game.GameStatus, 
+			doGameAction: this.props.doGameAction})
 	    )
 	  );
 	  }
@@ -19019,11 +19029,46 @@
 
 	var Player = React.createClass({displayName: "Player",
 
+	  hit: function() {
+	    this.props.doGameAction('Hit');
+	  },
+
+	  stay: function() {
+	    this.props.doGameAction('Stay');
+	  },
+
+	  deal: function() {
+	    this.props.doGameAction('Deal');
+	  },
+
+	  chooseButtons: function () {
+	    var props = this.props || {},
+	      player = props.player || {};
+		
+		if(player.HandStatus === 'Open' && player.Position === props.activeSlot && props.currentPlayerName === player.Name) {
+		  return (
+		    React.createElement("div", {className: "turn-buttons"}, 
+	          React.createElement("input", {type: "button", value: "Hit", onClick: this.hit}), 
+	          React.createElement("input", {type: "button", value: "Stay", onClick: this.stay})
+	        )
+		  );
+		}
+
+		if(props.gameStatus !== 'Open') {
+		  return (
+	        React.createElement("div", {className: "turn-buttons"}, 
+	          React.createElement("input", {type: "button", value: "Deal", onClick: this.deal})
+	        )
+	      );
+		}
+	  },
+
 	  render: function () {
 	    var player = this.props.player || {},
+		  buttons = this.chooseButtons(),
 		  hand = player.Hand || [],
 		  cards = hand.map(function (card) {
-		    return React.createElement("span", {key: "{card.Number}-{card.Suit}"}, React.createElement("span", null, card.Number), "-", React.createElement("span", null, card.Suit));
+		    return React.createElement("span", null, React.createElement("span", null, card.Number), "-", React.createElement("span", null, card.Suit));
 		  });
 
 	   return (
@@ -19033,7 +19078,8 @@
 	        "Winning Status: ", React.createElement("span", null, player.WinningStatus), React.createElement("br", null), 
 	        "Hand Status: ", React.createElement("span", null, player.HandStatus)
 	      ), 
-		  cards
+		  cards, 
+		  buttons
 	    )
 	   );
 	  }
@@ -19050,9 +19096,14 @@
 
 	var PlayerList = React.createClass({displayName: "PlayerList",
 	  render: function () {
-	     var players = this.props.players || [],
+	     var props = this.props || {},
+		   players = props.players || [],
 		   playersMap = players.map(function (player) {
-		     return React.createElement("span", null, React.createElement(Player, {player: player}));
+		     return React.createElement("span", null, React.createElement(Player, {player: player, 		
+			   activeSlot: props.activeSlot, 
+			   currentPlayerName: props.currentPlayerName, 
+			   gameStatus: props.gameStatus, 
+			   doGameAction: props.doGameAction}));
 		   });
 
 		 return (

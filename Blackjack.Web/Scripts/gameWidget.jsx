@@ -16,8 +16,12 @@ var GameWidget = React.createClass({
       <br/>
       Game Status: <span>{game.GameStatus}</span>
 	  <hr/>
-      <Player player={dealer} />
-	  <PlayerList players={game.Players} />
+      <Player player={dealer} gameStatus={game.GameStatus} />
+	  <PlayerList players={game.Players} 
+		activeSlot={game.ActiveSlot} 
+		currentPlayerName={this.props.currentPlayerName}
+		gameStatus={game.GameStatus}
+		doGameAction={this.props.doGameAction} />
     </div>
   );
   }

@@ -1,6 +1,7 @@
 ﻿var React = require('React');
 var NewPlayer = require('./NewPlayer');
 var GameWidget = require('./GameWidget');
+var websocket;
 
 var Blackjack = React.createClass({
   getInitialState: function () {
@@ -15,11 +16,12 @@ var Blackjack = React.createClass({
     var self = this,
 	  host = window.location.host,
       protocol = window.location.protocol,
-      uri = (protocol === 'https:' ? 'wss' : 'ws') + '://' + host + '/api/blackjack?playerName=' + playerName,
-      websocket = new WebSocket(uri);
+      uri = (protocol === 'https:' ? 'wss' : 'ws') + '://' + host + '/api/blackjack?playerName=' + playerName;
+
+    websocket = new WebSocket(uri);
 
     websocket.onopen = function () {
-	  self.setState({ connectionStatus: 'Connected' });
+	  self.setState({ connectionStatus: 'Connected', playerName: playerName });
     };
     websocket.onerror = function (event) {
    	  self.setState({ connectionStatus: 'Connection Error :(' });
@@ -30,6 +32,10 @@ var Blackjack = React.createClass({
     }
   },
 
+  doGameAction: function(actionString) {
+    websocket.send(actionString);
+  },
+
   render: function() {
     var self = this;
 
@@ -37,7 +43,7 @@ var Blackjack = React.createClass({
 	if(this.state.connectionStatus === 'Not Connected') 
 	  gameState = <NewPlayer connect={self.connect} />
 	else 
-      gameState = <GameWidget game={this.state.game} />
+      gameState = <GameWidget game={this.state.game} currentPlayerName={this.state.playerName} doGameAction={this.doGameAction} />
 
 	return (
 	  <div>
