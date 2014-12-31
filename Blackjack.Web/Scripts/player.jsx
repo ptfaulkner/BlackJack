@@ -1,4 +1,5 @@
 ﻿var React = require('React');
+var Card = require('./Card');
 
 var Player = React.createClass({
 
@@ -41,7 +42,7 @@ var Player = React.createClass({
 	  buttons = this.chooseButtons(),
 	  hand = player.Hand || [],
 	  cards = hand.map(function (card) {
-	    return <span><span>{card.Number}</span>-<span>{card.Suit}</span></span>;
+	    return <Card suit={card.Suit} number={card.Number} />;
 	  });
 
    return (
