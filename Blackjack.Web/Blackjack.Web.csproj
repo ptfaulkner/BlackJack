@@ -295,6 +295,7 @@
     <Content Include="Content\CardAssets\two_of_diamonds.svg" />
     <Content Include="Content\CardAssets\two_of_hearts.svg" />
     <Content Include="Content\CardAssets\two_of_spades.svg" />
+    <Content Include="Content\carpet.png" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
@@ -339,6 +340,7 @@
     <Content Include="Scripts\player.jsx" />
     <Content Include="Scripts\playerList.jsx" />
     <Content Include="Scripts\card.jsx" />
+    <Content Include="Scripts\header.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

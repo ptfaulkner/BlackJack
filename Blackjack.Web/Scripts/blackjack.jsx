@@ -1,6 +1,7 @@
 ﻿var React = require('React');
 var NewPlayer = require('./NewPlayer');
 var GameWidget = require('./GameWidget');
+var Header = require('./Header');
 var websocket;
 
 var Blackjack = React.createClass({
@@ -47,8 +48,11 @@ var Blackjack = React.createClass({
 
 	return (
 	  <div>
-	    {this.state.connectionStatus}
-		{gameState}
+	    <Header connectionStatus={this.state.connectionStatus} />
+		<br className='clear-fix' />
+		<div className='game-container'>
+		  {gameState}
+		</div>
 	  </div>
 	);
   }

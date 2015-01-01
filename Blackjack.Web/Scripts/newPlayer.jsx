@@ -8,10 +8,10 @@ var NewPlayer = React.createClass({
   
   render: function() {
     return (
-	  <div>
-	    <label htmlFor="playerName">Enter your name: </label>
-        <input id="playerName" name="playerName" ref="playerName" type="text" />
-        <input type="button" value="Connect" onClick={this.connect}/>
+	  <div className='new-player'>
+	    <label htmlFor='playerName'>Enter your name: </label>
+        <input id='playerName' name='playerName' ref='playerName' type='text' className='textbox form-item' />
+        <input type='button' value='Connect' className='button form-item' onClick={this.connect}/>
 	  </div>
     );
   }
