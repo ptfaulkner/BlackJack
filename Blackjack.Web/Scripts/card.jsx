@@ -16,116 +16,22 @@ var Card = React.createClass({
 	}
   },
 
-  buildCard: function(number, suit, color) {
-    if(number === 'Two') {
-	  return [
-	      <div className='spotB1'>{suit}</div>,
-	      <div className='spotB5'>{suit}</div>
-	  ];
-	}
+  buildCard: function(number) {
+    var cardDirectory = 'Content/CardAssets/',
+      svgName = cardDirectory + number + '_of_' + this.props.suit + '.svg';
 
-	if(number === 'Three') {
-	  return [
-	      <div className='spotB1'>{suit}</div>,
-	      <div className='spotB3'>{suit}</div>,
-	      <div className='spotB5'>{suit}</div>
-	  ];
-	}
-
-	if(number === 'Four') {
-	  return [
-	      <div className='spotA1'>{suit}</div>,
-	      <div className='spotA5'>{suit}</div>,
-	      <div className='spotC1'>{suit}</div>,
-	      <div className='spotC5'>{suit}</div>
-	  ];
-	}
-	
-	if(number === 'Five') {
-	  return [
-	      <div className='spotA1'>{suit}</div>,
-	      <div className='spotA5'>{suit}</div>,
-		  <div className='spotB3'>{suit}</div>,
-	      <div className='spotC1'>{suit}</div>,
-	      <div className='spotC5'>{suit}</div>
-	  ];
-	}
-
-	if(number === 'Six') {
-	  return [
-	      <div className='spotA1'>{suit}</div>,
-		  <div className='spotA3'>{suit}</div>,
-	      <div className='spotA5'>{suit}</div>,
-		  <div className='spotC1'>{suit}</div>,
-	      <div className='spotC3'>{suit}</div>,
-	      <div className='spotC5'>{suit}</div>
-	  ];
-	}
-	
-	if(number === 'Seven') {
-	  return [
-	      <div className='spotA1'>{suit}</div>,
-		  <div className='spotA3'>{suit}</div>,
-	      <div className='spotA5'>{suit}</div>,
-		  <div className='spotB2'>{suit}</div>,
-		  <div className='spotC1'>{suit}</div>,
-	      <div className='spotC3'>{suit}</div>,
-	      <div className='spotC5'>{suit}</div>
-	  ];
-	}
-
-	if(number === 'Eight') {
-	  return [
-	      <div className='spotA1'>{suit}</div>,
-		  <div className='spotA3'>{suit}</div>,
-	      <div className='spotA5'>{suit}</div>,
-		  <div className='spotB2'>{suit}</div>,
-		  <div className='spotB4'>{suit}</div>,
-		  <div className='spotC1'>{suit}</div>,
-	      <div className='spotC3'>{suit}</div>,
-	      <div className='spotC5'>{suit}</div>
-	  ];
-	}
-
-	if(number === 'Nine') {
-	  return [
-	      <div className='spotA1'>{suit}</div>,
-		  <div className='spotA2'>{suit}</div>,
-	      <div className='spotA4'>{suit}</div>,
-		  <div className='spotA5'>{suit}</div>,
-		  <div className='spotB3'>{suit}</div>,
-		  <div className='spotC1'>{suit}</div>,
-	      <div className='spotC2'>{suit}</div>,
-	      <div className='spotC4'>{suit}</div>,
-	      <div className='spotC5'>{suit}</div>
-	  ];
-	}
-
-	if(number === 'Ten') {
-	  return [
-	      <div className='spotA1'>{suit}</div>,
-		  <div className='spotA2'>{suit}</div>,
-	      <div className='spotA4'>{suit}</div>,
-		  <div className='spotA5'>{suit}</div>,
-		  <div className='spotB2'>{suit}</div>,
-		  <div className='spotB4'>{suit}</div>,
-		  <div className='spotC1'>{suit}</div>,
-	      <div className='spotC2'>{suit}</div>,
-	      <div className='spotC4'>{suit}</div>,
-	      <div className='spotC5'>{suit}</div>
-	  ];
-	}
-	
-	return <span>{number} - {suit}</span>;
+	return (
+	  <object className='card' data={svgName} type='image/svg+xml'>
+	    <span>{number} - {this.props.suit}</span>
+	  </object>);
   },
 
   render: function () {
     var suit = this.getSuit(this.props.suit),
-	  color = 'card ' + (this.props.suit === 'Spades' || this.props.suit === 'Clubs' ? 'black' : 'red'),s
 	  spots = this.buildCard(this.props.number, suit);
 
 	return (
-	 <div className={color}>
+	 <div className='card'>
 	   {spots}
 	 </div>
 	 );
