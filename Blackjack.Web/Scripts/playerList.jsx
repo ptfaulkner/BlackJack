@@ -1,4 +1,5 @@
-﻿var React = require('React');
+﻿var React = require('React/addons');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Player = require('./Player');
 
 var PlayerList = React.createClass({
@@ -6,14 +7,16 @@ var PlayerList = React.createClass({
      var props = this.props || {},
 	   players = props.players || [],
 	   playersMap = players.map(function (player) {
-	     return <Player player={player}		
+	     return <Player player={player}	key={player.Name}
 		   activeSlot={props.activeSlot} />;
 	   });
 
 	 return (
 	   <div>
 	     <h6 className='player-header'>Players</h6>
-	     {playersMap}
+		 <ReactCSSTransitionGroup transitionName="fade">
+	       {playersMap}
+		 </ReactCSSTransitionGroup>
 	   </div>
 	 );
   }

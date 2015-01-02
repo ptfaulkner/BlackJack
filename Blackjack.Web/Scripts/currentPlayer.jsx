@@ -1,4 +1,5 @@
-﻿var React = require('React');
+﻿var React = require('React/addons');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 var Card = require('./Card');
 
 var CurrentPlayer = React.createClass({
@@ -41,7 +42,8 @@ var CurrentPlayer = React.createClass({
 	  hand = player.Hand || [],
 	  buttons = this.chooseButtons(),
 	  cards = hand.map(function (card, index) {
-	    return <Card suit={card.Suit} number={card.Number} index={index} />;
+	    var key = card.Suit + '-' + card.Number;
+	    return <Card key={key} suit={card.Suit} number={card.Number} index={index} />;
 	  });
 
    return (
@@ -53,7 +55,9 @@ var CurrentPlayer = React.createClass({
         Hand Status: <span>{player.HandStatus}</span>
       </div>
 	  <div className='hand-container'>
-	    {cards}
+	    <ReactCSSTransitionGroup transitionName="animate">
+		  {cards}
+		</ReactCSSTransitionGroup>
 	  </div>
 	  <br className='clear-fix' />
 	  {buttons}
