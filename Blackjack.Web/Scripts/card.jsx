@@ -28,10 +28,11 @@ var Card = React.createClass({
 
   render: function () {
     var suit = this.getSuit(this.props.suit),
-	  spots = this.buildCard(this.props.number, suit);
+	  spots = this.buildCard(this.props.number, suit),
+	  stack = this.props.index ? 'card stack' : 'card';
 
 	return (
-	 <div className='card'>
+	 <div className={stack}>
 	   {spots}
 	 </div>
 	 );

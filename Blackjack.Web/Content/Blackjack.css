@@ -136,6 +136,9 @@ header .connection-status {
   height: 5.00em;
   margin: 0 0 1.2em 0;
 }
+.stack {
+  margin-left: -75px;
+}
 .red {
   color: red;
 }

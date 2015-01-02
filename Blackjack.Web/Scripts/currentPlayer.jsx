@@ -40,8 +40,8 @@ var CurrentPlayer = React.createClass({
     var player = this.props.player || {},
 	  hand = player.Hand || [],
 	  buttons = this.chooseButtons(),
-	  cards = hand.map(function (card) {
-	    return <Card suit={card.Suit} number={card.Number} />;
+	  cards = hand.map(function (card, index) {
+	    return <Card suit={card.Suit} number={card.Number} index={index} />;
 	  });
 
    return (

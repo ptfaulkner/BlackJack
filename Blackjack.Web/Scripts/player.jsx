@@ -6,8 +6,8 @@ var Player = React.createClass({
   render: function () {
     var player = this.props.player || {},
 	  hand = player.Hand || [],
-	  cards = hand.map(function (card) {
-	    return <Card suit={card.Suit} number={card.Number} />;
+	  cards = hand.map(function (card, index) {
+	    return <Card suit={card.Suit} number={card.Number} index={index} />;
 	  });
 
    return (
