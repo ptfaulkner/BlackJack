@@ -52,6 +52,30 @@ header {
     margin-left: 5px;
 }
 
+.fade-enter {
+    opacity: 0.01;
+    -moz-transition: opacity .5s ease-in;
+    -o-transition: opacity .5s ease-in;
+    -webkit-transition: opacity .5s ease-in;
+    transition: opacity .5s ease-in;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+}
+
+.fade-leave {
+    opacity: 1;
+    -moz-transition: opacity .5s ease-in;
+    -o-transition: opacity .5s ease-in;
+    -webkit-transition: opacity .5s ease-in;
+    transition: opacity .5s ease-in;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+}
+
 //game layout
 .game-widget {
     padding: 1em;
@@ -61,6 +85,10 @@ header {
     .player-list {
         float: left;
         width: 19%;
+
+        .player-header {
+            text-align: center;
+        }
     }
 
     .game-area {

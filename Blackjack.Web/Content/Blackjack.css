@@ -42,12 +42,35 @@ header .connection-status {
 .form-item {
   margin-left: 5px;
 }
+.fade-enter {
+  opacity: 0.01;
+  -moz-transition: opacity 0.5s ease-in;
+  -o-transition: opacity 0.5s ease-in;
+  -webkit-transition: opacity 0.5s ease-in;
+  transition: opacity 0.5s ease-in;
+}
+.fade-enter.fade-enter-active {
+  opacity: 1;
+}
+.fade-leave {
+  opacity: 1;
+  -moz-transition: opacity 0.5s ease-in;
+  -o-transition: opacity 0.5s ease-in;
+  -webkit-transition: opacity 0.5s ease-in;
+  transition: opacity 0.5s ease-in;
+}
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+}
 .game-widget {
   padding: 1em;
 }
 .game-container .player-list {
   float: left;
   width: 19%;
+}
+.game-container .player-list .player-header {
+  text-align: center;
 }
 .game-container .game-area {
   float: left;

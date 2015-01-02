@@ -1,12 +1,14 @@
-﻿var React = require('React');
+﻿var React = require('React/addons');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var Header = React.createClass({
   render: function() {
     var newPlayersArray = this.props.newPlayers || [],
-	  newPlayers = newPlayersArray.join(', ');
+	  newPlayers = newPlayersArray.join(', '),
+	  newPlayersSpan = {};
 
 	if(newPlayers.length) {
-	  newPlayers = 'Joining now: ' + newPlayers;
+	  newPlayersSpan = <span key='new-players'>Joining now: {newPlayers}</span>;
 	}
 
     return (
@@ -15,7 +17,9 @@ var Header = React.createClass({
 		  <span>Blackjack &spades;&diams;&hearts;&clubs;</span>
 		</div>
 		<div className='new-players'>
-		  <span>{newPlayers}</span>
+		  <ReactCSSTransitionGroup transitionName="fade">
+		    {newPlayersSpan}
+		  </ReactCSSTransitionGroup>
 		</div>
 		<div className='connection-status'>
 		  <span>{this.props.connectionStatus}</span>

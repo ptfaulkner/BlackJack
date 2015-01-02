@@ -22,7 +22,7 @@
   module: {
     loaders: [
       // Pass *.jsx files through jsx-loader transform
-      { test: /\.jsx$/, loader: 'jsx' },
+      { test: /\.jsx$/, loader: 'jsx' }
     ]
   }
 };
