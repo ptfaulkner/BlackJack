@@ -28,7 +28,7 @@ var Player = React.createClass({
 	  );
 	}
 
-	if(props.gameStatus !== 'Open') {
+	if(props.gameStatus !== 'Open' && player.Name !== 'Dealer') {
 	  return (
         <div className="turn-buttons">
           <input type="button" value="Deal" className='form-item button' onClick={this.deal} />
