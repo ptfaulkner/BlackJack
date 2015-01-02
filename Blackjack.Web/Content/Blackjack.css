@@ -6,18 +6,30 @@
 }
 header {
   background-color: #373737;
-  height: 3em;
+  height: 2em;
   width: 100%;
+  margin: auto;
+  padding: 0.5em;
 }
 header .title {
   font-size: 1.5em;
-  padding: 0.5em;
   float: left;
+  width: 20%;
+  height: 3em;
+}
+header .new-players {
+  width: 60%;
+  text-align: center;
+  float: left;
+  height: 3em;
+  padding-top: 0.5em;
 }
 header .connection-status {
   font-size: 1em;
-  padding: 1em;
-  float: right;
+  float: left;
+  width: 20%;
+  height: 3em;
+  padding-top: 0.5em;
 }
 .game-container {
   padding: 1em;
@@ -95,6 +107,7 @@ header .connection-status {
 .footer {
   padding: 1em;
   text-align: center;
+  border-top: solid 1px #373737;
 }
 .clear-fix {
   clear: both;

@@ -5,21 +5,36 @@
     margin: 0;
 }
 
+@background-black: rgba(55, 55, 55, 1);
+
 header {
-    background-color: rgba(55, 55, 55, 1);
-    height: 3em;
+    background-color: @background-black;
+    height: 2em;
     width: 100%;
+    margin: auto;
+    padding: 0.5em;
 
     .title {
         font-size: 1.5em;
-        padding: 0.5em;
         float: left;
+        width: 20%;
+        height: 3em;
+    }
+
+    .new-players {
+        width: 60%;
+        text-align: center;
+        float:left;
+        height: 3em;
+        padding-top: 0.5em;
     }
     
     .connection-status {
         font-size: 1em;
-        padding: 1em;
-        float: right;
+        float: left;
+        width: 20%;
+        height: 3em;
+        padding-top: 0.5em;
     }
 }
 
@@ -111,6 +126,7 @@ header {
 .footer {
     padding: 1em;
     text-align: center;
+    border-top: solid 1px @background-black;
 }
 
 .clear-fix {

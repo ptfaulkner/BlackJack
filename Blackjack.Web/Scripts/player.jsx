@@ -22,8 +22,8 @@ var Player = React.createClass({
 	if(player.HandStatus === 'Open' && player.Position === props.activeSlot && props.currentPlayerName === player.Name) {
 	  return (
 	    <div className="turn-buttons">
-          <input type="button" value="Hit" onClick={this.hit} />
-          <input type="button" value="Stay" onClick={this.stay} />
+          <input type="button" value="Hit" className='form-item button' onClick={this.hit} />
+          <input type="button" value="Stay" className='form-item button' onClick={this.stay} />
         </div>
 	  );
 	}
@@ -31,7 +31,7 @@ var Player = React.createClass({
 	if(props.gameStatus !== 'Open') {
 	  return (
         <div className="turn-buttons">
-          <input type="button" value="Deal" onClick={this.deal} />
+          <input type="button" value="Deal" className='form-item button' onClick={this.deal} />
         </div>
       );
 	}

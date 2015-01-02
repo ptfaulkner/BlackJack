@@ -38,7 +38,9 @@ var Blackjack = React.createClass({
   },
 
   render: function() {
-    var self = this;
+    var self = this,
+	  game = this.state.game || {},
+	  newPlayers = game.NewPlayers || [];
 
 	var gameState;
 	if(this.state.connectionStatus === 'Not Connected') 
@@ -48,7 +50,7 @@ var Blackjack = React.createClass({
 
 	return (
 	  <div>
-	    <Header connectionStatus={this.state.connectionStatus} />
+	    <Header connectionStatus={this.state.connectionStatus} newPlayers={newPlayers} />
 		<br className='clear-fix' />
 		<div className='game-container'>
 		  {gameState}
