@@ -14,11 +14,11 @@ header {
 header .title {
   font-size: 1.5em;
   float: left;
-  width: 20%;
+  width: 25%;
   height: 3em;
 }
 header .new-players {
-  width: 60%;
+  width: 55%;
   text-align: center;
   float: left;
   height: 3em;
@@ -31,8 +31,12 @@ header .connection-status {
   height: 3em;
   padding-top: 0.5em;
 }
-.game-container {
+.game-widget {
   padding: 1em;
+}
+.game-area {
+  float: left;
+  width: 60%;
 }
 .button {
   -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
@@ -117,6 +121,12 @@ header .connection-status {
   position: relative;
   height: 5em;
 }
+.text-center {
+  text-align: center;
+}
+.player {
+  display: inline-block;
+}
 .turn-buttons {
   clear: both;
 }
@@ -124,9 +134,13 @@ header .connection-status {
   float: left;
   width: 3.75em;
   height: 5.00em;
-  margin: 0 1.2em 1.2em 0;
+  margin: 0 0 1.2em 0;
 }
 .red {
   color: red;
+}
+.player-list {
+  float: left;
+  width: 40%;
 }
 /*# sourceMappingURL=Blackjack.css.map */

@@ -52,7 +52,7 @@ var Blackjack = React.createClass({
 	  <div>
 	    <Header connectionStatus={this.state.connectionStatus} newPlayers={newPlayers} />
 		<br className='clear-fix' />
-		<div className='game-container'>
+		<div className='game-widget'>
 		  {gameState}
 		</div>
 	  </div>

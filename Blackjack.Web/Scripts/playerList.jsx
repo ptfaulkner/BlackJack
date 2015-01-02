@@ -6,15 +6,18 @@ var PlayerList = React.createClass({
      var props = this.props || {},
 	   players = props.players || [],
 	   playersMap = players.map(function (player) {
-	     return <span><Player player={player}		
+         if(props.currentPlayerName === player.Name) {
+			return;
+		 }
+
+	     return <Player player={player}		
 		   activeSlot={props.activeSlot} 
 		   currentPlayerName={props.currentPlayerName}
-		   gameStatus={props.gameStatus}
-		   doGameAction={props.doGameAction} /></span>;
+		   gameStatus={props.gameStatus}/>;
 	   });
 
 	 return (
-	   <div>{playersMap}</div>
+	   <div className='player-list'>{playersMap}</div>
 	 );
   }
 });
