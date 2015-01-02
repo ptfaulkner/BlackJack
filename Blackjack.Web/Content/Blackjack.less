@@ -1,12 +1,16 @@
 ﻿body {
-    font-family:Helvetica, Arial, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     background: url('carpet.png');
     color: #ffffff;
     margin: 0;
 }
 
-@background-black: rgba(55, 55, 55, 1);
+.clear-fix {
+    clear: both;
+}
 
+@background-black: rgba(55, 55, 55, 1);
+//header layout
 header {
     background-color: @background-black;
     height: 2em;
@@ -24,27 +28,86 @@ header {
     .new-players {
         width: 55%;
         text-align: center;
-        float:left;
+        float: left;
         height: 3em;
         padding-top: 0.5em;
     }
-    
+
     .connection-status {
         font-size: 1em;
         float: left;
-        width: 20%;
+        width: 18%;
         height: 3em;
         padding-top: 0.5em;
     }
 }
 
+.new-player {
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+}
+
+.form-item {
+    margin-left: 5px;
+}
+
+//game layout
 .game-widget {
     padding: 1em;
 }
 
-.game-area {
-  float: left;
-  width: 60%;
+.game-container {
+    .player-list {
+        float: left;
+        width: 19%;
+    }
+
+    .game-area {
+        float: left;
+        width: 60%;
+        border-left: solid 1px #000000;
+        border-right: solid 1px #000000;
+    }
+}
+
+.text-center {
+    text-align: center;
+}
+
+.player {
+    display: inline-block;
+}
+
+.hand-container {
+    font-size: 18pt;
+    position: relative;
+    height: 5em;
+}
+
+.turn-buttons {
+    clear: both;
+}
+
+.card {
+    float: left;
+    width: 3.75em;
+    height: 5.00em;
+    margin: 0 0 1.2em 0;
+}
+
+.stack {
+    margin-left: -75px;
+}
+
+.red {
+    color: red;
+}
+
+.footer {
+    padding: 1em;
+    text-align: center;
+    border-top: solid 1px @background-black;
 }
 
 @button-shadow: #ffffff;
@@ -52,47 +115,47 @@ header {
 @button-gradient-low: #dfdfdf;
 
 .button {
-	-moz-box-shadow:inset 0px 1px 0px 0px @button-shadow;
-	-webkit-box-shadow:inset 0px 1px 0px 0px @button-shadow;
-	box-shadow:inset 0px 1px 0px 0px @button-shadow;
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05,@button-gradient-high), color-stop(1, @button-gradient-low));
-	background:-moz-linear-gradient(top,@button-gradient-high 5%, @button-gradient-low 100%);
-	background:-webkit-linear-gradient(top, @button-gradient-high 5%, @button-gradient-low 100%);
-	background:-o-linear-gradient(top, @button-gradient-high 5%, @button-gradient-low 100%);
-	background:-ms-linear-gradient(top, @button-gradient-high 5%, @button-gradient-low 100%);
-	background:linear-gradient(to bottom, @button-gradient-high 5%, @button-gradient-low 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
-	background-color:@button-gradient-high;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
-	border:1px solid #dcdcdc;
-	display:inline-block;
-	cursor:pointer;
-	color:#777777;
-	font-family:arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0 1px 0 @button-shadow;
+    -moz-box-shadow: inset 0px 1px 0px 0px @button-shadow;
+    -webkit-box-shadow: inset 0px 1px 0px 0px @button-shadow;
+    box-shadow: inset 0px 1px 0px 0px @button-shadow;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05,@button-gradient-high), color-stop(1, @button-gradient-low));
+    background: -moz-linear-gradient(top,@button-gradient-high 5%, @button-gradient-low 100%);
+    background: -webkit-linear-gradient(top, @button-gradient-high 5%, @button-gradient-low 100%);
+    background: -o-linear-gradient(top, @button-gradient-high 5%, @button-gradient-low 100%);
+    background: -ms-linear-gradient(top, @button-gradient-high 5%, @button-gradient-low 100%);
+    background: linear-gradient(to bottom, @button-gradient-high 5%, @button-gradient-low 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf',GradientType=0);
+    background-color: @button-gradient-high;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    border: 1px solid #dcdcdc;
+    display: inline-block;
+    cursor: pointer;
+    color: #777777;
+    font-family: arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 24px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 @button-shadow;
     height: 2.5em;
 }
 
 .button:hover {
-	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, @button-gradient-low), color-stop(1, @button-gradient-high));
-	background:-moz-linear-gradient(top, @button-gradient-low 5%, @button-gradient-high 100%);
-	background:-webkit-linear-gradient(top, @button-gradient-low 5%, @button-gradient-high 100%);
-	background:-o-linear-gradient(top, @button-gradient-low 5%, @button-gradient-high 100%);
-	background:-ms-linear-gradient(top, @button-gradient-low 5%, @button-gradient-high 100%);
-	background:linear-gradient(to bottom, @button-gradient-low 5%, @button-gradient-high 100%);
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
-	background-color:@button-gradient-low;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, @button-gradient-low), color-stop(1, @button-gradient-high));
+    background: -moz-linear-gradient(top, @button-gradient-low 5%, @button-gradient-high 100%);
+    background: -webkit-linear-gradient(top, @button-gradient-low 5%, @button-gradient-high 100%);
+    background: -o-linear-gradient(top, @button-gradient-low 5%, @button-gradient-high 100%);
+    background: -ms-linear-gradient(top, @button-gradient-low 5%, @button-gradient-high 100%);
+    background: linear-gradient(to bottom, @button-gradient-low 5%, @button-gradient-high 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed',GradientType=0);
+    background-color: @button-gradient-low;
 }
 
 .button:active {
-	position:relative;
-	top:1px;
+    position: relative;
+    top: 1px;
 }
 
 .textbox {
@@ -116,62 +179,4 @@ header {
     -moz-box-shadow: 0 0 0 1px #e8c291 inset;
     -webkit-box-shadow: 0 0 0 1px #E8C291 inset;
     box-shadow: 0 0 0 1px #E8C291 inset;
-}
-
-.new-player {
-    margin-left: auto;
-    margin-right: auto;
-    width: 600px;
-}
-
-.form-item {
-    margin-left: 5px;
-}
-
-.footer {
-    padding: 1em;
-    text-align: center;
-    border-top: solid 1px @background-black;
-}
-
-.clear-fix {
-    clear: both;
-}
-
-.hand-container {
-  font-size: 18pt;
-  position: relative;
-  height: 5em;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.player {
-  display: inline-block;
-}
-
-.turn-buttons {
-    clear: both;
-}
-
-.card {
-  float: left;
-  width:  3.75em;
-  height: 5.00em;
-  margin: 0 0 1.2em 0;
-}
-
-.stack {
-margin-left: -75px;
-}
-
-.red {
-  color: red;
-}
-
-.player-list {
-  float: left;
-  width: 40%;
 }

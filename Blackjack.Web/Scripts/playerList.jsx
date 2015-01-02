@@ -11,13 +11,11 @@ var PlayerList = React.createClass({
 		 }
 
 	     return <Player player={player}		
-		   activeSlot={props.activeSlot} 
-		   currentPlayerName={props.currentPlayerName}
-		   gameStatus={props.gameStatus}/>;
+		   activeSlot={props.activeSlot} />;
 	   });
 
 	 return (
-	   <div className='player-list'>{playersMap}</div>
+	   <div>{playersMap}</div>
 	 );
   }
 });

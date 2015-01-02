@@ -4,6 +4,9 @@
   color: #ffffff;
   margin: 0;
 }
+.clear-fix {
+  clear: both;
+}
 header {
   background-color: #373737;
   height: 2em;
@@ -27,16 +30,61 @@ header .new-players {
 header .connection-status {
   font-size: 1em;
   float: left;
-  width: 20%;
+  width: 18%;
   height: 3em;
   padding-top: 0.5em;
+}
+.new-player {
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+}
+.form-item {
+  margin-left: 5px;
 }
 .game-widget {
   padding: 1em;
 }
-.game-area {
+.game-container .player-list {
+  float: left;
+  width: 19%;
+}
+.game-container .game-area {
   float: left;
   width: 60%;
+  border-left: solid 1px #000000;
+  border-right: solid 1px #000000;
+}
+.text-center {
+  text-align: center;
+}
+.player {
+  display: inline-block;
+}
+.hand-container {
+  font-size: 18pt;
+  position: relative;
+  height: 5em;
+}
+.turn-buttons {
+  clear: both;
+}
+.card {
+  float: left;
+  width: 3.75em;
+  height: 5.00em;
+  margin: 0 0 1.2em 0;
+}
+.stack {
+  margin-left: -75px;
+}
+.red {
+  color: red;
+}
+.footer {
+  padding: 1em;
+  text-align: center;
+  border-top: solid 1px #373737;
 }
 .button {
   -moz-box-shadow: inset 0px 1px 0px 0px #ffffff;
@@ -99,51 +147,5 @@ header .connection-status {
   -moz-box-shadow: 0 0 0 1px #e8c291 inset;
   -webkit-box-shadow: 0 0 0 1px #E8C291 inset;
   box-shadow: 0 0 0 1px #E8C291 inset;
-}
-.new-player {
-  margin-left: auto;
-  margin-right: auto;
-  width: 600px;
-}
-.form-item {
-  margin-left: 5px;
-}
-.footer {
-  padding: 1em;
-  text-align: center;
-  border-top: solid 1px #373737;
-}
-.clear-fix {
-  clear: both;
-}
-.hand-container {
-  font-size: 18pt;
-  position: relative;
-  height: 5em;
-}
-.text-center {
-  text-align: center;
-}
-.player {
-  display: inline-block;
-}
-.turn-buttons {
-  clear: both;
-}
-.card {
-  float: left;
-  width: 3.75em;
-  height: 5.00em;
-  margin: 0 0 1.2em 0;
-}
-.stack {
-  margin-left: -75px;
-}
-.red {
-  color: red;
-}
-.player-list {
-  float: left;
-  width: 40%;
 }
 /*# sourceMappingURL=Blackjack.css.map */
