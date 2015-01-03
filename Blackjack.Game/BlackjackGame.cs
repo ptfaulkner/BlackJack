@@ -39,7 +39,7 @@ namespace Blackjack.Game
             GameStatus = HandStatus.Done;
         }
 
-        public void AddPlayer(string name)
+        private void AddPlayer(string name)
         {
             Players.Add(new Player
             {
@@ -51,15 +51,18 @@ namespace Blackjack.Game
             });
         }
 
-        public void RemovePlayer(Player player)
+        public void RemovePlayer(string playerName)
         {
-            Player gamePlayer = Players.FirstOrDefault(p => p.Name == player.Name);
+            Player gamePlayer = Players.FirstOrDefault(p => p.Name == playerName);
 
             if (gamePlayer == null)
+            {
+                NewPlayers.RemoveAll(p => p == playerName);
                 return;
+            }
 
             gamePlayer.HandStatus = HandStatus.Done;
-            QuitPlayers.Add(player.Name);
+            QuitPlayers.Add(gamePlayer.Name);
             MoveActiveSlot();
         }
 

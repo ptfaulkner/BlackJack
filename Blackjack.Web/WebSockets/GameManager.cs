@@ -43,23 +43,11 @@ namespace Blackjack.Web.WebSockets
         {
             lock (_removePlayerLocker)
             {
-                PlayerManager playerManager =PlayerManagers.First(pm => pm.WebSocket == webSocket);
+                PlayerManager playerManager = PlayerManagers.First(pm => pm.WebSocket == webSocket);
                 Player player = Game.Players.FirstOrDefault(p => p.Name == playerManager.PlayerName);
 
                 PlayerManagers.Remove(playerManager);
-
-                if (player == null)
-                {
-                    Game.NewPlayers.RemoveAll(p => p == playerManager.PlayerName);
-                }
-                else
-                {
-                    Game.RemovePlayer(player);
-                    if (Game.Players.Count == Game.QuitPlayers.Count)
-                    {
-                        Game.GameStatus = HandStatus.Done;
-                    }
-                }
+                Game.RemovePlayer(playerManager.PlayerName);
             }
         }
 
