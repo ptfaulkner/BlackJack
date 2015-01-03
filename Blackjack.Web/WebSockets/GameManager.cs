@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
-using System.Web;
 using Blackjack.Game;
 using PlayingCards.Domain;
 
@@ -45,11 +43,23 @@ namespace Blackjack.Web.WebSockets
         {
             lock (_removePlayerLocker)
             {
-                PlayerManager playerManager = PlayerManagers.First(pm => pm.WebSocket == webSocket);
-                Player player = Game.Players.First(p => p.Name == playerManager.PlayerName);
+                PlayerManager playerManager =PlayerManagers.First(pm => pm.WebSocket == webSocket);
+                Player player = Game.Players.FirstOrDefault(p => p.Name == playerManager.PlayerName);
 
                 PlayerManagers.Remove(playerManager);
-                Game.Players.Remove(player);
+
+                if (player == null)
+                {
+                    Game.NewPlayers.RemoveAll(p => p == playerManager.PlayerName);
+                }
+                else
+                {
+                    Game.RemovePlayer(player);
+                    if (Game.Players.Count == Game.QuitPlayers.Count)
+                    {
+                        Game.GameStatus = HandStatus.Done;
+                    }
+                }
             }
         }
 
@@ -57,8 +67,7 @@ namespace Blackjack.Web.WebSockets
         {
             lock (_actionLocker)
             {
-                PlayerManager playerManager = PlayerManagers.First(pm => pm.WebSocket == webSocket);
-                Player player = Game.Players.First(p => p.Name == playerManager.PlayerName);
+                Player player = GetPlayer(webSocket);
 
                 switch (action)
                 {
@@ -73,6 +82,13 @@ namespace Blackjack.Web.WebSockets
                         break;
                 }
             }
+        }
+
+        private Player GetPlayer(WebSocket webSocket)
+        {
+            PlayerManager playerManager = PlayerManagers.First(pm => pm.WebSocket == webSocket);
+            Player player = Game.Players.First(p => p.Name == playerManager.PlayerName);
+            return player;
         }
     }
 }

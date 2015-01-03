@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
-using Blackjack.Game;
 using Newtonsoft.Json;
-using PlayingCards.Domain;
 
 namespace Blackjack.Web.WebSockets
 {
@@ -18,56 +15,19 @@ namespace Blackjack.Web.WebSockets
         {
             string playerName = queryString.Get("playerName");
 
-            PlayerManager playerManager = new PlayerManager(playerName, webSocket);
-            GameManager.PlayerManagers.Add(playerManager);
-            GameManager.Game.NewPlayers.Add(playerName);
-
-            if (GameManager.Game.Players.Count == 0)
-            {
-                GameManager.Game.Deal();
-            }
-
+            GameManager.AddPlayer(playerName, webSocket);
             BroadcastGameStatus();
         }
 
         public void OnMessage(WebSocket webSocket, string message)
         {
-            switch (message)
-            {
-                case "Hit":
-                    GetPlayer(webSocket).Hit();
-                    break;
-                case "Stay":
-                    GetPlayer(webSocket).Stay();
-                    break;
-                case "Deal":
-                    GameManager.Game.Deal();
-                    break;
-            }
-
+            GameManager.ProcessPlayerAction(message, webSocket);
             BroadcastGameStatus();
         }
 
         public void OnClose(WebSocket webSocket)
         {
-            PlayerManager playerManager = GameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
-            Player player = GameManager.Game.Players.FirstOrDefault(p => p.Name == playerManager.PlayerName);
-
-            GameManager.PlayerManagers.Remove(playerManager);
-
-            if (player == null)
-            {
-                GameManager.Game.NewPlayers.RemoveAll(p => p == playerManager.PlayerName);
-            }
-            else
-            {
-                GameManager.Game.RemovePlayer(player);
-                if (GameManager.Game.Players.Count == GameManager.Game.QuitPlayers.Count)
-                {
-                    GameManager.Game.GameStatus = HandStatus.Done;
-                }
-            }
-
+            GameManager.RemovePlayer(webSocket);
             BroadcastGameStatus();
         }
 
@@ -80,13 +40,6 @@ namespace Blackjack.Web.WebSockets
             {
                 pm.WebSocket.SendAsync(outputBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
             }
-        }
-
-        private static Player GetPlayer(WebSocket webSocket)
-        {
-            PlayerManager playerManager = GameManager.PlayerManagers.First(pm => pm.WebSocket == webSocket);
-            Player player = GameManager.Game.Players.First(p => p.Name == playerManager.PlayerName);
-            return player;
         }
     }
 }

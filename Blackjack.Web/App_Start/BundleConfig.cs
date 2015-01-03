@@ -8,7 +8,7 @@ namespace Blackjack.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/bundles/style").Include(
-                        "~/Content/Blackjack.css"));
+                        "~/Content/Blackjack.css", new CssRewriteUrlTransform()));
         }
     }
 }

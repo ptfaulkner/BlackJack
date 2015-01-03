@@ -321,6 +321,8 @@
     <Content Include="Scripts\entry.js" />
     <Content Include="webpack.config.js" />
     <Content Include="package.json" />
+    <None Include="Properties\PublishProfiles\blackjack - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\blackjack - Web Deploy.pubxml" />
     <None Include="Scripts\blackjack.jsx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

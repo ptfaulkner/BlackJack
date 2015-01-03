@@ -1,8 +1,8 @@
 ﻿body {
     font-family: Helvetica, Arial, sans-serif;
-    background: url('carpet.png');
     color: #ffffff;
     margin: 0;
+    background-image: url('../content/carpet.png');
 }
 
 .clear-fix {
@@ -95,16 +95,16 @@ header {
     -o-transform: rotateX(90deg) rotateZ(90deg);
     transform: rotateX(90deg) rotateZ(90deg);
     opacity: 0;
-    height: 0px;
+    height: 0;
 }        
  
 .animate-enter.animate-enter-active,
 .animate-leave {
-    -webkit-transform: rotateX(0deg) rotateZ(0deg);
-    -moz-transform: rotateX(0deg) rotateZ(0deg);
-    -ms-transform: rotateX(0deg) rotateZ(0deg);
-    -o-transform: rotateX(0deg) rotateZ(0deg);
-    transform: rotateX(0deg) rotateZ(0deg);
+    -webkit-transform: rotateX(0) rotateZ(0);
+    -moz-transform: rotateX(0) rotateZ(0);
+    -ms-transform: rotateX(0) rotateZ(0);
+    -o-transform: rotateX(0) rotateZ(0);
+    transform: rotateX(0) rotateZ(0);
     opacity: 1;
     height: 30px;
 }
@@ -176,9 +176,9 @@ header {
 @button-gradient-low: #dfdfdf;
 
 .button {
-    -moz-box-shadow: inset 0px 1px 0px 0px @button-shadow;
-    -webkit-box-shadow: inset 0px 1px 0px 0px @button-shadow;
-    box-shadow: inset 0px 1px 0px 0px @button-shadow;
+    -moz-box-shadow: inset 0 1px 0 0 @button-shadow;
+    -webkit-box-shadow: inset 0 1px 0 0 @button-shadow;
+    box-shadow: inset 0 1px 0 0 @button-shadow;
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05,@button-gradient-high), color-stop(1, @button-gradient-low));
     background: -moz-linear-gradient(top,@button-gradient-high 5%, @button-gradient-low 100%);
     background: -webkit-linear-gradient(top, @button-gradient-high 5%, @button-gradient-low 100%);
