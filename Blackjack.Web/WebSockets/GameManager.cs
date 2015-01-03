@@ -24,19 +24,27 @@ namespace Blackjack.Web.WebSockets
             _removePlayerLocker = new object();
         }
 
-        public void AddPlayer(string playerName, WebSocket webSocket)
+        public string AddPlayer(string playerName, WebSocket webSocket)
         {
             lock (_addPlayerLocker)
             {
                 PlayerManager playerManager = new PlayerManager(playerName, webSocket);
-                PlayerManagers.Add(playerManager);
-                Game.NewPlayers.Add(playerName);
+                string message = Game.AddNewPlayer(playerName);
 
-                if (Game.Players.Count == 0)
+                if (!string.IsNullOrEmpty(message))
+                {
+                    return message;
+                }
+
+                PlayerManagers.Add(playerManager);
+
+                if (!Game.Players.Any())
                 {
                     Game.Deal();
                 }
             }
+
+            return null;
         }
 
         public void RemovePlayer(WebSocket webSocket)

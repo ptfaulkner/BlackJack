@@ -15,7 +15,13 @@ namespace Blackjack.Web.WebSockets
         {
             string playerName = queryString.Get("playerName");
 
-            GameManager.AddPlayer(playerName, webSocket);
+            string message = GameManager.AddPlayer(playerName, webSocket);
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                webSocket.CloseAsync(WebSocketCloseStatus.PolicyViolation, message, CancellationToken.None);
+            }
+
             BroadcastGameStatus();
         }
 

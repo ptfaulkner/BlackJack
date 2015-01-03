@@ -12,6 +12,8 @@ var NewPlayer = React.createClass({
 	    <label htmlFor='playerName'>Enter your name: </label>
         <input id='playerName' name='playerName' ref='playerName' type='text' className='textbox form-item' />
         <input type='button' value='Connect' className='button form-item' onClick={this.connect}/>
+		<br />
+		<span>{this.props.message}</span>
 	  </div>
     );
   }

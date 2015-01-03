@@ -16,7 +16,7 @@ namespace PlayingCards.Tests
         public void CanCreateBlackjack()
         {
             BlackjackGame game = GetGame();
-            Assert.Equal(2, game.Players.Count);
+            Assert.Equal(2, game.Players.Count());
             
             Assert.Equal("Dealer", game.Dealer.Name);
         }
@@ -26,16 +26,16 @@ namespace PlayingCards.Tests
         {
             BlackjackGame game = new BlackjackGame(new Deck());
 
-            Assert.Equal(0, game.Players.Count);
+            Assert.Equal(0, game.Players.Count());
 
-            game.NewPlayers.Add("Patrick");
+            game.AddNewPlayer("patrick");
 
-            Assert.Equal(0, game.Players.Count);
+            Assert.Equal(0, game.Players.Count());
 
             game.Deal();
 
-            Assert.Equal(1, game.Players.Count);
-            Assert.Equal(0, game.NewPlayers.Count);
+            Assert.Equal(1, game.Players.Count());
+            Assert.Equal(0, game.NewPlayers.Count());
         }
 
         [Fact]
@@ -115,7 +115,7 @@ namespace PlayingCards.Tests
 
             game.Deal();
 
-            Assert.Equal(1, game.Players.Count);
+            Assert.Equal(1, game.Players.Count());
         }
 
         [Fact]
@@ -123,13 +123,41 @@ namespace PlayingCards.Tests
         {
             BlackjackGame game = GetGame();
 
-            Assert.Equal(0, game.NewPlayers.Count);
+            Assert.Equal(0, game.NewPlayers.Count());
 
-            game.NewPlayers.Add("Joe");
+            game.AddNewPlayer("Joe");
 
             game.RemovePlayer("Joe");
 
-            Assert.Equal(0, game.NewPlayers.Count);
+            Assert.Equal(0, game.NewPlayers.Count());
+        }
+
+        [Fact]
+        public void CannotAddDuplicatePlayerName()
+        {
+            BlackjackGame game = GetGame();
+
+            Assert.Equal("Cannot add duplicate player name.", game.AddNewPlayer("Patrick"));
+        }
+
+        [Fact]
+        public void CannotAddMoreThanFivePlayers()
+        {
+            BlackjackGame game = GetGame();
+
+            Assert.Equal(string.Empty, game.AddNewPlayer("Joe"));
+            Assert.Equal(string.Empty, game.AddNewPlayer("Chuck"));
+            Assert.Equal(string.Empty, game.AddNewPlayer("Wes"));
+
+            Assert.Equal("The max player count of 5 has been reached.", game.AddNewPlayer("Rain Man"));
+        }
+
+        [Fact]
+        public void CannotAddAPlayerWithNameDealer()
+        {
+            BlackjackGame game = GetGame();
+
+            Assert.Equal("You cannot be the the dealer.  Whatcha tryin to pull?", game.AddNewPlayer("Dealer"));
         }
 
         [Fact]
@@ -160,8 +188,8 @@ namespace PlayingCards.Tests
         internal static BlackjackGame GetGame()
         {
             BlackjackGame game = new BlackjackGame(new Deck());
-            game.NewPlayers.Add("Patrick");
-            game.NewPlayers.Add("Ashley");
+            game.AddNewPlayer("Patrick");
+            game.AddNewPlayer("Ashley");
             game.Deal();
             return game;
         }

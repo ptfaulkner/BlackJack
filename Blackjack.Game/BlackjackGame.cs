@@ -12,10 +12,25 @@ namespace Blackjack.Game
         private readonly Deck _deck;
         public int ActiveSlot;
 
-        public List<Player> Players { get; set; }
-        public List<string> NewPlayers { get; set; }
-        public List<string> QuitPlayers { get; set; } 
+        public IEnumerable<Player> Players
+        {
+            get { return _players; }
+        }
+
+        public IEnumerable<string> NewPlayers
+        {
+            get { return _newPlayers; }
+        }
+
+        public IEnumerable<string> QuitPlayers
+        {
+            get { return _quitPlayers; }
+        }
+
         public Player Dealer;
+        private readonly List<Player> _players;
+        private readonly List<string> _newPlayers;
+        private readonly List<string> _quitPlayers;
 
         [JsonConverter(typeof(StringEnumConverter))]
         public HandStatus GameStatus { get; set; }
@@ -33,22 +48,44 @@ namespace Blackjack.Game
                 HandStatus = HandStatus.Open
             };
 
-            NewPlayers = new List<string>();
-            Players = new List<Player>();
-            QuitPlayers = new List<string>();
+            _newPlayers = new List<string>();
+            _players = new List<Player>();
+            _quitPlayers = new List<string>();
             GameStatus = HandStatus.Done;
         }
 
         private void AddPlayer(string name)
         {
-            Players.Add(new Player
+            _players.Add(new Player
             {
                 Name = name,
-                Position = Players.Count,
+                Position = _players.Count,
                 Game = this,
                 WinningStatus = WinningStatus.Open,
                 HandStatus = HandStatus.Open
             });
+        }
+
+        public string AddNewPlayer(string playerName)
+        {
+            if (playerName == "Dealer")
+            {
+                return "You cannot be the the dealer.  Whatcha tryin to pull?";
+            }
+
+            if (Players.Any(p => p.Name == playerName) ||
+                NewPlayers.Any(n => n == playerName))
+            {
+                return "Cannot add duplicate player name.";
+            }
+
+            if (Players.Count() + NewPlayers.Count() >= 5)
+            {
+                return "The max player count of 5 has been reached.";
+            }
+
+            _newPlayers.Add(playerName);
+            return string.Empty;
         }
 
         public void RemovePlayer(string playerName)
@@ -57,12 +94,12 @@ namespace Blackjack.Game
 
             if (gamePlayer == null)
             {
-                NewPlayers.RemoveAll(p => p == playerName);
+                _newPlayers.RemoveAll(p => p == playerName);
                 return;
             }
 
             gamePlayer.HandStatus = HandStatus.Done;
-            QuitPlayers.Add(gamePlayer.Name);
+            _quitPlayers.Add(gamePlayer.Name);
             MoveActiveSlot();
         }
 
@@ -72,8 +109,8 @@ namespace Blackjack.Game
                 return;
 
             GameStatus = HandStatus.Open;
-            Players.RemoveAll(p => QuitPlayers.Contains(p.Name));
-            QuitPlayers.Clear();
+            _players.RemoveAll(p => QuitPlayers.Contains(p.Name));
+            _quitPlayers.Clear();
 
             _deck.Reset();
             _deck.Shuffle();
@@ -83,7 +120,7 @@ namespace Blackjack.Game
                 AddPlayer(name);
             }
 
-            NewPlayers.Clear();
+            _newPlayers.Clear();
 
             foreach (Player player in Players)
             {

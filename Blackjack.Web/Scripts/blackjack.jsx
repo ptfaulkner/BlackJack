@@ -31,6 +31,9 @@ var Blackjack = React.createClass({
       var dataJson = JSON.parse(event.data);
       self.setState({ game: dataJson });
     }
+	websocket.onclose = function (event) {
+	  self.setState({ message: event.reason });
+	}
   },
 
   doGameAction: function(actionString) {
@@ -43,8 +46,8 @@ var Blackjack = React.createClass({
 	  newPlayers = game.NewPlayers || [];
 
 	var gameState;
-	if(this.state.connectionStatus === 'Not Connected') 
-	  gameState = <NewPlayer connect={self.connect} />
+	if(this.state.connectionStatus !== 'Connected') 
+	  gameState = <NewPlayer connect={self.connect} message={this.state.message} />
 	else 
       gameState = <GameWidget game={this.state.game} currentPlayerName={this.state.playerName} doGameAction={this.doGameAction} />
 
