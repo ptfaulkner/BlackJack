@@ -66,6 +66,7 @@ namespace PlayingCards.Tests
             Assert.Equal(10, BlackjackGame.CardValue(new Card { Number = CardNumber.Jack }));
             Assert.Equal(10, BlackjackGame.CardValue(new Card { Number = CardNumber.Queen }));
             Assert.Equal(10, BlackjackGame.CardValue(new Card { Number = CardNumber.King }));
+            Assert.Equal(0, BlackjackGame.CardValue(new Card { Number = CardNumber.Ace }));
         }
 
         [Fact]
@@ -82,6 +83,53 @@ namespace PlayingCards.Tests
 
             player2.Hit();
             Assert.Equal(3, player2.Hand.Count);
+        }
+
+        [Fact]
+        public void CannotDealInMiddleOfGame()
+        {
+            BlackjackGame game = GetGame();
+
+            Player player1 = game.Players.FirstOrDefault(p => p.Position == 0);
+            player1.Stay();
+
+            Assert.Equal(1, game.ActiveSlot);
+
+            game.Deal();
+
+            Assert.Equal(1, game.ActiveSlot);
+        }
+
+        [Fact]
+        public void CanRemovePlayers()
+        {
+            BlackjackGame game = GetGame();
+
+            Player player1 = game.Players.FirstOrDefault(p => p.Position == 0);
+            player1.Stay();
+
+            game.RemovePlayer(player1.Name);
+
+            Player player2 = game.Players.FirstOrDefault(p => p.Position == 1);
+            player2.Stay();
+
+            game.Deal();
+
+            Assert.Equal(1, game.Players.Count);
+        }
+
+        [Fact]
+        public void CanRemovePlayerNotStarted()
+        {
+            BlackjackGame game = GetGame();
+
+            Assert.Equal(0, game.NewPlayers.Count);
+
+            game.NewPlayers.Add("Joe");
+
+            game.RemovePlayer("Joe");
+
+            Assert.Equal(0, game.NewPlayers.Count);
         }
 
         [Fact]
