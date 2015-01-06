@@ -82,8 +82,13 @@ namespace Blackjack.Web.WebSockets
 
         private Player GetPlayer(WebSocket webSocket)
         {
-            PlayerManager playerManager = PlayerManagers.First(pm => pm.WebSocket == webSocket);
-            Player player = Game.Players.First(p => p.Name == playerManager.PlayerName);
+            PlayerManager playerManager = PlayerManagers.FirstOrDefault(pm => pm.WebSocket == webSocket);
+            if (playerManager == null)
+            {
+                return null;
+            }
+
+            Player player = Game.Players.FirstOrDefault(p => p.Name == playerManager.PlayerName);
             return player;
         }
     }
