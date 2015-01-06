@@ -52,7 +52,6 @@ namespace Blackjack.Web.WebSockets
             lock (_removePlayerLocker)
             {
                 PlayerManager playerManager = PlayerManagers.First(pm => pm.WebSocket == webSocket);
-                Player player = Game.Players.FirstOrDefault(p => p.Name == playerManager.PlayerName);
 
                 PlayerManagers.Remove(playerManager);
                 Game.RemovePlayer(playerManager.PlayerName);
