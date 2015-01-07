@@ -139,7 +139,7 @@ namespace Blackjack.Game
             }
 
             Dealer.Hand.Add(_deck.TakeCard());
-            ActiveSlot = 0;
+            MoveActiveSlot();
             CheckPlayersForBlackjack();
         }
 
