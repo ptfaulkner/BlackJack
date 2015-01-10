@@ -18,26 +18,26 @@ var GameWidget = React.createClass({
 
   render: function () {
     var game = this.props.game || {},
-	   dealer = game.Dealer || {},
-	   currentPlayer = game.Player || {},
-	   players = game.TablePlayers || [],
+	   dealer = game.dealer || {},
+	   currentPlayer = game.player || {},
+	   players = game.tablePlayers || [],
 	   playerLists = this.splitTablePlayers(players);
 
 	return (
     <div className='game-container'>
 	  <div className='player-list'>
 	    <PlayerList players={playerLists.left} 
-		  gameStatus={game.GameStatus} />
+		  gameStatus={game.gameStatus} />
 	  </div>
 	  <div className='game-area'>
         <Player player={dealer} />
 	    <CurrentPlayer player={currentPlayer}
-			  gameStatus={game.GameStatus}
+			  gameStatus={game.gameStatus}
 			  doGameAction={this.props.doGameAction} />
 	  </div>
 	  <div className='player-list'>
 	    <PlayerList players={playerLists.right}
-		  gameStatus={game.GameStatus} />
+		  gameStatus={game.gameStatus} />
 	  </div>
 	  <br className='clear-fix' />
     </div>

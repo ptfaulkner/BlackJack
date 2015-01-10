@@ -43,7 +43,7 @@ var Blackjack = React.createClass({
   render: function() {
     var self = this,
 	  game = this.state.game || {},
-	  newPlayers = game.NewPlayers || [];
+	  newPlayers = game.newPlayers || [];
 
 	var gameState;
 	if(this.state.connectionStatus !== 'Connected') 
