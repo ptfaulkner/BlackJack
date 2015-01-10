@@ -10,7 +10,6 @@ namespace Blackjack.Game
     public class BlackjackGame
     {
         private readonly Deck _deck;
-        public int ActiveSlot;
 
         public IEnumerable<Player> Players
         {
@@ -38,7 +37,6 @@ namespace Blackjack.Game
         public BlackjackGame(Deck deck)
         {
             _deck = deck;
-            ActiveSlot = 0;
 
             Dealer = new Player
             {
@@ -152,7 +150,7 @@ namespace Blackjack.Game
                 player.WinningStatus = WinningStatus.Blackjack;
                 player.HandStatus = HandStatus.Done;
 
-                if (ActiveSlot == player.Position)
+                if (player.IsTurnToHit)
                 {
                     MoveActiveSlot();
                 }
@@ -167,7 +165,7 @@ namespace Blackjack.Game
 
         internal void Hit(Player player)
         {
-            if (player.Position != ActiveSlot && player.Name != "Dealer")
+            if (!player.IsTurnToHit && player.Name != "Dealer")
             {
                 return;
             }
@@ -199,7 +197,7 @@ namespace Blackjack.Game
         {
             player.HandStatus = HandStatus.Done;
 
-            if (player.Position != ActiveSlot)
+            if (!player.IsTurnToHit)
             {
                 return;
             }
@@ -209,7 +207,7 @@ namespace Blackjack.Game
 
         private void MoveActiveSlot()
         {
-            IEnumerable<Player> availablePlayers = Players.Where(p => p.HandStatus == HandStatus.Open).ToList();
+            List<Player> availablePlayers = _players.Where(p => p.HandStatus == HandStatus.Open).ToList();
 
             if (!availablePlayers.Any())
             {
@@ -217,7 +215,10 @@ namespace Blackjack.Game
             }
             else
             {
-                ActiveSlot = availablePlayers.Min(p => p.Position);
+                int activeSlot = availablePlayers.Min(p => p.Position);
+                Player player = availablePlayers.First(p => p.Position == activeSlot);
+                _players.ForEach(p => p.IsTurnToHit = false);
+                player.IsTurnToHit = true;
             }
         }
 

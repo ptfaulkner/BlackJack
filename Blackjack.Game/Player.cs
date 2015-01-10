@@ -10,6 +10,7 @@ namespace Blackjack.Game
     {
         public string Name { get; set; }
         public List<Card> Hand { get; set; }
+        public bool IsTurnToHit { get; set; }
         [JsonIgnore]
         public BlackjackGame Game { get; set; }
         public int Position { get; set; }

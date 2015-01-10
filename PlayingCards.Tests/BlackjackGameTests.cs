@@ -93,11 +93,11 @@ namespace PlayingCards.Tests
             Player player1 = game.Players.FirstOrDefault(p => p.Position == 0);
             player1.Stay();
 
-            Assert.Equal(1, game.ActiveSlot);
+            Assert.Equal(1, game.Players.Single(p => p.IsTurnToHit).Position);
 
             game.Deal();
 
-            Assert.Equal(1, game.ActiveSlot);
+            Assert.Equal(1, game.Players.Single(p => p.IsTurnToHit).Position);
         }
 
         [Fact]

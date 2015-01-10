@@ -7,8 +7,7 @@ var PlayerList = React.createClass({
      var props = this.props || {},
 	   players = props.players || [],
 	   playersMap = players.map(function (player) {
-	     return <Player player={player}	key={player.Name}
-		   activeSlot={props.activeSlot} />;
+	     return <Player player={player}	key={player.Name} />;
 	   });
 
 	 return (

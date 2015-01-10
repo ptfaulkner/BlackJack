@@ -36,21 +36,18 @@ var GameWidget = React.createClass({
     <div className='game-container'>
 	  <div className='player-list'>
 	    <PlayerList players={playerLists.left} 
-		  activeSlot={game.ActiveSlot} 
 		  currentPlayerName={this.props.currentPlayerName}
 		  gameStatus={game.GameStatus} />
 	  </div>
 	  <div className='game-area'>
         <Player player={dealer} />
 	    <CurrentPlayer player={playerLists.currentPlayer}
-			  activeSlot={game.ActiveSlot}
 			  currentPlayerName={this.props.currentPlayerName}
 			  gameStatus={game.GameStatus}
 			  doGameAction={this.props.doGameAction} />
 	  </div>
 	  <div className='player-list'>
-	    <PlayerList players={playerLists.right} 
-		  activeSlot={game.ActiveSlot} 
+	    <PlayerList players={playerLists.right}
 		  currentPlayerName={this.props.currentPlayerName}
 		  gameStatus={game.GameStatus} />
 	  </div>

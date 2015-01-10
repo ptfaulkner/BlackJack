@@ -19,7 +19,7 @@ var CurrentPlayer = React.createClass({
     var props = this.props || {},
       player = props.player || {};
 	
-	if(player.HandStatus === 'Open' && player.Position === props.activeSlot && props.currentPlayerName === player.Name) {
+	if(player.HandStatus === 'Open' && player.IsTurnToHit && props.currentPlayerName === player.Name) {
 	  return (
 	    <div className="turn-buttons">
           <input type="button" value="Hit" className='form-item button' onClick={this.hit} />
