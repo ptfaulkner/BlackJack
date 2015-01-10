@@ -19,7 +19,7 @@ var CurrentPlayer = React.createClass({
     var props = this.props || {},
       player = props.player || {};
 	
-	if(player.HandStatus === 'Open' && player.IsTurnToHit && props.currentPlayerName === player.Name) {
+	if(player.handStatus === 'Open' && player.isTurnToHit) {
 	  return (
 	    <div className="turn-buttons">
           <input type="button" value="Hit" className='form-item button' onClick={this.hit} />
@@ -32,7 +32,7 @@ var CurrentPlayer = React.createClass({
           <input type="button" value="Deal" className='form-item button' onClick={this.deal} />
         </div>
       );
-	} else if(player.HandStatus === 'Open') {
+	} else if(player.handStatus === 'Open') {
 	  return (
 	    <div className="turn-buttons">
 		  <span>waiting for your turn...</span>
@@ -49,20 +49,20 @@ var CurrentPlayer = React.createClass({
 
   render: function () {
     var player = this.props.player || {},
-	  hand = player.Hand || [],
+	  hand = player.hand || [],
 	  buttons = this.chooseButtons(),
 	  cards = hand.map(function (card, index) {
-	    var key = card.Suit + '-' + card.Number;
-	    return <Card key={key} suit={card.Suit} number={card.Number} index={index} />;
+	    var key = card.suit + '-' + card.number;
+	    return <Card key={key} suit={card.suit} number={card.number} index={index} />;
 	  });
 
    return (
      <div className='text-center'>
      <div className='player'>
-      <span>{player.Name}</span>
+      <span>{player.name}</span>
       <div>
-        Winning Status: <span>{player.WinningStatus}</span><br />
-        Hand Status: <span>{player.HandStatus}</span>
+        Winning Status: <span>{player.winningStatus}</span><br />
+        Hand Status: <span>{player.handStatus}</span>
       </div>
 	  <div className='hand-container'>
 	    <ReactCSSTransitionGroup transitionName="animate">

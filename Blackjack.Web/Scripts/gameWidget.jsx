@@ -5,51 +5,39 @@ var CurrentPlayer = require('./CurrentPlayer');
 
 var GameWidget = React.createClass({
 
-  getCurrentPlayers: function (players) {
+  splitTablePlayers: function (players) {
     var playerLists = {
-	  currentPlayer: {},
 	  left: [],
 	  right: []
 	};
 
-	for(var i = 0; i < players.length; i++) {
-	  if(this.props.currentPlayerName === players[i].Name) {
-	    playerLists.currentPlayer = players[i];
-	  }
-	  else if(playerLists.left.length < 2) {
-	    playerLists.left.push(players[i]);
-	  }
-	  else {
-	    playerLists.right.push(players[i]);
-	  }
-	}
+	playerLists.left = players.splice(0, 2);
+	playerLists.right = players;
 	return playerLists;
   },
 
   render: function () {
     var game = this.props.game || {},
-	   dealer = game.Dealer || {},
-	   players = game.Players || [],
-	   playerLists = this.getCurrentPlayers(players);
+	   dealer = game.dealer || {},
+	   currentPlayer = game.player || {},
+	   players = game.tablePlayers || [],
+	   playerLists = this.splitTablePlayers(players);
 
 	return (
     <div className='game-container'>
 	  <div className='player-list'>
 	    <PlayerList players={playerLists.left} 
-		  currentPlayerName={this.props.currentPlayerName}
-		  gameStatus={game.GameStatus} />
+		  gameStatus={game.gameStatus} />
 	  </div>
 	  <div className='game-area'>
         <Player player={dealer} />
-	    <CurrentPlayer player={playerLists.currentPlayer}
-			  currentPlayerName={this.props.currentPlayerName}
-			  gameStatus={game.GameStatus}
+	    <CurrentPlayer player={currentPlayer}
+			  gameStatus={game.gameStatus}
 			  doGameAction={this.props.doGameAction} />
 	  </div>
 	  <div className='player-list'>
 	    <PlayerList players={playerLists.right}
-		  currentPlayerName={this.props.currentPlayerName}
-		  gameStatus={game.GameStatus} />
+		  gameStatus={game.gameStatus} />
 	  </div>
 	  <br className='clear-fix' />
     </div>

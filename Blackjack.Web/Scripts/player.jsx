@@ -6,19 +6,19 @@ var Player = React.createClass({
 
   render: function () {
     var player = this.props.player || {},
-	  hand = player.Hand || [],
+	  hand = player.hand || [],
 	  cards = hand.map(function (card, index) {
-	    var key = card.Suit + '-' + card.Number;
-	    return <Card key={key} suit={card.Suit} number={card.Number} index={index} />;
+	    var key = card.suit + '-' + card.number;
+	    return <Card key={key} suit={card.suit} number={card.number} index={index} />;
 	  });
 
    return (
      <div className='text-center'>
      <div className='player'>
-      <span>{player.Name}</span>
+      <span>{player.name}</span>
       <div>
-        Winning Status: <span>{player.WinningStatus}</span><br />
-        Hand Status: <span>{player.HandStatus}</span>
+        Winning Status: <span>{player.winningStatus}</span><br />
+        Hand Status: <span>{player.handStatus}</span>
       </div>
 	  <div className='hand-container'>
 	    <ReactCSSTransitionGroup transitionName="fade">

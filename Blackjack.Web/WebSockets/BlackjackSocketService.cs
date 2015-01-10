@@ -4,6 +4,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Blackjack.Web.WebSockets
 {
@@ -39,11 +40,16 @@ namespace Blackjack.Web.WebSockets
 
         public void BroadcastGameStatus()
         {
-            string gameJson = JsonConvert.SerializeObject(GameManager.Game);
-            ArraySegment<byte> outputBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(gameJson));
+            JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
 
             foreach (PlayerManager pm in GameManager.PlayerManagers)
             {
+                string gameJson = JsonConvert.SerializeObject(pm.GetCurrentPlayerDto(GameManager.Game),
+                    jsonSerializerSettings);
+                ArraySegment<byte> outputBuffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(gameJson));
                 pm.WebSocket.SendAsync(outputBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
             }
         }
