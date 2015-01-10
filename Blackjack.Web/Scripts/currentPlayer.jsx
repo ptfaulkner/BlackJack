@@ -32,10 +32,16 @@ var CurrentPlayer = React.createClass({
           <input type="button" value="Deal" className='form-item button' onClick={this.deal} />
         </div>
       );
-	} else {
+	} else if(player.HandStatus === 'Open') {
 	  return (
 	    <div className="turn-buttons">
 		  <span>waiting for your turn...</span>
+		</div>
+	  );
+	} else {
+	  return (
+	    <div className="turn-buttons">
+		  <span>waiting for other players to finish...</span>
 		</div>
 	  );
 	}
