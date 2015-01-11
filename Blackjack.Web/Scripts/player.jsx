@@ -21,9 +21,7 @@ var Player = React.createClass({
         Hand Status: <span>{player.handStatus}</span>
       </div>
 	  <div className='hand-container'>
-	    <ReactCSSTransitionGroup transitionName="fade">
 		  {cards}
-		</ReactCSSTransitionGroup>
 	  </div>
 	  <br className='clear-fix' />
     </div>

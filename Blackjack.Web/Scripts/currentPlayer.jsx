@@ -65,9 +65,7 @@ var CurrentPlayer = React.createClass({
         Hand Status: <span>{player.handStatus}</span>
       </div>
 	  <div className='hand-container'>
-	    <ReactCSSTransitionGroup transitionName="animate">
 		  {cards}
-		</ReactCSSTransitionGroup>
 	  </div>
 	  <br className='clear-fix' />
 	  {buttons}
