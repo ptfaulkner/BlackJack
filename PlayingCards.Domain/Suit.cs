@@ -11,6 +11,7 @@ namespace PlayingCards.Domain
         Clubs = 1,
         Hearts = 2,
         Diamonds = 3,
-        Spades = 4
+        Spades = 4,
+        Blank = 5
     }
 }

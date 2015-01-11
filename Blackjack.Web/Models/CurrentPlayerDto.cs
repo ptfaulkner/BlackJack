@@ -12,6 +12,6 @@ namespace Blackjack.Web.Models
         public IList<Player> TablePlayers { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public HandStatus GameStatus { get; set; }
-        public IEnumerable<string> NewPlayers { get; set; } 
+        public IEnumerable<string> NewPlayers { get; set; }
     }
 }
