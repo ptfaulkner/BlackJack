@@ -130,6 +130,18 @@ header .connection-status {
 .red {
   color: red;
 }
+.card-padding {
+  background-color: #FFFFFF;
+  padding: 0.25em;
+  border-radius: 0.25em;
+}
+.card-padding .blank-card {
+  background-color: #556;
+  background-image: linear-gradient(30deg, #444455 12%, transparent 12.5%, transparent 87%, #444455 87.5%, #444455), linear-gradient(150deg, #444455 12%, transparent 12.5%, transparent 87%, #444455 87.5%, #444455), linear-gradient(30deg, #444455 12%, transparent 12.5%, transparent 87%, #444455 87.5%, #444455), linear-gradient(150deg, #444455 12%, transparent 12.5%, transparent 87%, #444455 87.5%, #444455), linear-gradient(60deg, #9999aa 25%, transparent 25.5%, transparent 75%, #9999aa 75%, #9999aa), linear-gradient(60deg, #9999aa 25%, transparent 25.5%, transparent 75%, #9999aa 75%, #9999aa);
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+  height: 100%;
+}
 .footer {
   padding: 1em;
   text-align: center;

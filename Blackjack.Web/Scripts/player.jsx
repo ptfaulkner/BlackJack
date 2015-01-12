@@ -9,7 +9,7 @@ var Player = React.createClass({
 	  hand = player.hand || [],
 	  cards = hand.map(function (card, index) {
 	    var key = card.suit + '-' + card.number;
-	    return <Card key={key} suit={card.suit} number={card.number} index={index} />;
+	    return <Card suit={card.suit} number={card.number} index={index} />;
 	  });
 
    return (

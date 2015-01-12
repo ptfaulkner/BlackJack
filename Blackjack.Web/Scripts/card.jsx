@@ -20,6 +20,14 @@ var Card = React.createClass({
     var cardDirectory = 'Content/CardAssets/',
       svgName = cardDirectory + number + '_of_' + this.props.suit + '.svg';
 
+	if(number === 'Blank') {
+	  return (
+	    <div className='card card-padding'>
+		  <div className='blank-card'><span>&nbsp;</span></div>
+		</div>
+	  );
+	}
+
 	return (
 	  <object className='card' data={svgName} type='image/svg+xml'>
 	    <span>{number} - {this.props.suit}</span>
