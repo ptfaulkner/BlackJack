@@ -1,7 +1,7 @@
 ﻿module.exports = {
   // Entry point for static analyzer:
   entry: './Scripts/entry',
-
+  mode: 'development',
   output: {
     // Where to put build results when doing production builds:
     // (Server doesn't write to the disk, but this is required.)
@@ -16,13 +16,13 @@
 
   resolve: {
     // Allow to omit extensions when requiring these files
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
 
   module: {
-    loaders: [
+    rules: [
       // Pass *.jsx files through jsx-loader transform
-      { test: /\.jsx$/, loader: 'jsx' }
+      { test: /\.jsx$/, loader: 'jsx-loader' }
     ]
   }
 };
