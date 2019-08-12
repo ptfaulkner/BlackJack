@@ -1,6 +1,7 @@
-﻿var React = require('React');
-var Blackjack = React.createFactory(require('./Blackjack'));
+﻿const React = require('react');
+const ReactDOM = require('react-dom');
+const Blackjack = React.createElement(require('./blackjack'));
 
-React.render(Blackjack(),
+ReactDOM.render(Blackjack,
   document.getElementById('content')
 );

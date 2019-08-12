@@ -4,8 +4,10 @@
   "description": "Blackjack game built with React and websockets",
   "private": true,
   "dependencies": {
-    "jsx-loader": "^0.12.2",
-    "react": "^0.12.2"
+    "jsx-loader": "^0.13.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-transition-group": "^1.2.1"
   },
   "devDependencies": {
     "webpack": "^4.39.1",
@@ -13,7 +15,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "watch": "webpack -w"
   },
   "author": "",
   "license": "MIT"
