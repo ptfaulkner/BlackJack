@@ -1,8 +1,8 @@
-﻿var React = require('react');
-var CSSTransitionGroup = require('react-transition-group/CSSTransitionGroup');
-var Card = require('./card');
+﻿import React from 'react';
+import { CSSTransitionGroup } from 'react-transition-group';
+import Card from './card';
 
-class Player extends React.Component {
+export default class Player extends React.Component {
 
   render() {
     var player = this.props.player || {},
@@ -34,5 +34,3 @@ class Player extends React.Component {
     );
   }
 }
-
-module.exports = Player;

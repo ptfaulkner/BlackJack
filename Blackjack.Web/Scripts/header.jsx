@@ -1,7 +1,7 @@
-﻿var React = require('react');
-var CSSTransitionGroup = require('react-transition-group/CSSTransitionGroup');
+﻿import React from 'react';
+import { CSSTransitionGroup } from 'react-transition-group';
 
-class Header extends React.Component {
+export default class Header extends React.Component {
   render() {
     var newPlayersArray = this.props.newPlayers || [],
       newPlayers = newPlayersArray.join(', '),
@@ -31,5 +31,3 @@ class Header extends React.Component {
     );
   }
 }
-
-module.exports = Header;

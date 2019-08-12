@@ -1,6 +1,7 @@
-﻿const React = require('react');
-const ReactDOM = require('react-dom');
-const Blackjack = React.createElement(require('./blackjack'));
+﻿import React from 'react';
+import ReactDOM from 'react-dom';
+import BlackjackClass from './blackjack';
+const Blackjack = React.createElement(BlackjackClass);
 
 ReactDOM.render(Blackjack,
   document.getElementById('content')

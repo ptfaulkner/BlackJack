@@ -1,6 +1,6 @@
-﻿const React = require('react');
+﻿import React from 'react';
 
-class Card extends React.Component {
+export default class Card extends React.Component {
   getSuit(suitName) {
     if (suitName === 'Spades') {
       return <span>&spades;</span>;
@@ -38,5 +38,3 @@ class Card extends React.Component {
     );
   }
 }
-
-module.exports = Card;

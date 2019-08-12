@@ -1,8 +1,8 @@
-﻿const React = require('react');
-var CSSTransitionGroup = require('react-transition-group/CSSTransitionGroup');
-const Card = require('./card');
+﻿import React from 'react';
+import { CSSTransitionGroup } from 'react-transition-group';
+import Card from './card';
 
-class CurrentPlayer extends React.Component {
+export default class CurrentPlayer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -88,5 +88,3 @@ class CurrentPlayer extends React.Component {
     );
   }
 }
-
-module.exports = CurrentPlayer;

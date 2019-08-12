@@ -21,8 +21,13 @@
 
   module: {
     rules: [
-      // Pass *.jsx files through jsx-loader transform
-      { test: /\.jsx$/, loader: 'jsx-loader' }
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      }
     ]
   }
 };

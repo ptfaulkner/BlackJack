@@ -1,9 +1,9 @@
-﻿const React = require('react');
-const Player = require('./player');
-const PlayerList = require('./playerList');
-const CurrentPlayer = require('./currentPlayer');
+﻿import React from 'react';
+import Player from './player';
+import PlayerList from './playerList';
+import CurrentPlayer from './currentPlayer';
 
-class GameWidget extends React.Component {
+export default class GameWidget extends React.Component {
 
   splitTablePlayers(players) {
     var playerLists = {
@@ -45,5 +45,3 @@ class GameWidget extends React.Component {
     );
   }
 }
-
-module.exports = GameWidget;

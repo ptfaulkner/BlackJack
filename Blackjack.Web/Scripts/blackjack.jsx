@@ -1,10 +1,10 @@
-﻿var React = require('react');
-var NewPlayer = require('./newPlayer');
-var GameWidget = require('./gameWidget');
-var Header = require('./header');
-var websocket;
+﻿import React from 'react';
+import NewPlayer from './newPlayer';
+import GameWidget from './gameWidget';
+import Header from './header';
+let websocket;
 
-class Blackjack extends React.Component {
+export default class Blackjack extends React.Component {
   constructor(props) {
     super(props);
 
@@ -64,5 +64,3 @@ class Blackjack extends React.Component {
     );
   }
 }
-
-module.exports = Blackjack;

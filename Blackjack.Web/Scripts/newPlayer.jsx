@@ -1,6 +1,6 @@
-﻿var React = require('react');
+﻿import React from 'react';
 
-class NewPlayer extends React.Component {
+export default class NewPlayer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -24,5 +24,3 @@ class NewPlayer extends React.Component {
     );
   }
 }
-
-module.exports = NewPlayer;
