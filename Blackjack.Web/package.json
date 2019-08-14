@@ -4,7 +4,6 @@
   "description": "Blackjack game built with React and websockets",
   "private": true,
   "dependencies": {
-    "jsx-loader": "^0.13.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-transition-group": "^1.2.1"
