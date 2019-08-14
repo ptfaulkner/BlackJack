@@ -22,9 +22,10 @@ export default class Player extends React.Component {
           </div>
           <div className='hand-container'>
             <CSSTransitionGroup
-              transitionName="fade"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={300}>
+                transitionName="fade"
+                transitionEnterTimeout={500}
+                transitionLeaveTimeout={300}
+            >
               {cards}
             </CSSTransitionGroup>
           </div>

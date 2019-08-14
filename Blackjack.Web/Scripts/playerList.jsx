@@ -14,9 +14,10 @@ export default class PlayerList extends React.Component {
       <div>
         <h6 className='player-header'>Players</h6>
         <CSSTransitionGroup
-          transitionName="fade"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}>
+            transitionName="fade"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}
+        >
           {playersMap}
         </CSSTransitionGroup>
       </div>

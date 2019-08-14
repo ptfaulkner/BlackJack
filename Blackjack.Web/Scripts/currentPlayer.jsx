@@ -75,9 +75,10 @@ export default class CurrentPlayer extends React.Component {
           </div>
           <div className='hand-container'>
             <CSSTransitionGroup
-              transitionName="animate"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={300}>
+                transitionName="animate"
+                transitionEnterTimeout={500}
+                transitionLeaveTimeout={300}
+            >
               {cards}
             </CSSTransitionGroup>
           </div>

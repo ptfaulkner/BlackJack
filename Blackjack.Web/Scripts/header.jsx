@@ -18,9 +18,10 @@ export default class Header extends React.Component {
         </div>
         <div className='new-players'>
           <CSSTransitionGroup
-            transitionName="fade"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}>
+              transitionName="fade"
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={300}
+          >
             {newPlayersSpan}
           </CSSTransitionGroup>
         </div>

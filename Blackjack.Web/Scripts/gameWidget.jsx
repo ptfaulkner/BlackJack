@@ -27,18 +27,20 @@ export default class GameWidget extends React.Component {
       <div className='game-container'>
         <div className='player-list'>
           <PlayerList players={playerLists.left}
-            gameStatus={game.gameStatus}
+              gameStatus={game.gameStatus}
           />
         </div>
         <div className='game-area'>
           <Player player={dealer} />
           <CurrentPlayer player={currentPlayer}
-            gameStatus={game.gameStatus}
-            doGameAction={this.props.doGameAction} />
+              gameStatus={game.gameStatus}
+              doGameAction={this.props.doGameAction}
+          />
         </div>
         <div className='player-list'>
           <PlayerList players={playerLists.right}
-            gameStatus={game.gameStatus} />
+              gameStatus={game.gameStatus}
+          />
         </div>
         <br className='clear-fix' />
       </div>

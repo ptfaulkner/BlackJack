@@ -27,16 +27,16 @@ export default class Blackjack extends React.Component {
     websocket.onopen = () => {
       this.setState({ connectionStatus: 'Connected', playerName: playerName });
     };
-    websocket.onerror = ((event) => {
+    websocket.onerror = (event) => {
       this.setState({ connectionStatus: 'Connection Error :(' });
-    });
-    websocket.onmessage = ((event) => {
+    };
+    websocket.onmessage = (event) => {
       var dataJson = JSON.parse(event.data);
       this.setState({ game: dataJson });
-    });
-    websocket.onclose = ((event) => {
+    };
+    websocket.onclose = (event) => {
       this.setState({ message: event.reason });
-    });
+    };
   }
 
   doGameAction (actionString) {
@@ -49,9 +49,9 @@ export default class Blackjack extends React.Component {
 
     var gameState;
     if (this.state.connectionStatus !== 'Connected')
-      gameState = <NewPlayer connect={this.connect} message={this.state.message} />
+      gameState = <NewPlayer connect={this.connect} message={this.state.message}/>;
     else
-      gameState = <GameWidget game={this.state.game} currentPlayerName={this.state.playerName} doGameAction={this.doGameAction} />
+      gameState = <GameWidget game={this.state.game} currentPlayerName={this.state.playerName} doGameAction={this.doGameAction} />;
 
     return (
       <div>
