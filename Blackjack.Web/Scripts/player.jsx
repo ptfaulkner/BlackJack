@@ -2,36 +2,34 @@
 import { CSSTransitionGroup } from 'react-transition-group';
 import Card from './card';
 
-export default class Player extends React.Component {
+const Player = (props) => {
+  const player = props.player || {};
+  const hand = player.hand || [];
+  const cards = hand.map((card, index) => {
+    const key = `${card.suit}-${card.number}`;
+    return <Card key={key} suit={card.suit} number={card.number} index={index}/>;
+  });
 
-  render() {
-    const player = this.props.player || {};
-    const hand = player.hand || [];
-    const cards = hand.map((card, index) => {
-        const key = `${card.suit}-${card.number}`;
-        return <Card key={key} suit={card.suit} number={card.number} index={index} />;
-      });
-
-    return (
-      <div className='text-center'>
-        <div className='player'>
-          <span>{player.name}</span>
-          <div>
-            Winning Status: <span>{player.winningStatus}</span><br />
-            Hand Status: <span>{player.handStatus}</span>
-          </div>
-          <div className='hand-container'>
-            <CSSTransitionGroup
-                transitionName="fade"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={300}
-            >
-              {cards}
-            </CSSTransitionGroup>
-          </div>
-          <br className='clear-fix' />
+  return (
+    <div className='text-center'>
+      <div className='player'>
+        <span>{player.name}</span>
+        <div>
+          Winning Status: <span>{player.winningStatus}</span><br/>
+          Hand Status: <span>{player.handStatus}</span>
         </div>
+        <div className='hand-container'>
+          <CSSTransitionGroup
+            transitionName="fade"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}>
+            {cards}
+          </CSSTransitionGroup>
+        </div>
+        <br className='clear-fix'/>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default Player;
