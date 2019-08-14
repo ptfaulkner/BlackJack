@@ -1,66 +1,66 @@
-﻿var React = require('React');
-var NewPlayer = require('./NewPlayer');
-var GameWidget = require('./GameWidget');
-var Header = require('./Header');
-var websocket;
+﻿import React from 'react';
+import NewPlayer from './newPlayer';
+import GameWidget from './gameWidget';
+import Header from './header';
+let websocket;
 
-var Blackjack = React.createClass({
-  getInitialState: function () {
-	return { 
-	  connectionStatus: 'Not Connected',
-	  playerName: '',
-	  game: {}
-	};
-  },
+export default class Blackjack extends React.Component {
+  constructor(props) {
+    super(props);
 
-  connect: function(playerName) {
-    var self = this,
-	  host = window.location.host,
-      protocol = window.location.protocol,
-      uri = (protocol === 'https:' ? 'wss' : 'ws') + '://' + host + '/api/blackjack?playerName=' + playerName;
+    this.state = {
+      connectionStatus: 'Not Connected',
+      playerName: '',
+      game: {}
+    };
+
+    this.connect = this.connect.bind(this);
+  }
+
+  connect (playerName) {
+    const host = window.location.host;
+    const protocol = window.location.protocol;
+    const uri = (protocol === 'https:' ? 'wss' : 'ws') + '://' + host + '/api/blackjack?playerName=' + playerName;
 
     websocket = new WebSocket(uri);
 
-    websocket.onopen = function () {
-	  self.setState({ connectionStatus: 'Connected', playerName: playerName });
+    websocket.onopen = () => {
+      this.setState({ connectionStatus: 'Connected', playerName: playerName });
     };
-    websocket.onerror = function (event) {
-   	  self.setState({ connectionStatus: 'Connection Error :(' });
-    }
-    websocket.onmessage = function (event) {
-      var dataJson = JSON.parse(event.data);
-      self.setState({ game: dataJson });
-    }
-	websocket.onclose = function (event) {
-	  self.setState({ message: event.reason });
-	}
-  },
-
-  doGameAction: function(actionString) {
-    websocket.send(actionString);
-  },
-
-  render: function() {
-    var self = this,
-	  game = this.state.game || {},
-	  newPlayers = game.newPlayers || [];
-
-	var gameState;
-	if(this.state.connectionStatus !== 'Connected') 
-	  gameState = <NewPlayer connect={self.connect} message={this.state.message} />
-	else 
-      gameState = <GameWidget game={this.state.game} currentPlayerName={this.state.playerName} doGameAction={this.doGameAction} />
-
-	return (
-	  <div>
-	    <Header connectionStatus={this.state.connectionStatus} newPlayers={newPlayers} />
-		<br className='clear-fix' />
-		<div className='game-widget'>
-		  {gameState}
-		</div>
-	  </div>
-	);
+    websocket.onerror = (event) => {
+      this.setState({ connectionStatus: 'Connection Error :(' });
+    };
+    websocket.onmessage = (event) => {
+      const dataJson = JSON.parse(event.data);
+      this.setState({ game: dataJson });
+    };
+    websocket.onclose = (event) => {
+      this.setState({ message: event.reason });
+    };
   }
-});
 
-module.exports = Blackjack;
+  doGameAction (actionString) {
+    websocket.send(actionString);
+  }
+
+  render() {
+    const game = this.state.game || {};
+    const newPlayers = game.newPlayers || [];
+
+    let gameState;
+    if (this.state.connectionStatus !== 'Connected')
+      gameState = <NewPlayer connect={this.connect} message={this.state.message}/>;
+    else
+      gameState = <GameWidget game={this.state.game} currentPlayerName={this.state.playerName} doGameAction={this.doGameAction} />;
+
+    return (
+      <div>
+        <Header connectionStatus={this.state.connectionStatus} newPlayers={newPlayers} />
+        <br className='clear-fix' />
+        <div className='game-widget'>
+          {gameState}
+        </div>
+      </div>
+    );
+  }
+}

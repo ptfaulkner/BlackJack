@@ -276,6 +276,7 @@
     <Content Include="Scripts\entry.js" />
     <Content Include="webpack.config.js" />
     <Content Include="package.json" />
+    <Content Include=".babelrc" />
     <None Include="Properties\PublishProfiles\blackjack - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\blackjack - Web Deploy.pubxml" />
     <None Include="Scripts\blackjack.jsx" />

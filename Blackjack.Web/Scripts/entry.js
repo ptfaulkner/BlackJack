@@ -1,6 +1,8 @@
-﻿var React = require('React');
-var Blackjack = React.createFactory(require('./Blackjack'));
+﻿import React from 'react';
+import ReactDOM from 'react-dom';
+import BlackjackClass from './blackjack';
+const Blackjack = React.createElement(BlackjackClass);
 
-React.render(Blackjack(),
+ReactDOM.render(Blackjack,
   document.getElementById('content')
 );

@@ -1,24 +1,24 @@
-﻿var React = require('React/addons');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-var Player = require('./Player');
+﻿import React from 'react';
+import { CSSTransitionGroup } from 'react-transition-group';
+import Player from './player';
 
-var PlayerList = React.createClass({
-  render: function () {
-     var props = this.props || {},
-	   players = props.players || [],
-	   playersMap = players.map(function (player) {
-	     return <Player player={player}	key={player.name} />;
-	   });
+const PlayerList = (props) => {
+  const players = props.players || [];
+  const playersMap = players.map(function(player) {
+    return <Player player={player} key={player.name}/>;
+  });
 
-	 return (
-	   <div>
-	     <h6 className='player-header'>Players</h6>
-		 <ReactCSSTransitionGroup transitionName="fade">
-	       {playersMap}
-		 </ReactCSSTransitionGroup>
-	   </div>
-	 );
-  }
-});
+  return (
+    <div>
+      <h6 className='player-header'>Players</h6>
+      <CSSTransitionGroup
+        transitionName="fade"
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}>
+        {playersMap}
+      </CSSTransitionGroup>
+    </div>
+  );
+};
 
-module.exports = PlayerList;
+export default PlayerList;
