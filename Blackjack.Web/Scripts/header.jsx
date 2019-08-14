@@ -24,7 +24,7 @@ const Header = (props) => {
         </CSSTransitionGroup>
       </div>
       <div className='connection-status'>
-        <span>{this.props.connectionStatus}</span>
+        <span>{props.connectionStatus}</span>
       </div>
     </header>
   );
