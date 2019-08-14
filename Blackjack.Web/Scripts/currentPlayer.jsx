@@ -25,8 +25,8 @@ export default class CurrentPlayer extends React.Component {
   }
 
   chooseButtons() {
-    var props = this.props || {},
-      player = props.player || {};
+    const props = this.props || {};
+    const player = props.player || {};
 
     if (player.handStatus === 'Open' && player.isTurnToHit) {
       return (
@@ -57,11 +57,11 @@ export default class CurrentPlayer extends React.Component {
   }
 
   render() {
-    var player = this.props.player || {},
-      hand = player.hand || [],
-      buttons = this.chooseButtons(),
-      cards = hand.map(function (card, index) {
-        var key = card.suit + '-' + card.number;
+    const player = this.props.player || {};
+    const hand = player.hand || [];
+    const buttons = this.chooseButtons();
+    const cards = hand.map((card, index) => {
+        var key = `${card.suit}-${card.number}`;
         return <Card key={key} suit={card.suit} number={card.number} index={index} />;
       });
 

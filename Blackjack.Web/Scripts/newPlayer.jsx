@@ -8,7 +8,7 @@ export default class NewPlayer extends React.Component {
   }
   
   connect() {
-    var playerName = this.refs.playerName.value.trim();
+    const playerName = this.refs.playerName.value.trim();
     this.props.connect(playerName);
   }
 

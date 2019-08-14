@@ -5,9 +5,9 @@ import Card from './card';
 export default class Player extends React.Component {
 
   render() {
-    var player = this.props.player || {},
-      hand = player.hand || [],
-      cards = hand.map(function (card, index) {
+    const player = this.props.player || {};
+    const hand = player.hand || [];
+    const cards = hand.map((card, index) => {
         var key = card.suit + '-' + card.number;
         return <Card key={key} suit={card.suit} number={card.number} index={index} />;
       });

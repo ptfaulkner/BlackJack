@@ -3,9 +3,9 @@ import { CSSTransitionGroup } from 'react-transition-group';
 
 export default class Header extends React.Component {
   render() {
-    var newPlayersArray = this.props.newPlayers || [],
-      newPlayers = newPlayersArray.join(', '),
-      newPlayersSpan = <span key='no-new-players' />;
+    const newPlayersArray = this.props.newPlayers || [];
+    const newPlayers = newPlayersArray.join(', ');
+    let newPlayersSpan = <span key='no-new-players' />;
 
     if (newPlayers.length) {
       newPlayersSpan = <span key='new-players'>Joining now: {newPlayers}</span>;

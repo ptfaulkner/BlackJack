@@ -4,9 +4,9 @@ import Player from './player';
 
 export default class PlayerList extends React.Component {
   render() {
-    var props = this.props || {},
-      players = props.players || [],
-      playersMap = players.map(function (player) {
+    const props = this.props || {};
+    const players = props.players || [];
+    const playersMap = players.map(function (player) {
         return <Player player={player} key={player.name} />;
       });
 

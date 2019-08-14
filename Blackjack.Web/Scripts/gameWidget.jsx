@@ -6,7 +6,7 @@ import CurrentPlayer from './currentPlayer';
 export default class GameWidget extends React.Component {
 
   splitTablePlayers(players) {
-    var playerLists = {
+    const playerLists = {
       left: [],
       right: []
     };
@@ -17,11 +17,11 @@ export default class GameWidget extends React.Component {
   }
 
   render() {
-    var game = this.props.game || {},
-      dealer = game.dealer || {},
-      currentPlayer = game.player || {},
-      players = game.tablePlayers || [],
-      playerLists = this.splitTablePlayers(players);
+    const game = this.props.game || {};
+    const dealer = game.dealer || {};
+    const currentPlayer = game.player || {};
+    const players = game.tablePlayers || [];
+    const playerLists = this.splitTablePlayers(players);
 
     return (
       <div className='game-container'>

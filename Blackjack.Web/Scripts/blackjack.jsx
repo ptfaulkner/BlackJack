@@ -47,7 +47,7 @@ export default class Blackjack extends React.Component {
     const game = this.state.game || {};
     const newPlayers = game.newPlayers || [];
 
-    var gameState;
+    let gameState;
     if (this.state.connectionStatus !== 'Connected')
       gameState = <NewPlayer connect={this.connect} message={this.state.message}/>;
     else
