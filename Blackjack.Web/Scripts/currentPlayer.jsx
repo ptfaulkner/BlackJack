@@ -61,7 +61,7 @@ export default class CurrentPlayer extends React.Component {
     const hand = player.hand || [];
     const buttons = this.chooseButtons();
     const cards = hand.map((card, index) => {
-        var key = `${card.suit}-${card.number}`;
+        const key = `${card.suit}-${card.number}`;
         return <Card key={key} suit={card.suit} number={card.number} index={index} />;
       });
 

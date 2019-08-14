@@ -8,7 +8,7 @@ export default class Player extends React.Component {
     const player = this.props.player || {};
     const hand = player.hand || [];
     const cards = hand.map((card, index) => {
-        var key = card.suit + '-' + card.number;
+        const key = `${card.suit}-${card.number}`;
         return <Card key={key} suit={card.suit} number={card.number} index={index} />;
       });
 

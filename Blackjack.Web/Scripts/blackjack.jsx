@@ -31,7 +31,7 @@ export default class Blackjack extends React.Component {
       this.setState({ connectionStatus: 'Connection Error :(' });
     };
     websocket.onmessage = (event) => {
-      var dataJson = JSON.parse(event.data);
+      const dataJson = JSON.parse(event.data);
       this.setState({ game: dataJson });
     };
     websocket.onclose = (event) => {
