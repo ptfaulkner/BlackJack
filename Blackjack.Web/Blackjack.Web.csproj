@@ -271,10 +271,7 @@
     <Content Include="Content\CardAssets\two_of_spades.svg" />
     <Content Include="Content\carpet.png" />
     <Content Include="Global.asax" />
-    <Content Include="index.html" />
     <Content Include="public\bundle.js" />
-    <Content Include="package.json" />
-    <Content Include=".babelrc" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

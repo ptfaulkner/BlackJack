@@ -2,11 +2,11 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './Scripts/index',
+    entry: './src/index',
     output: {
-      path: path.resolve(__dirname, 'public'),
+      path: path.resolve(__dirname, '../public'),
       filename: 'bundle.js',
-      publicPath: '/public/'
+      publicPath: '../public/'
     },
     plugins: [
         new CleanWebpackPlugin()
