@@ -1,7 +1,7 @@
 ﻿import React from 'react';
-import Player from './player';
-import PlayerList from './playerList';
-import CurrentPlayer from './currentPlayer';
+import Player from './Player';
+import PlayerList from './PlayerList';
+import CurrentPlayer from './CurrentPlayer';
 
 const GameWidget = (props) => {
 

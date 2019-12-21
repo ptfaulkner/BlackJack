@@ -273,12 +273,29 @@
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="public\bundle.js" />
-    <Content Include="Scripts\entry.js" />
     <Content Include="package.json" />
     <Content Include=".babelrc" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="Properties\PublishProfiles\blackjack - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\blackjack - Web Deploy.pubxml" />
-    <None Include="Scripts\blackjack.jsx" />
+    <Content Include="Scripts\card.jsx" />
+    <Content Include="Scripts\Components\Card.jsx" />
+    <Content Include="Scripts\Components\CurrentPlayer.jsx" />
+    <Content Include="Scripts\Components\GameWidget.jsx" />
+    <Content Include="Scripts\Components\Header.jsx" />
+    <Content Include="Scripts\Components\NewPlayer.jsx" />
+    <Content Include="Scripts\Components\Player.jsx" />
+    <Content Include="Scripts\Components\PlayerList.jsx" />
+    <Content Include="Scripts\currentPlayer.jsx" />
+    <Content Include="Scripts\gameWidget.jsx" />
+    <Content Include="Scripts\header.jsx" />
+    <Content Include="Scripts\index.js" />
+    <Content Include="Scripts\newPlayer.jsx" />
+    <Content Include="Scripts\player.jsx" />
+    <Content Include="Scripts\playerList.jsx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -290,14 +307,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\newPlayer.jsx" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\gameWidget.jsx" />
-    <Content Include="Scripts\player.jsx" />
-    <Content Include="Scripts\playerList.jsx" />
-    <Content Include="Scripts\card.jsx" />
-    <Content Include="Scripts\header.jsx" />
-    <Content Include="Scripts\currentPlayer.jsx" />
+    <Content Include="Scripts\blackjack.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -355,7 +366,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>npm install</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

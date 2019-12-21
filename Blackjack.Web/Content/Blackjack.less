@@ -60,7 +60,7 @@ header {
   opacity: 1;
 }
 
-.fade-leave {
+.fade-exit {
     opacity: 1;
     -moz-transition: opacity .5s ease-in;
     -o-transition: opacity .5s ease-in;
@@ -68,12 +68,12 @@ header {
     transition: opacity .5s ease-in;
 }
 
-.fade-leave.fade-leave-active {
+.fade-exit.fade-exit-active {
   opacity: 0.01;
 }
 
 .animate-enter, 
-.animate-leave { 
+.animate-exit { 
     -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
     -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
     -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
@@ -83,7 +83,7 @@ header {
     display: block;
 } 
  
-.animate-leave.animate-leave-active,
+.animate-exit.animate-exit-active,
 .animate-enter {
     -webkit-transform: rotateX(90deg) rotateZ(90deg);
     -moz-transform: rotateX(90deg) rotateZ(90deg);
@@ -95,7 +95,7 @@ header {
 }        
  
 .animate-enter.animate-enter-active,
-.animate-leave {
+.animate-exit {
     -webkit-transform: rotateX(0) rotateZ(0);
     -moz-transform: rotateX(0) rotateZ(0);
     -ms-transform: rotateX(0) rotateZ(0);
