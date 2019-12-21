@@ -272,9 +272,8 @@
     <Content Include="Content\carpet.png" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
-    <Content Include="Scripts\bundle.js" />
+    <Content Include="public\bundle.js" />
     <Content Include="Scripts\entry.js" />
-    <Content Include="webpack.config.js" />
     <Content Include="package.json" />
     <Content Include=".babelrc" />
     <None Include="Properties\PublishProfiles\blackjack - FTP.pubxml" />
