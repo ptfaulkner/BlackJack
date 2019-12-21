@@ -1,13 +1,29 @@
 ﻿import React from 'react';
-import { CSSTransitionGroup } from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const Header = (props) => {
   const newPlayersArray = props.newPlayers || [];
   const newPlayers = newPlayersArray.join(', ');
-  let newPlayersSpan = <span key='no-new-players'/>;
+  let newPlayersSpan = (
+    <CSSTransition      
+      classNames="fade"
+      timeout={500}
+      key='no-new-players'
+    >
+      <span />
+    </CSSTransition>
+   );
 
   if (newPlayers.length) {
-    newPlayersSpan = <span key='new-players'>Joining now: {newPlayers}</span>;
+    newPlayersSpan = (
+      <CSSTransition      
+        classNames="fade"
+        timeout={500}
+        key='new-players'
+      >
+        <span>Joining now: {newPlayers}</span>
+      </CSSTransition>
+    );
   }
 
   return (
@@ -16,12 +32,9 @@ const Header = (props) => {
         <span>Blackjack &spades;&diams;&hearts;&clubs;</span>
       </div>
       <div className='new-players'>
-        <CSSTransitionGroup
-          transitionName="fade"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}>
+        <TransitionGroup>
           {newPlayersSpan}
-        </CSSTransitionGroup>
+        </TransitionGroup>
       </div>
       <div className='connection-status'>
         <span>{props.connectionStatus}</span>

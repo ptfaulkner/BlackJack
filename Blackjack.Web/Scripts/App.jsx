@@ -1,10 +1,10 @@
 ﻿import React from 'react';
-import NewPlayer from './newPlayer';
-import GameWidget from './gameWidget';
-import Header from './header';
+import NewPlayer from './Components/NewPlayer';
+import GameWidget from './Components/GameWidget';
+import Header from './Components/Header';
 let websocket;
 
-export default class Blackjack extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props);
 

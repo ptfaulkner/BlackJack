@@ -2,7 +2,7 @@
   font-family: Helvetica, Arial, sans-serif;
   color: #ffffff;
   margin: 0;
-  background-image: url('../content/carpet.png');
+  background-image: url('carpet.png');
 }
 .clear-fix {
   clear: both;
@@ -48,18 +48,18 @@ header .connection-status {
 .fade-enter.fade-enter-active {
   opacity: 1;
 }
-.fade-leave {
+.fade-exit {
   opacity: 1;
   -moz-transition: opacity 0.5s ease-in;
   -o-transition: opacity 0.5s ease-in;
   -webkit-transition: opacity 0.5s ease-in;
   transition: opacity 0.5s ease-in;
 }
-.fade-leave.fade-leave-active {
+.fade-exit.fade-exit-active {
   opacity: 0.01;
 }
 .animate-enter,
-.animate-leave {
+.animate-exit {
   -webkit-transition: 400ms cubic-bezier(0.25, 0.25, 0.75, 0.75) all;
   -moz-transition: 400ms cubic-bezier(0.25, 0.25, 0.75, 0.75) all;
   -ms-transition: 400ms cubic-bezier(0.25, 0.25, 0.75, 0.75) all;
@@ -68,7 +68,7 @@ header .connection-status {
   position: relative;
   display: block;
 }
-.animate-leave.animate-leave-active,
+.animate-exit.animate-exit-active,
 .animate-enter {
   -webkit-transform: rotateX(90deg) rotateZ(90deg);
   -moz-transform: rotateX(90deg) rotateZ(90deg);
@@ -79,7 +79,7 @@ header .connection-status {
   height: 0;
 }
 .animate-enter.animate-enter-active,
-.animate-leave {
+.animate-exit {
   -webkit-transform: rotateX(0) rotateZ(0);
   -moz-transform: rotateX(0) rotateZ(0);
   -ms-transform: rotateX(0) rotateZ(0);
@@ -121,7 +121,7 @@ header .connection-status {
 .card {
   float: left;
   width: 3.75em;
-  height: 5.00em;
+  height: 5em;
   margin: 0 0 1.2em 0;
 }
 .stack {
@@ -197,4 +197,3 @@ header .connection-status {
   -webkit-box-shadow: 0 0 0 1px #E8C291 inset;
   box-shadow: 0 0 0 1px #E8C291 inset;
 }
-/*# sourceMappingURL=Blackjack.css.map */

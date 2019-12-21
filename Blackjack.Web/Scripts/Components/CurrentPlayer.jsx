@@ -1,6 +1,6 @@
 ﻿import React from 'react';
-import { CSSTransitionGroup } from 'react-transition-group';
-import Card from './card';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import Card from './Card';
 
 const CurrentPlayer = (props) => {
 
@@ -52,7 +52,15 @@ const CurrentPlayer = (props) => {
   const buttons = chooseButtons();
   const cards = hand.map((card, index) => {
     const key = `${card.suit}-${card.number}`;
-    return <Card key={key} suit={card.suit} number={card.number} index={index}/>;
+    return (
+      <CSSTransition
+        key={key}
+        classNames="animate"
+        timeout={{ enter: 500, exit: 300 }}
+      >
+        <Card suit={card.suit} number={card.number} index={index}/>
+      </CSSTransition>
+    );
   });
 
   return (
@@ -64,12 +72,9 @@ const CurrentPlayer = (props) => {
           Hand Status: <span>{player.handStatus}</span>
         </div>
         <div className='hand-container'>
-          <CSSTransitionGroup
-            transitionName="animate"
-            transitionEnterTimeout={500}
-            transitionLeaveTimeout={300}>
+          <TransitionGroup>
             {cards}
-          </CSSTransitionGroup>
+          </TransitionGroup>
         </div>
         <br className='clear-fix'/>
         {buttons}
