@@ -1,6 +1,6 @@
 ﻿[
   {
-    "outputFile": "Content/Blackjack.css",
-    "inputFile": "Content/Blackjack.less"
+    "outputFile": "ui/src/styles/Blackjack.css",
+    "inputFile": "ui/src/styles/Blackjack.less"
   }
 ]

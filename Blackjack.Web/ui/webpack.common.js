@@ -1,15 +1,20 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: './src/index',
     output: {
       path: path.resolve(__dirname, '../public'),
-      filename: 'bundle.js',
+      filename: '[hash].bundle.js',
       publicPath: '../public/'
     },
     plugins: [
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+          template: '../Views/Shared/_Layout_Template.cshtml',
+          filename: '../Views/Shared/_Layout.cshtml',
+        })
     ],
     resolve: {
       extensions: ['.js', '.jsx']
@@ -22,7 +27,17 @@ module.exports = {
           use: {
             loader: "babel-loader"
           }
-        }
+        },
+        {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader']
+        },
+        {
+          test: /\.(png|svg|jpg|gif)$/,
+          use: [
+            'file-loader',
+          ],
+        },
       ]
     }
   };

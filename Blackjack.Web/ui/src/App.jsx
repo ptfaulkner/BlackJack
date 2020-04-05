@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import './styles/blackjack.css';
 import NewPlayer from './Components/NewPlayer';
 import GameWidget from './Components/GameWidget';
 import Header from './Components/Header';

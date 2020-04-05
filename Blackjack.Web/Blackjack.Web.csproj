@@ -214,9 +214,15 @@
     <Content Include="Content\Blackjack.css">
       <DependentUpon>Blackjack.less</DependentUpon>
     </Content>
-    <Content Include="Content\Blackjack.min.css">
-      <DependentUpon>Blackjack.css</DependentUpon>
-    </Content>
+    <Content Include="ui\src\Components\Card.jsx" />
+    <Content Include="ui\src\Components\CurrentPlayer.jsx" />
+    <Content Include="ui\src\Components\GameWidget.jsx" />
+    <Content Include="ui\src\Components\Header.jsx" />
+    <Content Include="ui\src\Components\NewPlayer.jsx" />
+    <Content Include="ui\src\Components\Player.jsx" />
+    <Content Include="ui\src\Components\PlayerList.jsx" />
+    <Content Include="ui\src\styles\blackjack.css" />
+    <Content Include="ui\src\styles\Blackjack.min.css" />
     <Content Include="Content\CardAssets\ace_of_clubs.svg" />
     <Content Include="Content\CardAssets\ace_of_diamonds.svg" />
     <Content Include="Content\CardAssets\ace_of_hearts.svg" />
@@ -269,30 +275,17 @@
     <Content Include="Content\CardAssets\two_of_diamonds.svg" />
     <Content Include="Content\CardAssets\two_of_hearts.svg" />
     <Content Include="Content\CardAssets\two_of_spades.svg" />
-    <Content Include="Content\carpet.png" />
+    <Content Include="ui\src\styles\carpet.png" />
     <Content Include="Global.asax" />
-    <Content Include="public\bundle.js" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <None Include="Properties\PublishProfiles\blackjack - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\blackjack - Web Deploy.pubxml" />
-    <Content Include="Scripts\card.jsx" />
-    <Content Include="Scripts\Components\Card.jsx" />
-    <Content Include="Scripts\Components\CurrentPlayer.jsx" />
-    <Content Include="Scripts\Components\GameWidget.jsx" />
-    <Content Include="Scripts\Components\Header.jsx" />
-    <Content Include="Scripts\Components\NewPlayer.jsx" />
-    <Content Include="Scripts\Components\Player.jsx" />
-    <Content Include="Scripts\Components\PlayerList.jsx" />
-    <Content Include="Scripts\currentPlayer.jsx" />
-    <Content Include="Scripts\gameWidget.jsx" />
-    <Content Include="Scripts\header.jsx" />
-    <Content Include="Scripts\index.js" />
-    <Content Include="Scripts\newPlayer.jsx" />
-    <Content Include="Scripts\player.jsx" />
-    <Content Include="Scripts\playerList.jsx" />
+    <Content Include="ui\webpack.common.js" />
+    <Content Include="ui\webpack.dev.js" />
+    <Content Include="ui\webpack.prod.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -305,7 +298,10 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\blackjack.jsx" />
+    <Content Include="ui\.babelrc" />
+    <Content Include="ui\package-lock.json" />
+    <Content Include="ui\package.json" />
+    <Content Include="Views\Shared\_Layout_Template.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -327,12 +323,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Blackjack.less" />
+    <Content Include="ui\src\styles\Blackjack.less" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Blackjack.css.map">
-      <DependentUpon>Blackjack.css</DependentUpon>
-    </Content>
+    <Content Include="ui\src\styles\Blackjack.css.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
