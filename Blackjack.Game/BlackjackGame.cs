@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
 using PlayingCards.Domain;
 
 namespace Blackjack.Game
@@ -11,27 +9,18 @@ namespace Blackjack.Game
     {
         private readonly Deck _deck;
 
-        public IEnumerable<Player> Players
-        {
-            get { return _players; }
-        }
+        public IEnumerable<Player> Players => _players;
 
-        public IEnumerable<string> NewPlayers
-        {
-            get { return _newPlayers; }
-        }
+        public IEnumerable<string> NewPlayers => _newPlayers;
 
-        public IEnumerable<string> QuitPlayers
-        {
-            get { return _quitPlayers; }
-        }
+        public IEnumerable<string> QuitPlayers => _quitPlayers;
 
         public Player Dealer;
         private readonly List<Player> _players;
         private readonly List<string> _newPlayers;
         private readonly List<string> _quitPlayers;
 
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public HandStatus GameStatus { get; set; }
 
         public BlackjackGame(Deck deck)
@@ -122,12 +111,12 @@ namespace Blackjack.Game
 
             foreach (Player player in Players)
             {
-                player.Hand = new List<Card> {_deck.TakeCard()};
+                player.Hand = new List<Card> { _deck.TakeCard() };
                 player.WinningStatus = WinningStatus.Open;
                 player.HandStatus = HandStatus.Open;
             }
 
-            Dealer.Hand = new List<Card>{_deck.TakeCard()};
+            Dealer.Hand = new List<Card> { _deck.TakeCard() };
             Dealer.WinningStatus = WinningStatus.Open;
             Dealer.HandStatus = HandStatus.Open;
 
@@ -239,7 +228,7 @@ namespace Blackjack.Game
                 {
                     continue;
                 }
-                
+
                 if (Dealer.WinningStatus == WinningStatus.Busted &&
                     player.WinningStatus != WinningStatus.Busted)
                 {
