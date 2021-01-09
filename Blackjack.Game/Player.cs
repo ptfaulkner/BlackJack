@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
 using PlayingCards.Domain;
 
 namespace Blackjack.Game
@@ -14,9 +12,9 @@ namespace Blackjack.Game
         [JsonIgnore]
         public BlackjackGame Game { get; set; }
         public int Position { get; set; }
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public HandStatus HandStatus { get; set; }
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public WinningStatus WinningStatus { get; set; }
 
         private readonly object _lockObject = new object();
