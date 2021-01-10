@@ -4,26 +4,32 @@
   "private": true,
   "dependencies": {
     "@microsoft/signalr": "^5.0.1",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-scripts": "^3.4.1",
+    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/react": "^11.2.3",
+    "@testing-library/user-event": "^12.6.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
     "react-transition-group": "^4.4.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^3.0.2",
+    "web-vitals": "^0.2.4"
   },
   "devDependencies": {
-    "ajv": "^6.9.1",
-    "cross-env": "^5.2.0",
-    "eslint": "^6.8.0",
-    "eslint-config-react-app": "^5.2.0",
-    "eslint-plugin-flowtype": "^4.6.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.18.3",
-    "nan": "^2.14.1",
-    "typescript": "^3.7.5"
+    "ajv": "^7.0.3",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.17.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "nan": "^2.14.2"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
