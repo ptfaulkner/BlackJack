@@ -1,64 +1,53 @@
-import React from 'react';
-import {
-  HubConnectionBuilder
-} from '@microsoft/signalr';
-import './styles/blackjack.css';
-import NewPlayer from './components/NewPlayer';
-import GameWidget from './components/GameWidget';
-import Header from './components/Header';
+import React, { useState } from "react";
+import { HubConnectionBuilder } from "@microsoft/signalr";
+import "./styles/blackjack.css";
+import NewPlayer from "./components/NewPlayer";
+import GameWidget from "./components/GameWidget";
+import Header from "./components/Header";
 let connection;
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+const App = () => {
+  const [connectionStatus, setConnectionStatus] = useState("Not Connected");
+  const [playerName, setPlayerName] = useState("");
+  const [game, setGame] = useState({});
 
-    this.state = {
-      connectionStatus: 'Not Connected',
-      playerName: '',
-      game: {}
-    };
+  const connect = (playerName) => {
+    connection = new HubConnectionBuilder().withUrl("/blackjackhub").build();
 
-    this.connect = this.connect.bind(this);
-  }
-
-  connect(playerName) {
-    connection = new HubConnectionBuilder()
-      .withUrl("/blackjackhub")
-      .build();
-    
     connection.start().then(() => {
-      this.setState({ connectionStatus: 'Connected', playerName: playerName });
+      setConnectionStatus("Connected");
+      setPlayerName(playerName);
       connection.invoke("JoinGame", playerName);
     });
 
-    connection.on("GameUpdate",
-      (gameData) => {
-        this.setState({ game: gameData });
-      });
-  }
+    connection.on("GameUpdate", (gameData) => {
+      setGame(gameData);
+    });
+  };
 
-  doGameAction(actionString) {
+  const doGameAction = (actionString) => {
     connection.invoke("SendGameAction", actionString);
-  }
+  };
 
-  render() {
-    const game = this.state.game || {};
-    const newPlayers = game.newPlayers || [];
+  const newPlayers = game?.newPlayers || [];
 
-    let gameState;
-    if (this.state.connectionStatus !== 'Connected')
-      gameState = <NewPlayer connect={this.connect} message={this.state.message} />;
-    else
-    gameState = <GameWidget game={this.state.game} currentPlayerName={this.state.playerName} doGameAction={this.doGameAction} />;
-
-    return (
-      <div>
-      <Header connectionStatus={this.state.connectionStatus} newPlayers={newPlayers} />
-      <br className='clear-fix' />
-      <div className='game-widget'>
-      {gameState}
+  return (
+    <div>
+      <Header connectionStatus={connectionStatus} newPlayers={newPlayers} />
+      <br className="clear-fix" />
+      <div className="game-widget">
+        {connectionStatus !== "Connected" ? (
+          <NewPlayer connect={connect} />
+        ) : (
+          <GameWidget
+            game={game}
+            currentPlayerName={playerName}
+            doGameAction={doGameAction}
+          />
+        )}
       </div>
-      </div>
+    </div>
   );
-}
-}
+};
+
+export default App;
