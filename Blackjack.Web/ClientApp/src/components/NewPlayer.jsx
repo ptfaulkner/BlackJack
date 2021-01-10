@@ -1,26 +1,33 @@
-﻿import React from 'react';
+﻿import React, { useState } from "react";
 
-export default class NewPlayer extends React.Component {
-  constructor(props) {
-    super(props);
+const NewPlayer = ({ connect }) => {
+  const [playerName, setPlayerName] = useState("");
 
-    this.connect = this.connect.bind(this);
-  }
-  
-  connect() {
-    const playerName = this.refs.playerName.value.trim();
-    this.props.connect(playerName);
-  }
+  const onSubmit = (event) => {
+    event.preventDefault();
+    connect(playerName);
+  };
 
-  render () {
-    return (
-      <div className='new-player'>
-        <label htmlFor='playerName'>Enter your name: </label>
-        <input id='playerName' name='playerName' ref='playerName' type='text' className='textbox form-item' />
-        <input type='button' value='Connect' className='button form-item' onClick={this.connect} />
-        <br />
-        <span>{this.props.message}</span>
-      </div>
-    );
-  }
-}
+  const onPlayerNameChange = (event) => {
+    setPlayerName(event.target.value);
+  };
+
+  return (
+    <div className="new-player">
+      <label htmlFor="playerName">Enter your name: </label>
+      <form onSubmit={onSubmit}>
+        <input
+          id="playerName"
+          name="playerName"
+          type="text"
+          className="textbox form-item"
+          onChange={onPlayerNameChange}
+          value={playerName}
+        />
+        <input type="submit" value="Connect" className="button form-item" />
+      </form>
+    </div>
+  );
+};
+
+export default NewPlayer;
