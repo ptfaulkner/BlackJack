@@ -148,6 +148,20 @@ header .connection-status {
   margin: 0 0 1.2em 0;
 }
 
+.blank-card {
+  background-color: #ffffff;
+  border-radius: 3px;
+  border-color: gray;
+}
+
+.blank-card-inner {
+  background-color: #000000;
+  border-radius: 2px;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  margin: 5px;
+}
+
 .stack {
   margin-left: -75px;
 }

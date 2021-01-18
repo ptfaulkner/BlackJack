@@ -1,15 +1,20 @@
 ﻿import React from "react";
+import BlankCard from "./BlankCard";
 
-const Card = (props) => {
+const Card = ({ suit, number, index }) => {
   const cardDirectory = "cardsvgs/";
-  const svgName = `${cardDirectory}${props.number}_of_${props.suit}.svg`;
-  const stack = props.index ? "card stack" : "card";
+  const svgName = `${cardDirectory}${number}_of_${suit}.svg`;
+  const stack = index ? "card stack" : "card";
+
+  if (!suit && !number) {
+    return <BlankCard index={index} />;
+  }
 
   return (
     <div className={stack}>
       <object className="card" data={svgName} type="image/svg+xml">
         <span>
-          {props.number} - {props.suit}
+          {number} - {suit}
         </span>
       </object>
     </div>

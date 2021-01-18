@@ -5,8 +5,8 @@ namespace PlayingCards.Domain
     public class Card
     {
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public CardNumber Number { get; set; }
+        public CardNumber? Number { get; set; }
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Suit Suit { get; set; }
+        public Suit? Suit { get; set; }
     }
 }
