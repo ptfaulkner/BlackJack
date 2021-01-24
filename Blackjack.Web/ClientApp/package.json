@@ -12,7 +12,7 @@
     "react-scripts": "4.0.1",
     "react-transition-group": "^4.4.1",
     "rimraf": "^3.0.2",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^1.1.0"
   },
   "devDependencies": {
     "ajv": "^7.0.3",

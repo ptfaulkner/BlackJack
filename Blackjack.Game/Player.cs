@@ -16,9 +16,7 @@ namespace Blackjack.Game
         public HandStatus HandStatus { get; set; }
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public WinningStatus WinningStatus { get; set; }
-
-        private readonly object _lockObject = new object();
-
+        
         public short Score { get; set; }
 
         public void Hit()

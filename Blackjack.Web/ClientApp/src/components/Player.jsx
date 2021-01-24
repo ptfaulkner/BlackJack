@@ -1,6 +1,6 @@
-﻿import React from 'react';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Card from './Card';
+﻿import React from "react";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Card from "./Card";
 
 const Player = (props) => {
   const player = props.player || {};
@@ -13,25 +13,26 @@ const Player = (props) => {
         classNames="fade"
         timeout={{ enter: 500, exit: 300 }}
       >
-        <Card suit={card.suit} number={card.number} index={index}/>
+        <Card suit={card.suit} number={card.number} index={index} />
       </CSSTransition>
     );
   });
 
   return (
-    <div className='text-center'>
-      <div className='player'>
-        <span>{player.name}</span>
+    <div className="text-center">
+      <div className="player">
+        <span>
+          {player.name} - {player.score}
+        </span>
         <div>
-          Winning Status: <span>{player.winningStatus}</span><br/>
-          Hand Status: <span>{player.handStatus}</span>
+          {player.winningStatus !== "Open" && (
+            <span>{player.winningStatus}</span>
+          )}
         </div>
-        <div className='hand-container'>
-          <TransitionGroup>
-            {cards}
-          </TransitionGroup>
+        <div className="hand-container">
+          <TransitionGroup>{cards}</TransitionGroup>
         </div>
-        <br className='clear-fix'/>
+        <br className="clear-fix" />
       </div>
     </div>
   );

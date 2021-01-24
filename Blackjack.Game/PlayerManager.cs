@@ -43,7 +43,7 @@ namespace Blackjack.Game
                 IsTurnToHit = game.Dealer.IsTurnToHit,
                 Name = game.Dealer.Name,
                 Position = game.Dealer.Position,
-                Score = game.Dealer.Score,
+                Score = 0,
                 Game = game.Dealer.Game
             };
 

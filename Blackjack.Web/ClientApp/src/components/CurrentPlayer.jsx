@@ -1,38 +1,52 @@
-﻿import React from 'react';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Card from './Card';
+﻿import React from "react";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import Card from "./Card";
 
 const CurrentPlayer = (props) => {
-
   const hit = () => {
-    props.doGameAction('Hit');
+    props.doGameAction("Hit");
   };
 
   const stay = () => {
-    props.doGameAction('Stay');
+    props.doGameAction("Stay");
   };
 
   const deal = () => {
-    props.doGameAction('Deal');
+    props.doGameAction("Deal");
   };
 
   const chooseButtons = () => {
     const player = props.player || {};
 
-    if (player.handStatus === 'Open' && player.isTurnToHit) {
+    if (player.handStatus === "Open" && player.isTurnToHit) {
       return (
         <div className="turn-buttons">
-          <input type="button" value="Hit" className='form-item button' onClick={hit}/>
-          <input type="button" value="Stay" className='form-item button' onClick={stay}/>
+          <input
+            type="button"
+            value="Hit"
+            className="form-item button"
+            onClick={hit}
+          />
+          <input
+            type="button"
+            value="Stay"
+            className="form-item button"
+            onClick={stay}
+          />
         </div>
       );
-    } else if (props.gameStatus !== 'Open') {
+    } else if (props.gameStatus !== "Open") {
       return (
         <div className="turn-buttons">
-          <input type="button" value="Deal" className='form-item button' onClick={deal}/>
+          <input
+            type="button"
+            value="Deal"
+            className="form-item button"
+            onClick={deal}
+          />
         </div>
       );
-    } else if (player.handStatus === 'Open') {
+    } else if (player.handStatus === "Open") {
       return (
         <div className="turn-buttons">
           <span>waiting for your turn...</span>
@@ -58,25 +72,26 @@ const CurrentPlayer = (props) => {
         classNames="animate"
         timeout={{ enter: 500, exit: 300 }}
       >
-        <Card suit={card.suit} number={card.number} index={index}/>
+        <Card suit={card.suit} number={card.number} index={index} />
       </CSSTransition>
     );
   });
 
   return (
-    <div className='text-center'>
-      <div className='player'>
-        <span>{player.name}</span>
+    <div className="text-center">
+      <div className="player">
+        <span>
+          {player.name} - {player.score}
+        </span>
         <div>
-          Winning Status: <span>{player.winningStatus}</span><br/>
-          Hand Status: <span>{player.handStatus}</span>
+          {player.winningStatus !== "Open" && (
+            <span>{player.winningStatus}</span>
+          )}
         </div>
-        <div className='hand-container'>
-          <TransitionGroup>
-            {cards}
-          </TransitionGroup>
+        <div className="hand-container">
+          <TransitionGroup>{cards}</TransitionGroup>
         </div>
-        <br className='clear-fix'/>
+        <br className="clear-fix" />
         {buttons}
       </div>
     </div>
