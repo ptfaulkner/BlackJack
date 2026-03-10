@@ -1,6 +1,4 @@
-﻿import React from "react";
-
-const BlankCard = ({ index }) => {
+﻿const BlankCard = ({ index }) => {
   const stack = index ? "card stack" : "card";
 
   return (

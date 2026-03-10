@@ -8,6 +8,7 @@ namespace PlayingCards.Domain
     {
         public Deck()
         {
+            Cards = new Stack<Card>();
             Reset();
         }
 

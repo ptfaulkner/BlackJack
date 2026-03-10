@@ -1,5 +1,4 @@
-﻿import React from "react";
-import BlankCard from "./BlankCard";
+﻿import BlankCard from "./BlankCard";
 
 const Card = ({ suit, number, index }) => {
   const cardDirectory = "cardsvgs/";

@@ -1,19 +1,21 @@
-﻿import React from "react";
+﻿import { useRef } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const Header = ({ newPlayers, connectionStatus }) => {
+  const noPlayersRef = useRef(null);
+  const playersRef = useRef(null);
   const newPlayersArray = newPlayers || [];
   const newPlayersString = newPlayersArray.join(", ");
   let newPlayersSpan = (
-    <CSSTransition classNames="fade" timeout={500} key="no-new-players">
-      <span />
+    <CSSTransition nodeRef={noPlayersRef} classNames="fade" timeout={500} key="no-new-players">
+      <span ref={noPlayersRef} />
     </CSSTransition>
   );
 
   if (newPlayers.length) {
     newPlayersSpan = (
-      <CSSTransition classNames="fade" timeout={500} key="new-players">
-        <span>Joining now: {newPlayersString}</span>
+      <CSSTransition nodeRef={playersRef} classNames="fade" timeout={500} key="new-players">
+        <span ref={playersRef}>Joining now: {newPlayersString}</span>
       </CSSTransition>
     );
   }

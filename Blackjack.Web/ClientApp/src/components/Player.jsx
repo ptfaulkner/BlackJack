@@ -1,19 +1,26 @@
-﻿import React from "react";
+﻿import { useRef } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Card from "./Card";
 
 const Player = (props) => {
+  const nodeRefs = useRef({});
   const player = props.player || {};
   const hand = player.hand || [];
   const cards = hand.map((card, index) => {
     const key = `${card.suit}-${card.number}`;
+    if (!nodeRefs.current[key]) {
+      nodeRefs.current[key] = { current: null };
+    }
     return (
       <CSSTransition
         key={key}
+        nodeRef={nodeRefs.current[key]}
         classNames="fade"
         timeout={{ enter: 500, exit: 300 }}
       >
-        <Card suit={card.suit} number={card.number} index={index} />
+        <div ref={nodeRefs.current[key]}>
+          <Card suit={card.suit} number={card.number} index={index} />
+        </div>
       </CSSTransition>
     );
   });
