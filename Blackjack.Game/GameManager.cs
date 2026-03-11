@@ -22,7 +22,7 @@ namespace Blackjack.Game
             _removePlayerLocker = new object();
         }
 
-        public string AddPlayer(string playerName, string playerId)
+        public string? AddPlayer(string playerName, string playerId)
         {
             lock (_addPlayerLocker)
             {
@@ -49,7 +49,8 @@ namespace Blackjack.Game
         {
             lock (_removePlayerLocker)
             {
-                PlayerManager playerManager = PlayerManagers.First(pm => pm.PlayerId == playerId);
+                PlayerManager? playerManager = PlayerManagers.FirstOrDefault(pm => pm.PlayerId == playerId);
+                if (playerManager == null) return;
 
                 PlayerManagers.Remove(playerManager);
                 Game.RemovePlayer(playerManager.PlayerName);
@@ -60,15 +61,16 @@ namespace Blackjack.Game
         {
             lock (_actionLocker)
             {
-                Player player = GetPlayer(playerId);
+                Player? player = GetPlayer(playerId);
+                if (player == null && action != "Deal") return;
 
                 switch (action)
                 {
                     case "Hit":
-                        player.Hit();
+                        player!.Hit();
                         break;
                     case "Stay":
-                        player.Stay();
+                        player!.Stay();
                         break;
                     case "Deal":
                         Game.Deal();
@@ -77,15 +79,15 @@ namespace Blackjack.Game
             }
         }
 
-        private Player GetPlayer(string playerId)
+        private Player? GetPlayer(string playerId)
         {
-            PlayerManager playerManager = PlayerManagers.FirstOrDefault(pm => pm.PlayerId == playerId);
+            PlayerManager? playerManager = PlayerManagers.FirstOrDefault(pm => pm.PlayerId == playerId);
             if (playerManager == null)
             {
                 return null;
             }
 
-            Player player = Game.Players.FirstOrDefault(p => p.Name == playerManager.PlayerName);
+            Player? player = Game.Players.FirstOrDefault(p => p.Name == playerManager.PlayerName);
             return player;
         }
     }

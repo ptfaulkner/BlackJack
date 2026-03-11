@@ -1,33 +1,34 @@
-import React, { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import "./styles/blackjack.css";
 import NewPlayer from "./components/NewPlayer";
 import GameWidget from "./components/GameWidget";
 import Header from "./components/Header";
-let connection;
 
 const App = () => {
   const [connectionStatus, setConnectionStatus] = useState("Not Connected");
   const [playerName, setPlayerName] = useState("");
   const [game, setGame] = useState({});
+  const connectionRef = useRef(null);
 
-  const connect = (playerName) => {
-    connection = new HubConnectionBuilder().withUrl("/blackjackhub").build();
+  const connect = useCallback((name) => {
+    const connection = new HubConnectionBuilder().withUrl("/blackjackhub").build();
+    connectionRef.current = connection;
 
     connection.start().then(() => {
       setConnectionStatus("Connected");
-      setPlayerName(playerName);
-      connection.invoke("JoinGame", playerName);
+      setPlayerName(name);
+      connection.invoke("JoinGame", name);
     });
 
     connection.on("GameUpdate", (gameData) => {
       setGame(gameData);
     });
-  };
+  }, []);
 
-  const doGameAction = (actionString) => {
-    connection.invoke("SendGameAction", actionString);
-  };
+  const doGameAction = useCallback((actionString) => {
+    connectionRef.current?.invoke("SendGameAction", actionString);
+  }, []);
 
   const newPlayers = game?.newPlayers || [];
 

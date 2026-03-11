@@ -41,7 +41,7 @@ namespace Blackjack.Web.Hubs
 
         private async Task BroadcastGameStatus()
         {
-            foreach (PlayerManager pm in _gameManager.PlayerManagers)
+            foreach (PlayerManager pm in _gameManager.PlayerManagers.ToList())
             {
                 var gameStatus = pm.GetCurrentPlayerDto(_gameManager.Game);
                 await Clients.Client(pm.PlayerId).SendAsync("GameUpdate", gameStatus);

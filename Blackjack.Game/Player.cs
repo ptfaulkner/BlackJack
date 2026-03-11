@@ -6,11 +6,11 @@ namespace Blackjack.Game
 {
     public class Player
     {
-        public string Name { get; set; }
-        public List<Card> Hand { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public List<Card> Hand { get; set; } = new();
         public bool IsTurnToHit { get; set; }
         [JsonIgnore]
-        public BlackjackGame Game { get; set; }
+        public BlackjackGame? Game { get; set; }
         public int Position { get; set; }
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public HandStatus HandStatus { get; set; }
@@ -21,12 +21,12 @@ namespace Blackjack.Game
 
         public void Hit()
         {
-            Game.Hit(this);
+            Game?.Hit(this);
         }
 
         public void Stay()
         {
-            Game.Stay(this);
+            Game?.Stay(this);
         }
     }
 }

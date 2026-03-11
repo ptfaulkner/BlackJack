@@ -1,5 +1,4 @@
-﻿import React from 'react';
-import Player from './Player';
+﻿import Player from './Player';
 import PlayerList from './PlayerList';
 import CurrentPlayer from './CurrentPlayer';
 
