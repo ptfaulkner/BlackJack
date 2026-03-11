@@ -1,7 +1,8 @@
-﻿body {
+body {
   font-family: 'Lato', Helvetica, Arial, sans-serif;
   color: #ffffff;
   margin: 0;
+  background-color: #1a472a;
   background-image: url("carpet.png");
 }
 
@@ -132,6 +133,7 @@ header .connection-status {
 
 .player {
   display: inline-block;
+  position: relative;
 }
 
 /* Player info bar */
@@ -211,6 +213,272 @@ header .connection-status {
   0% { transform: scale(0.7); opacity: 0; }
   70% { transform: scale(1.1); }
   100% { transform: scale(1); opacity: 1; }
+}
+
+/* ====== Game Result Animations ====== */
+
+/* --- Container Glow / Shake Effects --- */
+.player.result-winner,
+.player.result-blackjack {
+  border-radius: 12px;
+  padding: 0.3em 0.5em;
+  overflow: visible;
+}
+
+.player.result-winner {
+  animation: winGlow 1.5s ease-in-out infinite alternate;
+}
+
+.player.result-blackjack {
+  animation: blackjackGlow 1.2s ease-in-out infinite alternate;
+}
+
+.player.result-bust {
+  animation: bustShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+.player.result-loser {
+  animation: loserDim 1.2s ease-out forwards;
+}
+
+.player.result-push {
+  animation: pushWobble 0.5s ease-in-out 2;
+}
+
+/* --- Confetti Burst (winner/blackjack) --- */
+.player.result-winner::before,
+.player.result-blackjack::before {
+  content: '';
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  z-index: 10;
+  pointer-events: none;
+  animation: confettiBurst 1.2s ease-out forwards;
+}
+
+.player.result-blackjack::after {
+  content: '';
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  z-index: 10;
+  pointer-events: none;
+  animation: confettiBurst2 1.4s ease-out 0.15s forwards;
+}
+
+/* --- Bust Red Flash Overlay --- */
+.player.result-bust::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: radial-gradient(ellipse at center, rgba(231, 76, 60, 0.35) 0%, transparent 70%);
+  animation: bustFlash 0.7s ease-out forwards;
+  pointer-events: none;
+}
+
+/* --- Card Area Effects --- */
+.player.result-winner .hand-container,
+.player.result-blackjack .hand-container {
+  animation: celebrateBounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+.player.result-bust .hand-container {
+  animation: bustFade 0.6s ease-out 0.6s forwards;
+}
+
+.player.result-loser .hand-container {
+  animation: loserFadeCards 0.8s ease-out 0.4s forwards;
+}
+
+/* Keep buttons fully visible during loser animation */
+.player.result-loser .turn-buttons,
+.player.result-loser button {
+  filter: brightness(1.43) saturate(2);
+  position: relative;
+  z-index: 5;
+}
+
+/* --- Score Chip Pop on Win --- */
+.player.result-winner .player-score,
+.player.result-blackjack .player-score {
+  animation: scorePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+}
+
+/* --- Enhanced Status Badge Animations --- */
+.player.result-winner .player-status {
+  animation: statusBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-size: 1.4em;
+}
+
+.player.result-blackjack .player-status {
+  animation: statusBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), goldShimmer 2s linear 0.6s infinite;
+  font-size: 1.6em;
+  background: linear-gradient(90deg, #f0d68a 0%, #fff 30%, #f0d68a 60%, #ffec8b 80%, #f0d68a 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  border-bottom-color: transparent;
+}
+
+.player.result-bust .player-status {
+  animation: bustStamp 0.5s cubic-bezier(0.17, 0.67, 0.35, 1.35);
+  font-size: 1.5em;
+}
+
+.player.result-loser .player-status {
+  animation: statusFadeIn 0.5s ease-out 0.3s both;
+}
+
+/* ====== Result Keyframes ====== */
+
+@keyframes winGlow {
+  from {
+    box-shadow: 0 0 8px rgba(46, 204, 113, 0.2),
+                0 0 16px rgba(46, 204, 113, 0.1);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.5),
+                0 0 40px rgba(46, 204, 113, 0.25),
+                0 0 80px rgba(46, 204, 113, 0.1);
+  }
+}
+
+@keyframes blackjackGlow {
+  from {
+    box-shadow: 0 0 12px rgba(240, 214, 138, 0.3),
+                0 0 24px rgba(240, 214, 138, 0.15);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(240, 214, 138, 0.7),
+                0 0 60px rgba(240, 214, 138, 0.35),
+                0 0 100px rgba(240, 214, 138, 0.15);
+  }
+}
+
+@keyframes bustShake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  10% { transform: translateX(-8px) rotate(-2deg); }
+  20% { transform: translateX(8px) rotate(2deg); }
+  30% { transform: translateX(-6px) rotate(-1.5deg); }
+  40% { transform: translateX(6px) rotate(1.5deg); }
+  50% { transform: translateX(-4px) rotate(-1deg); }
+  60% { transform: translateX(4px) rotate(1deg); }
+  70% { transform: translateX(-2px) rotate(-0.5deg); }
+  80% { transform: translateX(2px) rotate(0.5deg); }
+}
+
+@keyframes loserDim {
+  0% {
+    box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+    filter: none;
+  }
+  40% {
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.2);
+  }
+  100% {
+    box-shadow: none;
+    filter: brightness(0.7) saturate(0.5);
+  }
+}
+
+@keyframes pushWobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-2deg); }
+  75% { transform: rotate(2deg); }
+}
+
+@keyframes confettiBurst {
+  0% {
+    opacity: 1;
+    box-shadow:
+      0 0 #f0d68a, 0 0 #2ecc71, 0 0 #e74c3c, 0 0 #3498db,
+      0 0 #f39c12, 0 0 #9b59b6, 0 0 #1abc9c, 0 0 #e67e22,
+      0 0 #2ecc71, 0 0 #f0d68a, 0 0 #e74c3c, 0 0 #3498db;
+  }
+  100% {
+    opacity: 0;
+    box-shadow:
+      -50px -65px #f0d68a, 55px -55px #2ecc71, -65px -20px #e74c3c, 70px 15px #3498db,
+      -35px 55px #f39c12, 45px 45px #9b59b6, -55px 30px #1abc9c, 65px -35px #e67e22,
+      25px -75px #2ecc71, -75px -45px #f0d68a, 80px 25px #e74c3c, -25px 65px #3498db;
+  }
+}
+
+@keyframes confettiBurst2 {
+  0% {
+    opacity: 1;
+    box-shadow:
+      0 0 #ffd700, 0 0 #ffec8b, 0 0 #f0d68a, 0 0 #daa520,
+      0 0 #ffd700, 0 0 #ffec8b, 0 0 #f0d68a, 0 0 #daa520;
+  }
+  100% {
+    opacity: 0;
+    box-shadow:
+      -60px -50px #ffd700, 50px -60px #ffec8b, -70px 20px #f0d68a, 60px 40px #daa520,
+      -30px -80px #ffd700, 80px -20px #ffec8b, -40px 60px #f0d68a, 70px 50px #daa520;
+  }
+}
+
+@keyframes bustFlash {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes celebrateBounce {
+  0%, 100% { transform: translateY(0); }
+  20% { transform: translateY(-12px); }
+  40% { transform: translateY(0); }
+  60% { transform: translateY(-6px); }
+  80% { transform: translateY(0); }
+}
+
+@keyframes bustFade {
+  from { filter: none; transform: rotate(0deg); }
+  to { filter: saturate(0.3) brightness(0.8); transform: rotate(-1deg); }
+}
+
+@keyframes loserFadeCards {
+  from { opacity: 1; }
+  to { opacity: 0.6; }
+}
+
+@keyframes scorePop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); box-shadow: 0 0 15px rgba(46, 204, 113, 0.6); }
+  100% { transform: scale(1); }
+}
+
+@keyframes statusBounceIn {
+  0% { transform: scale(0) translateY(-20px); opacity: 0; }
+  60% { transform: scale(1.2) translateY(0); opacity: 1; }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes goldShimmer {
+  from { background-position: 200% center; }
+  to { background-position: -200% center; }
+}
+
+@keyframes bustStamp {
+  0% { transform: scale(3) rotate(-10deg); opacity: 0; }
+  60% { transform: scale(0.9) rotate(2deg); opacity: 1; }
+  80% { transform: scale(1.05) rotate(-1deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes statusFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Side player list header */

@@ -23,17 +23,6 @@ app.UseHttpsRedirection();
 // Serve static files from wwwroot
 app.UseStaticFiles();
 
-// Serve static files from ClientApp/dist in production
-var spaPath = Path.Combine(app.Environment.ContentRootPath, "ClientApp", "dist");
-if (Directory.Exists(spaPath))
-{
-    app.UseStaticFiles(new StaticFileOptions
-    {
-        FileProvider = new PhysicalFileProvider(spaPath),
-        RequestPath = ""
-    });
-}
-
 app.UseRouting();
 
 app.MapControllerRoute(
@@ -41,10 +30,31 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 app.MapHub<BlackjackHub>("/blackjackhub");
 
-// Serve SPA fallback from ClientApp/dist
-app.MapFallbackToFile("index.html", new StaticFileOptions
+if (app.Environment.IsDevelopment())
 {
-    FileProvider = new PhysicalFileProvider(spaPath)
-});
+    // In development, Vite dev server handles the SPA on port 3000.
+    // The .NET backend only needs to serve the API and SignalR hub.
+    // Access the app at http://localhost:3000 (Vite proxies API/SignalR here).
+    app.Logger.LogInformation("Development mode: Use Vite dev server at http://localhost:3000");
+    app.Logger.LogInformation("Start Vite with: cd ClientApp && npm run dev");
+}
+else
+{
+    // In production, serve the pre-built SPA from ClientApp/dist
+    var spaPath = Path.Combine(app.Environment.ContentRootPath, "ClientApp", "dist");
+    if (Directory.Exists(spaPath))
+    {
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(spaPath),
+            RequestPath = ""
+        });
+
+        app.MapFallbackToFile("index.html", new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(spaPath)
+        });
+    }
+}
 
 app.Run();

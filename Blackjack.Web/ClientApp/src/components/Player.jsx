@@ -1,4 +1,4 @@
-﻿import { useRef } from "react";
+import { useRef } from "react";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Card from "./Card";
 
@@ -27,7 +27,7 @@ const Player = (props) => {
 
   return (
     <div className="text-center">
-      <div className="player">
+      <div className={`player${player.winningStatus && player.winningStatus !== "Open" ? ` result-${player.winningStatus.toLowerCase()}` : ''}`}>
         <div className="player-info">
           <span className="player-name">{player.name}</span>
           <span className="player-score">{player.score}</span>
