@@ -1,5 +1,5 @@
 ﻿body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Lato', Helvetica, Arial, sans-serif;
   color: #ffffff;
   margin: 0;
   background-image: url("carpet.png");
@@ -17,9 +17,12 @@ header {
 }
 
 header .title {
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: 1.5em;
   float: left;
   width: 25%;
+  color: #f0d68a;
+  letter-spacing: 0.05em;
 }
 
 header .new-players {
@@ -131,10 +134,101 @@ header .connection-status {
   display: inline-block;
 }
 
+/* Player info bar */
+.player-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  margin-bottom: 0.3em;
+}
+
+.player-name {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #f0d68a;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.03em;
+}
+
+.player-score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 35% 35%, #c0392b, #7b1e1e);
+  color: #fff;
+  font-family: 'Lato', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.95em;
+  min-width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  border: 2px solid #f0d68a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Winning status badges */
+.player-status {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.1em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15em 0.8em;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.2em;
+  animation: statusPop 0.3s ease-out;
+}
+
+.status-winner {
+  color: #2ecc71;
+  text-shadow: 0 0 8px rgba(46, 204, 113, 0.5), 0 1px 3px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #2ecc71;
+}
+
+.status-bust, .status-loser {
+  color: #e74c3c;
+  text-shadow: 0 0 8px rgba(231, 76, 60, 0.4), 0 1px 3px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #e74c3c;
+}
+
+.status-push {
+  color: #f39c12;
+  text-shadow: 0 0 8px rgba(243, 156, 18, 0.4), 0 1px 3px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #f39c12;
+}
+
+.status-blackjack {
+  color: #f0d68a;
+  text-shadow: 0 0 12px rgba(240, 214, 138, 0.6), 0 1px 3px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #f0d68a;
+}
+
+@keyframes statusPop {
+  0% { transform: scale(0.7); opacity: 0; }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Side player list header */
+.player-header {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: #f0d68a;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.9em;
+  border-bottom: 1px solid rgba(240, 214, 138, 0.3);
+  padding-bottom: 0.4em;
+  margin-bottom: 0.6em;
+}
+
 .hand-container {
-  font-size: 18pt;
+  font-size: 24pt;
   position: relative;
-  height: 5em;
+  height: 5.5em;
 }
 
 .turn-buttons {
@@ -163,7 +257,7 @@ header .connection-status {
 }
 
 .stack {
-  margin-left: -75px;
+  margin-left: -2em;
 }
 
 .red {

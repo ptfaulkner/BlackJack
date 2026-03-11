@@ -18,7 +18,7 @@ const Player = (props) => {
         classNames="fade"
         timeout={{ enter: 500, exit: 300 }}
       >
-        <div ref={nodeRefs.current[key]}>
+        <div ref={nodeRefs.current[key]} style={{ float: 'left' }}>
           <Card suit={card.suit} number={card.number} index={index} />
         </div>
       </CSSTransition>
@@ -28,14 +28,15 @@ const Player = (props) => {
   return (
     <div className="text-center">
       <div className="player">
-        <span>
-          {player.name} - {player.score}
-        </span>
-        <div>
-          {player.winningStatus !== "Open" && (
-            <span>{player.winningStatus}</span>
-          )}
+        <div className="player-info">
+          <span className="player-name">{player.name}</span>
+          <span className="player-score">{player.score}</span>
         </div>
+        {player.winningStatus !== "Open" && (
+          <div className={`player-status status-${player.winningStatus?.toLowerCase()}`}>
+            {player.winningStatus}
+          </div>
+        )}
         <div className="hand-container">
           <TransitionGroup>{cards}</TransitionGroup>
         </div>
