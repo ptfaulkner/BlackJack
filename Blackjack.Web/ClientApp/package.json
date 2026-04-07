@@ -30,7 +30,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "globals": "^15.14.0",
     "jsdom": "^25.0.1",
-    "vite": "^6.0.7",
+    "vite": "^6.4.2",
     "vitest": "^4.0.18"
   }
 }
